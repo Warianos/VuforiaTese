@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vuforia_Demo_Maquete", "Vuforia_Demo_Maquete.csproj", "{3992FF3E-5ED8-BE0D-1DD3-65AF2B6D9F0D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vuforia_Demo_Maquete.Plugins", "Vuforia_Demo_Maquete.Plugins.csproj", "{00339061-6B20-9204-7AFF-A5E62E8B25D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vuforia_Demo_Maquete.Editor", "Vuforia_Demo_Maquete.Editor.csproj", "{B766D048-B11D-6F34-67A4-BB280507F0B0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3992FF3E-5ED8-BE0D-1DD3-65AF2B6D9F0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3992FF3E-5ED8-BE0D-1DD3-65AF2B6D9F0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3992FF3E-5ED8-BE0D-1DD3-65AF2B6D9F0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3992FF3E-5ED8-BE0D-1DD3-65AF2B6D9F0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00339061-6B20-9204-7AFF-A5E62E8B25D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00339061-6B20-9204-7AFF-A5E62E8B25D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00339061-6B20-9204-7AFF-A5E62E8B25D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00339061-6B20-9204-7AFF-A5E62E8B25D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B766D048-B11D-6F34-67A4-BB280507F0B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B766D048-B11D-6F34-67A4-BB280507F0B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B766D048-B11D-6F34-67A4-BB280507F0B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B766D048-B11D-6F34-67A4-BB280507F0B0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
