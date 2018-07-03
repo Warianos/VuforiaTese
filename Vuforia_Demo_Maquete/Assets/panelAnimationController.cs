@@ -8,10 +8,12 @@ public class panelAnimationController : MonoBehaviour
 {
     Animator animator;
     bool clickedPanel;
+    AnimatorStateInfo stateInfo;
     // Use this for initialization
     void Start()
     {
         animator = gameObject.GetComponent<Animator>();
+        stateInfo = animator.GetNextAnimatorStateInfo(0);
     }
 
     // Update is called once per frame
@@ -57,9 +59,17 @@ public class panelAnimationController : MonoBehaviour
         else if (gameObject.tag == "InfoPanel")
         {
             gameObject.SetActive(false);
+            animator.SetBool("clickedOrTimeOut", true);
+            
         }
 
 
     }
-    
+    public void Destroy()
+    {
+
+        Destroy(this.gameObject);
+        Destroy();
+    }
+
 }
