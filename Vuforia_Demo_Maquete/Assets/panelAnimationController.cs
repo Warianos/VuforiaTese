@@ -31,7 +31,7 @@ public class panelAnimationController : MonoBehaviour
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        //Debug.Log("Nome do gameobject: " + gameObject.name);
+        Debug.Log("Nome do gameobject: " + gameObject.name);
         if (gameObject.tag == "Objectives")
         {
            // Debug.Log("Nome do gameobject: " + gameObject.name);
@@ -58,7 +58,7 @@ public class panelAnimationController : MonoBehaviour
 
         else if (gameObject.tag == "InfoPanel")
         {
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
             animator.SetBool("clickedOrTimeOut", true);
             
         }

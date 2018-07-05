@@ -16,6 +16,8 @@ TagManager:
   - Phones
   - InfoPanel
   - Book
+  - XMLManager
+  - TelephoneDemo
   layers:
   - Default
   - TransparentFX

@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
+//using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class PageController : MonoBehaviour {
     
@@ -77,9 +78,9 @@ public class PageController : MonoBehaviour {
                 }
                     
             }
-            
-            // popular os colliders de cada pagina
 
+            // popular os colliders de cada pagina
+            //SceneManager.LoadScene("Telephone", LoadSceneMode.Single);
         }
 
         animationStateFirstPage = bookAnimator.GetCurrentAnimatorStateInfo(0);

@@ -88,12 +88,24 @@ public class EletricityController : MonoBehaviour {
     private bool atendeuPrimeiro;
     public bool possoAtender;
 
+    //informação que é desbloquada
+    public GameObject infoPanelToEnable;
+    public Text info1;
+    public Text info2;
+    public Text info3;
+
+    private bool showInfo1;
+    private bool showInfo2;
+    private bool showInfo3;
+
+    GameObject xmlManager;
+    private bool xmlManagerSticker;
 
     public bool telefonou;
     public GameObject cameraAR;
     private ParticleSystem targetChild;
     private Collider[] phonesColliders;
-    // Use this for initialization
+    //Use this for initialization
     void Start () {
         time = ps.GetComponent<ParticleSystemFollowPath>().time;
         finishFirstDemo = GetComponent<RaycastColliderDetection>().finishFirstDemo;
@@ -103,6 +115,10 @@ public class EletricityController : MonoBehaviour {
         SinosAnimator = Sinos.GetComponent<Animator>();
         PlacaPretaAnimator = PlacaPreta.GetComponent<Animator>();
         TubosAnimator = Tubos.GetComponent<Animator>();
+
+        showInfo1 = true;
+        showInfo2 = true;
+        showInfo3 = true;
 
         falarText.enabled = true;
         naoFalarText.enabled = false;
@@ -126,6 +142,12 @@ public class EletricityController : MonoBehaviour {
         //GetComponent<RaycastColliderDetection>().finishFirstDemo
         //Invoke("instantiatePSLeft", 0);
         //Invoke("instantiatePSRight", 0);
+
+        if (GameObject.FindGameObjectWithTag("XMLManager") != null)
+        {
+            xmlManager = GameObject.FindGameObjectWithTag("XMLManager");
+            xmlManagerSticker = xmlManager.GetComponent<XMLManager>().itemDB.list[0].earnedSticker; //primeiro elemento é o telefone e tras o booleano actual feito do load do XML
+        }
     }
 
 
@@ -215,8 +237,21 @@ public class EletricityController : MonoBehaviour {
             
         }
         
-        
-       
+        ////////////////////////////////////////////////////////////////INICIO verificar se acabou o demo a primeira vez para desbloquear a primeira informação//////////////////////////////////////////////////
+
+        if(finishFirstDemo && showInfo1)
+        {
+            showInfo1 = false;
+            //alterar a variavel de ter desbloqueado o cromo
+            xmlManager.GetComponent<XMLManager>().setVariableInDatabase("Telephone",true);
+            xmlManager.GetComponent<XMLManager>().SaveItems();
+            //fim de alterar variavel de desbloquear o cromo
+            sendinfo(info1);
+        }
+
+        ////////////////////////////////////////////////////////////////FIM verificar se acabou o demo a primeira vez para desbloquear a primeira informação//////////////////////////////////////////////////
+
+
         if (finishFirstDemo)
         {
             //se acabou o primeiro demo e telefona, tem de ficar a espera que atendaõ
@@ -471,5 +506,11 @@ public class EletricityController : MonoBehaviour {
         finishSecondDemo = GetComponent<RaycastColliderDetection>().finishSecondDemo;
         atendeu = GetComponent<RaycastColliderDetection>().atendeu;
         falou = GetComponent<RaycastColliderDetection>().speaking;
+    }
+
+    private void sendinfo(Text info)
+    {
+        infoPanelToEnable.SetActive(true);
+        info.gameObject.SetActive(true);
     }
 }
