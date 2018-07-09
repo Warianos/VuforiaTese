@@ -1304,11 +1304,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Antigamente, quando se queria telefonar a algu\xE9m, era necess\xE1rio
-    rodar a manivela ao lado das bobinas vermelhas, de maneira a produzir energia
-    suficiente para enviar um impulso eletrico \xE0 central telef\xF3nica para podermos
-    dizer a um/uma resposavel, o numero de telefone para o qual queriamos ligar, \xE9
-    por isso que este telefone n\xE3o tem nenhum marcador de numeros."
+  m_Text: Batata
 --- !u!222 &241784784
 CanvasRenderer:
   m_ObjectHideFlags: 0

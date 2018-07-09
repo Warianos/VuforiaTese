@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemDatabase xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Objects>
+    <MuseumObject>
+      <objectName>Telephone</objectName>
+      <earnedSticker>true</earnedSticker>
+      <objectInfoText1>Antigamente, quando se queria telefonar a alguem, era necessário rodar a manivela ao lado das bobinas vermelhas, de maneira a produzir energia suficiente para enviar um impulso eletrico à central telefónica para podermos dizer a um/uma resposavel, o numero de telefone para o qual queriamos ligar, é por isso que este telefone não tem nenhum marcador de numeros.</objectInfoText1>
+      <objectInfoText2>Cebola</objectInfoText2>
+      <objectInfoText3>Ananas</objectInfoText3>
+    </MuseumObject>
+    <MuseumObject>
+      <objectName>Carne</objectName>
+      <earnedSticker>false</earnedSticker>
+      <objectInfoText1>Coelho</objectInfoText1>
+      <objectInfoText2>Vaca</objectInfoText2>
+      <objectInfoText3>Cabra</objectInfoText3>
+    </MuseumObject>
+    <MuseumObject>
+      <objectName>Telephone</objectName>
+      <earnedSticker>true</earnedSticker>
+      <objectInfoText1>Antigamente, quando se queria telefonar a alguem, era necessário rodar a manivela ao lado das bobinas vermelhas, de maneira a produzir energia suficiente para enviar um impulso eletrico à central telefónica para podermos dizer a um/uma resposavel, o numero de telefone para o qual queriamos ligar, é por isso que este telefone não tem nenhum marcador de numeros.</objectInfoText1>
+      <objectInfoText2>Antigamente, quando se queria telefonar a alguem, era necessário rodar a manivela ao lado das bobinas vermelhas, de maneira a produzir energia suficiente para enviar um impulso eletrico à central telefónica para podermos dizer a um/ uma resposavel, o numero de telefone para o qual queriamos ligar, é por isso que este telefone não tem nenhum marcador de numeros.</objectInfoText2>
+      <objectInfoText3>Antigamente, quando se queria telefonar a alguem, era necessário rodar a manivela ao lado das bobinas vermelhas, de maneira a produzir energia suficiente para enviar um impulso eletrico à central telefónica para podermos dizer a um/ uma resposavel, o numero de telefone para o qual queriamos ligar, é por isso que este telefone não tem nenhum marcador de numeros.</objectInfoText3>
+    </MuseumObject>
+    <MuseumObject>
+      <objectName>Telephone</objectName>
+      <earnedSticker>true</earnedSticker>
+      <objectInfoText1>Antigamente, quando se queria telefonar a alguem, era necessário rodar a manivela ao lado das bobinas vermelhas, de maneira a produzir energia suficiente para enviar um impulso eletrico à central telefónica para podermos dizer a um/uma resposavel, o numero de telefone para o qual queriamos ligar, é por isso que este telefone não tem nenhum marcador de numeros.</objectInfoText1>
+      <objectInfoText2>Antigamente, quando se queria telefonar a alguem, era necessário rodar a manivela ao lado das bobinas vermelhas, de maneira a produzir energia suficiente para enviar um impulso eletrico à central telefónica para podermos dizer a um/ uma resposavel, o numero de telefone para o qual queriamos ligar, é por isso que este telefone não tem nenhum marcador de numeros.</objectInfoText2>
+      <objectInfoText3>Antigamente, quando se queria telefonar a alguem, era necessário rodar a manivela ao lado das bobinas vermelhas, de maneira a produzir energia suficiente para enviar um impulso eletrico à central telefónica para podermos dizer a um/ uma resposavel, o numero de telefone para o qual queriamos ligar, é por isso que este telefone não tem nenhum marcador de numeros.</objectInfoText3>
+    </MuseumObject>
+  </Objects>
+</ItemDatabase>

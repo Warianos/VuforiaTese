@@ -28,7 +28,7 @@ public class changePageColliders : MonoBehaviour {
 	void Update () {
         //Debug.Log("dragRight é :" + pageAnimator.GetBool("dragRight"));
         //Debug.Log("dragLeft é :" + pageAnimator.GetBool("dragLeft"));
-        Debug.Log("targetObject é : " + targetObject.name);
+       // Debug.Log("targetObject é : " + targetObject.name);
         if (targetObject.name == "Tutorial1")
         {
             /*if(pageAnimator.GetBool("dragRight") && !pageAnimator.GetBool("dragRight"))

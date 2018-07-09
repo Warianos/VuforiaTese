@@ -27,9 +27,32 @@ public class XMLManager : MonoBehaviour {
     {
         ins = this;
         if (!created)
-        {
-            DontDestroyOnLoad(this.gameObject);
+         {
+             DontDestroyOnLoad(this.gameObject);
         }
+        //SaveItems();
+        Debug.Log("entrei aqui no start do XMLManager");
+        if (SystemInfo.deviceType == DeviceType.Handheld)
+        {
+            string objectName = "Telephone";
+            bool win = true;
+            string objectInfoText1 = "Antigamente, quando se queria telefonar a alguem, era necessário rodar a manivela ao lado das bobinas vermelhas, de maneira a produzir energia suficiente para enviar um impulso eletrico à central telefónica para podermos dizer a um/uma resposavel, o numero de telefone para o qual queriamos ligar, é por isso que este telefone não tem nenhum marcador de numeros.";
+            string objectInfoText2 = "Antigamente, quando se queria telefonar a alguem, era necessário rodar a manivela ao lado das bobinas vermelhas, de maneira a produzir energia suficiente para enviar um impulso eletrico à central telefónica para podermos dizer a um/ uma resposavel, o numero de telefone para o qual queriamos ligar, é por isso que este telefone não tem nenhum marcador de numeros.";
+            string objectInfoText3 = "Antigamente, quando se queria telefonar a alguem, era necessário rodar a manivela ao lado das bobinas vermelhas, de maneira a produzir energia suficiente para enviar um impulso eletrico à central telefónica para podermos dizer a um/ uma resposavel, o numero de telefone para o qual queriamos ligar, é por isso que este telefone não tem nenhum marcador de numeros.";
+            buildFirstAndroidXMLFile(objectName,win,objectInfoText1, objectInfoText2, objectInfoText3);
+            SaveItems();
+        }
+        else
+        {
+            string objectName = "Telephone";
+            bool win = true;
+            string objectInfoText1 = "Antigamente, quando se queria telefonar a alguem, era necessário rodar a manivela ao lado das bobinas vermelhas, de maneira a produzir energia suficiente para enviar um impulso eletrico à central telefónica para podermos dizer a um/uma resposavel, o numero de telefone para o qual queriamos ligar, é por isso que este telefone não tem nenhum marcador de numeros.";
+            string objectInfoText2 = "Antigamente, quando se queria telefonar a alguem, era necessário rodar a manivela ao lado das bobinas vermelhas, de maneira a produzir energia suficiente para enviar um impulso eletrico à central telefónica para podermos dizer a um/ uma resposavel, o numero de telefone para o qual queriamos ligar, é por isso que este telefone não tem nenhum marcador de numeros.";
+            string objectInfoText3 = "Antigamente, quando se queria telefonar a alguem, era necessário rodar a manivela ao lado das bobinas vermelhas, de maneira a produzir energia suficiente para enviar um impulso eletrico à central telefónica para podermos dizer a um/ uma resposavel, o numero de telefone para o qual queriamos ligar, é por isso que este telefone não tem nenhum marcador de numeros.";
+            buildFirstAndroidXMLFile(objectName, win, objectInfoText1, objectInfoText2, objectInfoText3);
+            SaveItems();
+        }
+        
         LoadItems();
     }
     ///////////////////////////////////////FIM Singleton pattern/////////////////////////
@@ -42,21 +65,71 @@ public class XMLManager : MonoBehaviour {
     {
         //open a new xmlFile
         XmlSerializer serializer = new XmlSerializer(typeof(ItemDatabase));
-        FileStream stream = new FileStream(Application.persistentDataPath + "/StreamingAssets/XML/item_data.xml", FileMode.Create);
+       
+        string filename = "";
+        //ANDROID
+        if (SystemInfo.deviceType == DeviceType.Handheld)
+        {
+            filename = "jar:file://" + Application.persistentDataPath + "!/assets/item_data.xml";
+        }
+        //DESKTOP
+        if (SystemInfo.deviceType == DeviceType.Desktop)
+        {
+            filename = Application.persistentDataPath + "/StreamingAssets/XML/item_data.xml";
+        }
+        
+        //FileStream stream = new FileStream(Application.persistentDataPath + "/StreamingAssets/XML/item_data.xml", FileMode.Create);
+        StreamWriter stream = new StreamWriter(filename);
         serializer.Serialize(stream, itemDB);
         stream.Close();
 
-#if UNITY_EDITOR
-        UnityEditor.AssetDatabase.Refresh();
-#endif
+
 
     }
+
+    public void buildFirstAndroidXMLFile(string objectName, bool win, string objectInfoText1, string objectInfoText2, string objectInfoText3)
+    {
+        MuseumObject obj = new MuseumObject();
+        obj.objectName = objectName;
+        obj.earnedSticker = win;
+        obj.objectInfoText1 = objectInfoText1;
+        obj.objectInfoText2 = objectInfoText2;
+        obj.objectInfoText3 = objectInfoText3;
+        itemDB.list.Add(obj);
+
+        
+    }
+    public void loadResetItems()
+    {
+        //open a new xmlFile
+        XmlSerializer serializer = new XmlSerializer(typeof(ItemDatabase));
+        FileStream stream = new FileStream(Application.dataPath + "/StreamingAssets/XML/item_dataReset.xml", FileMode.Open);
+        itemDB = serializer.Deserialize(stream) as ItemDatabase;
+        stream.Close();
+
+
+
+    }
+
     //load function
     public void LoadItems()
     {
         //open a new xmlFile
         XmlSerializer serializer = new XmlSerializer(typeof(ItemDatabase));
-        FileStream stream = new FileStream(Application.persistentDataPath + "/StreamingAssets/XML/item_data.xml", FileMode.Open);
+
+        string filename = "";
+        //ANDROID
+        if (SystemInfo.deviceType == DeviceType.Handheld)
+        {
+            filename = "jar:file://" + Application.persistentDataPath + "!/assets/item_data.xml";
+        }
+        //DESKTOP
+        if (SystemInfo.deviceType == DeviceType.Desktop)
+        {
+            filename = Application.persistentDataPath + "/StreamingAssets/XML/item_data.xml";
+        }
+
+        FileStream stream = new FileStream(filename, FileMode.Open);
         itemDB = serializer.Deserialize(stream) as ItemDatabase;
         stream.Close();
     }

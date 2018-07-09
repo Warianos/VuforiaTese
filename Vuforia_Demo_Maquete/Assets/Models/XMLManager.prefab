@@ -52,14 +52,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemDB:
-    list:
-    - objectName: Fruta
-      earnedSticker: 0
-      objectInfoText1: Batata
-      objectInfoText2: Cebola
-      objectInfoText3: Ananas
-    - objectName: Carne
-      earnedSticker: 0
-      objectInfoText1: Coelho
-      objectInfoText2: Vaca
-      objectInfoText3: Cabra
+    list: []

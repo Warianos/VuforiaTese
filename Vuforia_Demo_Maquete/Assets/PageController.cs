@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 //using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
@@ -47,6 +48,12 @@ public class PageController : MonoBehaviour {
     private int actualPageIndex;
     private bool actualGesture;
 
+    //XML VARIABLES
+    private GameObject xmlManager;
+    private XMLManager xmlManagerScript;
+    //sprites variables
+    Sprite[] stickerSprites;
+
     // Use this for initialization
     void Start () {
         pageAnimators = new List<Animator>();
@@ -64,10 +71,29 @@ public class PageController : MonoBehaviour {
         activatedFirstTwoCanvas = false;
         enabledFirstPage = false;
         bookColliders = gameObject.GetComponents<Collider>();
+
+         
+    // Use this for initialization
+    
+        if (GameObject.FindGameObjectWithTag("XMLManager")) //se nao existe, passa a existir
+        {
+            //Instantiate(xmlManager);
+            xmlManager = GameObject.FindGameObjectWithTag("XMLManager");
+            Debug.Log("existe XML");
+        }
+
+
+
+        
+        xmlManagerScript = xmlManager.gameObject.GetComponent<XMLManager>();
+        xmlManagerScript.LoadItems();
+
+        stickerSprites = Resources.LoadAll<Sprite>("ObjectosColecaoReduced");
+
         foreach (pageData pagedata in pages)
         {
             pageAnimators.Add(pagedata.page.gameObject.GetComponent<Animator>());
-
+  
             if(pagedata.canvasRight != null)
             {
                 //vai colocar os componentes do canvas direito com rotação 180 para ficar na rotação da pagina
@@ -75,13 +101,31 @@ public class PageController : MonoBehaviour {
                 {
                     //Debug.Log("entrei aqui 2");
                     child.localRotation =  new Quaternion(0.0f,180.0f,0.0f,0.0f);
+                    //child.Find("TelephoneDemo").Find("ObjectImage").GetComponent<Image>().sprite = stickerSprites[4];
+
                 }
-                    
+                //se tiver na pagina do telefone faz load das coisas do telefone
+                if(pagedata.name == "Tutorial2")
+                {
+                    Debug.Log("entrei");
+                    if (xmlManagerScript.itemDB.list[0].earnedSticker)
+                    {
+                        Debug.Log("entrei no sticker = true");
+                        pagedata.canvasRight.transform.Find("TelephoneDemo").Find("ObjectImage").GetComponent<Image>().sprite = stickerSprites[4];//posição do telefone ganho
+                    }
+                    else
+                    {
+                        Debug.Log("entrei no sticker = false");
+                        pagedata.canvasRight.transform.Find("TelephoneDemo").Find("ObjectImage").GetComponent<Image>().sprite = stickerSprites[3];
+                    }   
+                }
             }
 
             // popular os colliders de cada pagina
             //SceneManager.LoadScene("Telephone", LoadSceneMode.Single);
         }
+
+       
 
         animationStateFirstPage = bookAnimator.GetCurrentAnimatorStateInfo(0);
         myAnimatorClipFirstPage = bookAnimator.GetCurrentAnimatorClipInfo(0);
@@ -122,7 +166,7 @@ public class PageController : MonoBehaviour {
             //se o tempo que passou for superior a metade do lentgh, quer dizer que  a pagina está a meio e poderá mostrar o canvas da segunda pagina
             if (myFirstPageIniTime >= myFirstPageLength + myFirstPageLength / 2)
             {
-                Debug.Log("entrei");
+                //Debug.Log("entrei");
                 pages[0].canvasLeft.gameObject.SetActive(true);
                 pages[1].canvasRight.gameObject.SetActive(true);
                 activatedFirstTwoCanvas = true;
@@ -134,7 +178,7 @@ public class PageController : MonoBehaviour {
             myFirstPageIniTime += myFirstPageIniTimeHelper;
             if (myFirstPageIniTime >= myFirstPageLength + myFirstPageLength / 2)
             {
-                Debug.Log("entrei");
+               // Debug.Log("entrei");
                 pages[0].canvasLeft.gameObject.SetActive(false);
                 pages[1].canvasRight.gameObject.SetActive(false);
                 activatedFirstTwoCanvas = false;
@@ -178,7 +222,7 @@ public class PageController : MonoBehaviour {
                     //  Debug.Log("nome do argetObject no Page Controller: " + targetObject);
                     // }
 
-                    Debug.Log("targetObjectName: " + targetObject.name );
+                    //Debug.Log("targetObjectName: " + targetObject.name );
                 }
             }
             // caso o livro esteja fechado o raio vai colidir com o livro de maneira a abri-lo
@@ -199,7 +243,6 @@ public class PageController : MonoBehaviour {
 
         if (Input.GetMouseButtonUp(0) /*&& !EventSystem.current.IsPointerOverGameObject()*/)
         {
-
             mouseXEndPos = Input.mousePosition.x;
            // Debug.Log("entrei aqui no mouseEndPos" + mouseXEndPos);
             if (bookIsOpen)
@@ -256,7 +299,6 @@ public class PageController : MonoBehaviour {
             //Debug.Log("mouseXIniPos - mouseXEndPos: " + (mouseXIniPos - mouseXEndPos));
         }
         activateOrDeactivatePages(myFirstPageIniTimeHelper, actualPageIndex, actualGesture);
-
     }
 
     /*void OnMouseDrag(PointerEventData eventData)
@@ -290,10 +332,6 @@ public class PageController : MonoBehaviour {
             
             pageAnimators[1].SetBool("bookIsOpen", true);// virar primeira página do livro ao mesmo tempo que o livro abre
 
-           
-
-
-
             Collider[] page1Colliders = pages[0].page.GetComponents<Collider>();
             Collider[] page2Colliders = pages[1].page.GetComponents<Collider>();
             page1Colliders[0].enabled = true;
@@ -304,8 +342,8 @@ public class PageController : MonoBehaviour {
 
             bookIsOpen = true;
 
-            Debug.Log("collilder 1 está : " + page1Colliders[0].enabled);
-            Debug.Log("collilder 2 está : " + page1Colliders[1].enabled);
+            //Debug.Log("collilder 1 está : " + page1Colliders[0].enabled);
+           // Debug.Log("collilder 2 está : " + page1Colliders[1].enabled);
         }
     }
 
@@ -423,12 +461,12 @@ public class PageController : MonoBehaviour {
 
     void activateOrDeactivatePages(float deltaTime,int actualPageIndex,bool right)
     {
-        Debug.Log("entrei aqui no desactivar paginas");
+       // Debug.Log("entrei aqui no desactivar paginas");
         if (actualPageIndex != 0 && actualPageIndex != pages.Length - 1) //ou seja se tiver na posição 1 2 ou numero de paginas -1 faz o de baixo
         {
             if (!right)
             {
-                Debug.Log("entrei AQUI NA ESQUERDA CARALHO");
+               // Debug.Log("entrei AQUI NA ESQUERDA CARALHO");
                 if (bookIsOpen && didTurnPage && myFirstPageIniTime <= myFirstPageLength + myFirstPageLength / 2)
                 {
                    
@@ -467,14 +505,14 @@ public class PageController : MonoBehaviour {
             }
             else if (right)
             {
-                Debug.Log("entrei AQUI NA DIREITA CARALHO");
+                //Debug.Log("entrei AQUI NA DIREITA CARALHO");
                 if (bookIsOpen && didTurnPage && myFirstPageIniTime <= myFirstPageLength + myFirstPageLength / 2)
                 {
                     myFirstPageIniTime += deltaTime;
                     //Debug.Log("tempoInicial DA DIREITA" + myFirstPageIniTime);
                     if (myFirstPageIniTime >= myFirstPageLength + myFirstPageLength / 2)
                     {
-                        Debug.Log("entrei");
+                        //Debug.Log("entrei");
                        // pages[actualPageIndex - 1].page.SetActive(true);
                         Collider[] page1Colliders = pages[actualPageIndex - 1].page.GetComponents<Collider>();
                         page1Colliders[0].enabled = true;
@@ -500,7 +538,5 @@ public class PageController : MonoBehaviour {
                 }
             }
         }
-
-       
     }
 }

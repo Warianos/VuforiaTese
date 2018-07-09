@@ -5,24 +5,24 @@ using UnityEngine.SceneManagement;
 
 public class XMLController : MonoBehaviour {
 
-    GameObject xmlManager;
+   // GameObject xmlManager;
     
 	// Use this for initialization
-	void Start () {
-        if(GameObject.FindGameObjectWithTag("XMLManager") != null)
-        {
-            xmlManager = GameObject.FindGameObjectWithTag("XMLManager");
-        }
+	//void Start () {
+        //if(GameObject.FindGameObjectWithTag("XMLManager") != null)
+       // {
+       //     xmlManager = GameObject.FindGameObjectWithTag("XMLManager");
+      //  }
 
-        if(SceneManager.GetActiveScene().name == "Telephone")
-        {
-
-        }
+      //  if(SceneManager.GetActiveScene().name == "Telephone")
+       // {
+//
+       // }
 		
-	}
+	//}
 	
 	// Update is called once per frame
-	void Update () {
-        Debug.Log(xmlManager.name);
-	}
+	//void Update () {
+       // Debug.Log(xmlManager.name);
+	//}
 }
