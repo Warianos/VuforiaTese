@@ -49,8 +49,8 @@ public class PageController : MonoBehaviour {
     private bool actualGesture;
 
     //XML VARIABLES
-    private GameObject xmlManager;
-    private XMLManager xmlManagerScript;
+    public GameObject xmlManager;
+    public XMLManager xmlManagerScript;
     //sprites variables
     Sprite[] stickerSprites;
 
@@ -78,51 +78,68 @@ public class PageController : MonoBehaviour {
         if (GameObject.FindGameObjectWithTag("XMLManager")) //se nao existe, passa a existir
         {
             //Instantiate(xmlManager);
-            xmlManager = GameObject.FindGameObjectWithTag("XMLManager");
-            Debug.Log("existe XML");
+            //xmlManager = GameObject.FindGameObjectWithTag("XMLManager");
+            //Debug.Log("existe XML");
+            //Debug.Log(xmlManager.name);
+            //XMLManager.ins.LoadItems();
+            //Debug.Log(XMLManager.ins.itemDB.list[0].objectName);
         }
 
 
+        //Debug.Log(xmlManager.GetComponent<XMLManager>().itemDB.list[0].objectName);
 
-        
-        xmlManagerScript = xmlManager.gameObject.GetComponent<XMLManager>();
-        xmlManagerScript.LoadItems();
+        //xmlManagerScript = xmlManager.gameObject.GetComponent<XMLManager>();
+        //xmlManagerScript.LoadItems();
 
         stickerSprites = Resources.LoadAll<Sprite>("ObjectosColecaoReduced");
 
         foreach (pageData pagedata in pages)
         {
             pageAnimators.Add(pagedata.page.gameObject.GetComponent<Animator>());
-  
-            if(pagedata.canvasRight != null)
+            //Debug.Log(pagedata.name);
+            if (pagedata.canvasRight != null)
             {
                 //vai colocar os componentes do canvas direito com rotação 180 para ficar na rotação da pagina
                 foreach (Transform child in pagedata.canvasRight.transform)
                 {
                     //Debug.Log("entrei aqui 2");
-                    child.localRotation =  new Quaternion(0.0f,180.0f,0.0f,0.0f);
+                    child.localRotation = new Quaternion(0.0f, 180.0f, 0.0f, 0.0f);
                     //child.Find("TelephoneDemo").Find("ObjectImage").GetComponent<Image>().sprite = stickerSprites[4];
 
                 }
                 //se tiver na pagina do telefone faz load das coisas do telefone
-                if(pagedata.name == "Tutorial2")
+                if (pagedata.name == "Page1")
                 {
-                    Debug.Log("entrei");
-                    if (xmlManagerScript.itemDB.list[0].earnedSticker)
+                    //Debug.Log(xmlManager.GetComponent<XMLManager>().itemDB.list);
+                    foreach (MuseumObject obj in XMLManager.ins.itemDB.list)
                     {
-                        Debug.Log("entrei no sticker = true");
-                        pagedata.canvasRight.transform.Find("TelephoneDemo").Find("ObjectImage").GetComponent<Image>().sprite = stickerSprites[4];//posição do telefone ganho
+
+                        RefreshBookInfo(pagedata, obj, "Telephone");
                     }
-                    else
-                    {
-                        Debug.Log("entrei no sticker = false");
-                        pagedata.canvasRight.transform.Find("TelephoneDemo").Find("ObjectImage").GetComponent<Image>().sprite = stickerSprites[3];
-                    }   
+                }
+                //ADICIONAR AQUI O RESPECTIVO DE CADA PÁGINA
+
+                // popular os colliders de cada pagina
+                //SceneManager.LoadScene("Telephone", LoadSceneMode.Single);
+            }
+            //como queremos fazer com que a página da esquerda esteja sempre actualizada e são basicamente copias umas das outras
+            //vai encontrar todos os objectos na cena com essa tag, depois iteramos e comparamos com a base de dados
+            foreach(GameObject smallImages in GameObject.FindGameObjectsWithTag("SmallImages"))
+            {
+                foreach (MuseumObject obj in XMLManager.ins.itemDB.list)
+                {
+
+                    if (smallImages.transform.childCount > 0 && smallImages.transform.name == obj.objectName)
+                    { //verificar os que têm filhos quer dizer que têm imagens e que já poderam ser contabilizados
+                        
+
+                    }
                 }
             }
+                //ADICIONAR AQUI O RESPECTIVO DE CADA PÁGINA
 
-            // popular os colliders de cada pagina
-            //SceneManager.LoadScene("Telephone", LoadSceneMode.Single);
+                
+            
         }
 
        
@@ -138,7 +155,72 @@ public class PageController : MonoBehaviour {
         // targetObject = gameObject;
 
     }
+    //funciona partindo do principio que os nomes da UI entre objectos se mantêm
+    void RefreshLeftCnavas(pageData page, MuseumObject obj, string objectCanvas, string objectName, int indexEarnedSticker, int indexDidntEarnSticker)
+    {
+        if (obj.earnedSticker)
+        {
+            Debug.Log("entrei no sticker = true");
+            page.canvasLeft.transform.Find("ClickableImage").Find("ObjectImage").GetComponent<Image>().sprite = stickerSprites[indexEarnedSticker];//posição do telefone ganho
 
+        }
+
+        else
+        {
+            Debug.Log("entrei no sticker = false");
+            page.canvasLeft.transform.Find("ClickableImage").Find("ObjectImage").GetComponent<Image>().sprite = stickerSprites[indexDidntEarnSticker];
+
+        }
+
+            
+        
+    }
+    void RefreshBookInfo(pageData page, MuseumObject obj, string objectName)
+    {
+        if (obj.objectName == objectName)
+        {
+
+            if (obj.earnedSticker)
+            {
+                Debug.Log("entrei no sticker = true");
+                page.canvasRight.transform.Find("ClickableImage").Find("ObjectImage").GetComponent<Image>().sprite = stickerSprites[4];//posição do telefone ganho
+
+            }
+
+            else
+            {
+                Debug.Log("entrei no sticker = false");
+                page.canvasRight.transform.Find("ClickableImage").Find("ObjectImage").GetComponent<Image>().sprite = stickerSprites[3];
+
+            }
+            if (obj.discoveredFirstInfo)
+            {
+                page.canvasRight.transform.Find("Panel").Find("Info1").Find("Text").GetComponent<Text>().text = obj.objectInfoText1;
+            }
+            else if (!obj.discoveredFirstInfo)
+            {
+                page.canvasRight.transform.Find("Panel").Find("Info1").Find("Text").GetComponent<Text>().text = "Click in the button above to discover more info";
+            }
+
+            if (obj.discoveredSecondInfo)
+            {
+                page.canvasRight.transform.Find("Panel").Find("Info2").Find("Text").GetComponent<Text>().text = obj.objectInfoText2;
+            }
+            else if (!obj.discoveredSecondInfo)
+            {
+                page.canvasRight.transform.Find("Panel").Find("Info2").Find("Text").GetComponent<Text>().text = "Click in the button above to discover more info";
+            }
+
+            if (obj.discoveredThirdInfo)
+            {
+                page.canvasRight.transform.Find("Panel").Find("Info3").Find("Text").GetComponent<Text>().text = obj.objectInfoText3;
+            }
+            else if (!obj.discoveredThirdInfo)
+            {
+                page.canvasRight.transform.Find("Panel").Find("Info3").Find("Text").GetComponent<Text>().text = "Click in the button above to discover more info";
+            }
+        }
+    }
     // Update is called once per frame
     void Update()
     {

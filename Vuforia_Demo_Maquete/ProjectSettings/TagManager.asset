@@ -18,6 +18,7 @@ TagManager:
   - Book
   - XMLManager
   - TelephoneDemo
+  - SmallImages
   layers:
   - Default
   - TransparentFX

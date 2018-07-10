@@ -9,7 +9,9 @@ public class startXMLManager : MonoBehaviour {
 	void Awake () {
         if(!GameObject.FindGameObjectWithTag("XMLManager") ) //se nao existe, passa a existir
         {
+            
             Instantiate(xmlManager);
+            
         }
         
 	}

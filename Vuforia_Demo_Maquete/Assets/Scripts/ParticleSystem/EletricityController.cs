@@ -143,17 +143,17 @@ public class EletricityController : MonoBehaviour {
         //Invoke("instantiatePSLeft", 0);
         //Invoke("instantiatePSRight", 0);
 
-        
 
-       
+
+
         // xmlManager = GameObject.FindGameObjectWithTag("XMLManager");
-        xmlManager = new XMLManager();
-        xmlManager.LoadItems();
+        //xmlManager = new XMLManager();
+        XMLManager.ins.LoadItems();
         //xmlManagerSticker = xmlManager.GetComponent<XMLManager>().itemDB.list[0].earnedSticker; //primeiro elemento é o telefone e tras o booleano actual feito do load do XML
-        xmlManagerSticker = xmlManager.itemDB.list[0].earnedSticker;
-        info1.text =  xmlManager.itemDB.list[0].objectInfoText1;
-        info2.text = xmlManager.itemDB.list[0].objectInfoText1;
-        info3.text = xmlManager.itemDB.list[0].objectInfoText1;
+        xmlManagerSticker = XMLManager.ins.itemDB.list[0].earnedSticker;
+        info1.text = XMLManager.ins.itemDB.list[0].objectInfoText1;
+        info2.text = XMLManager.ins.itemDB.list[0].objectInfoText2;
+        info3.text = XMLManager.ins.itemDB.list[0].objectInfoText3;
 
     }
 
@@ -250,8 +250,9 @@ public class EletricityController : MonoBehaviour {
         {
             showInfo1 = false;
             //alterar a variavel de ter desbloqueado o cromo
-            xmlManager.setVariableInDatabase("Telephone",true);
-            xmlManager.SaveItems();
+            XMLManager.ins.SetVariableInDatabase("Telephone", true,0);
+            XMLManager.ins.SetVariableInDatabase("Telephone",true);
+            XMLManager.ins.SaveItems();
             //xmlManager.LoadItems();
             //fim de alterar variavel de desbloquear o cromo
             sendinfo(info1);

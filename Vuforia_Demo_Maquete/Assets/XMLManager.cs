@@ -18,12 +18,8 @@ public class XMLManager : MonoBehaviour {
 
     // Use this for initialization
 
+   
     private void Awake()
-    {
-        
-    }
-
-    private void Start()
     {
         ins = this;
         if (!created)
@@ -34,26 +30,16 @@ public class XMLManager : MonoBehaviour {
         Debug.Log("entrei aqui no start do XMLManager");
         if (SystemInfo.deviceType == DeviceType.Handheld)
         {
-            string objectName = "Telephone";
-            bool win = true;
-            string objectInfoText1 = "Antigamente, quando se queria telefonar a alguem, era necessário rodar a manivela ao lado das bobinas vermelhas, de maneira a produzir energia suficiente para enviar um impulso eletrico à central telefónica para podermos dizer a um/uma resposavel, o numero de telefone para o qual queriamos ligar, é por isso que este telefone não tem nenhum marcador de numeros.";
-            string objectInfoText2 = "Antigamente, quando se queria telefonar a alguem, era necessário rodar a manivela ao lado das bobinas vermelhas, de maneira a produzir energia suficiente para enviar um impulso eletrico à central telefónica para podermos dizer a um/ uma resposavel, o numero de telefone para o qual queriamos ligar, é por isso que este telefone não tem nenhum marcador de numeros.";
-            string objectInfoText3 = "Antigamente, quando se queria telefonar a alguem, era necessário rodar a manivela ao lado das bobinas vermelhas, de maneira a produzir energia suficiente para enviar um impulso eletrico à central telefónica para podermos dizer a um/ uma resposavel, o numero de telefone para o qual queriamos ligar, é por isso que este telefone não tem nenhum marcador de numeros.";
-            buildFirstAndroidXMLFile(objectName,win,objectInfoText1, objectInfoText2, objectInfoText3);
-            SaveItems();
+            LoadItems();
+            Debug.Log(itemDB.list[0].objectName);
         }
         else
         {
-            string objectName = "Telephone";
-            bool win = true;
-            string objectInfoText1 = "Antigamente, quando se queria telefonar a alguem, era necessário rodar a manivela ao lado das bobinas vermelhas, de maneira a produzir energia suficiente para enviar um impulso eletrico à central telefónica para podermos dizer a um/uma resposavel, o numero de telefone para o qual queriamos ligar, é por isso que este telefone não tem nenhum marcador de numeros.";
-            string objectInfoText2 = "Antigamente, quando se queria telefonar a alguem, era necessário rodar a manivela ao lado das bobinas vermelhas, de maneira a produzir energia suficiente para enviar um impulso eletrico à central telefónica para podermos dizer a um/ uma resposavel, o numero de telefone para o qual queriamos ligar, é por isso que este telefone não tem nenhum marcador de numeros.";
-            string objectInfoText3 = "Antigamente, quando se queria telefonar a alguem, era necessário rodar a manivela ao lado das bobinas vermelhas, de maneira a produzir energia suficiente para enviar um impulso eletrico à central telefónica para podermos dizer a um/ uma resposavel, o numero de telefone para o qual queriamos ligar, é por isso que este telefone não tem nenhum marcador de numeros.";
-            buildFirstAndroidXMLFile(objectName, win, objectInfoText1, objectInfoText2, objectInfoText3);
-            SaveItems();
+            LoadItems();
+            Debug.Log(itemDB.list[0].objectName);
         }
         
-        LoadItems();
+        //LoadItems();
     }
     ///////////////////////////////////////FIM Singleton pattern/////////////////////////
 
@@ -70,12 +56,12 @@ public class XMLManager : MonoBehaviour {
         //ANDROID
         if (SystemInfo.deviceType == DeviceType.Handheld)
         {
-            filename = "jar:file://" + Application.persistentDataPath + "!/assets/item_data.xml";
+            filename = "jar:file://" + Application.streamingAssetsPath + "!/XML/item_data.xml";
         }
         //DESKTOP
         if (SystemInfo.deviceType == DeviceType.Desktop)
         {
-            filename = Application.persistentDataPath + "/StreamingAssets/XML/item_data.xml";
+            filename = Application.streamingAssetsPath + "/XML/item_data.xml";
         }
         
         //FileStream stream = new FileStream(Application.persistentDataPath + "/StreamingAssets/XML/item_data.xml", FileMode.Create);
@@ -87,7 +73,7 @@ public class XMLManager : MonoBehaviour {
 
     }
 
-    public void buildFirstAndroidXMLFile(string objectName, bool win, string objectInfoText1, string objectInfoText2, string objectInfoText3)
+    public void BuildFirstAndroidXMLFile(string objectName, bool win, bool discoveredFirstInfo, bool discoveredSecondInfo, bool discoveredThirdInfo, string objectInfoText1, string objectInfoText2, string objectInfoText3)
     {
         MuseumObject obj = new MuseumObject();
         obj.objectName = objectName;
@@ -95,11 +81,30 @@ public class XMLManager : MonoBehaviour {
         obj.objectInfoText1 = objectInfoText1;
         obj.objectInfoText2 = objectInfoText2;
         obj.objectInfoText3 = objectInfoText3;
+        obj.discoveredFirstInfo = discoveredFirstInfo;
+        obj.discoveredSecondInfo = discoveredSecondInfo;
+        obj.discoveredThirdInfo = discoveredThirdInfo;
         itemDB.list.Add(obj);
 
         
     }
-    public void loadResetItems()
+    public void ResetDatabase()
+    {
+        
+        itemDB.list.Clear();
+        string objectName = "Telephone";
+        bool win = false;
+        bool discoveredFirstInfo = false;
+        bool discoveredSecondInfo = false;
+        bool discoveredThirdInfo = false;
+        string objectInfoText1 = "Antigamente, quando se queria telefonar a alguem, era necessário rodar a manivela ao lado das bobinas vermelhas, de maneira a produzir energia suficiente para enviar um impulso eletrico à central telefónica para podermos dizer a um/uma resposavel, o numero de telefone para o qual queriamos ligar, é por isso que este telefone não tem nenhum marcador de numeros.";
+        string objectInfoText2 = "Este object azul representa uma bateria antiga de 5 volts, que é o necessário para fazer os auscutadores funcionarem.";
+        string objectInfoText3 = "Os auscutadores recebem a informação que a pessoa do outro lado quer dizer em impulsos eletricos e convertem esses impulsos eletricos em vibrações produzindo ondas sonoras.";
+        BuildFirstAndroidXMLFile(objectName, win, discoveredFirstInfo, discoveredSecondInfo, discoveredThirdInfo, objectInfoText1, objectInfoText2, objectInfoText3);
+
+
+    }
+    public void LoadResetItems()
     {
         //open a new xmlFile
         XmlSerializer serializer = new XmlSerializer(typeof(ItemDatabase));
@@ -121,12 +126,12 @@ public class XMLManager : MonoBehaviour {
         //ANDROID
         if (SystemInfo.deviceType == DeviceType.Handheld)
         {
-            filename = "jar:file://" + Application.persistentDataPath + "!/assets/item_data.xml";
+            filename = "jar:file://" + Application.streamingAssetsPath + "!/XML/item_data.xml";
         }
         //DESKTOP
         if (SystemInfo.deviceType == DeviceType.Desktop)
         {
-            filename = Application.persistentDataPath + "/StreamingAssets/XML/item_data.xml";
+            filename = Application.streamingAssetsPath + "/XML/item_data.xml";
         }
 
         FileStream stream = new FileStream(filename, FileMode.Open);
@@ -134,7 +139,7 @@ public class XMLManager : MonoBehaviour {
         stream.Close();
     }
 
-    public void setVariableInDatabase(string objectName,bool win)
+    public void SetVariableInDatabase(string objectName,bool win)
     {
 
         foreach(MuseumObject item in itemDB.list)
@@ -150,7 +155,32 @@ public class XMLManager : MonoBehaviour {
         }
         
     }
-    public void setVariableInDatabase(string objectName, bool win, string objectInfoText1)
+    public void SetVariableInDatabase(string objectName, bool discoveredInfoBool,int discoveredInfoNumber)
+    {
+
+        foreach (MuseumObject item in itemDB.list)
+        {
+            if (item.objectName == objectName)
+            {
+                switch(discoveredInfoNumber){
+                    case 0:
+                        item.discoveredFirstInfo = discoveredInfoBool;
+                        break;
+                    case 1:
+                        item.discoveredSecondInfo = discoveredInfoBool;
+                        break;
+                    case 2:
+                        item.discoveredThirdInfo = discoveredInfoBool;
+                        break;
+                }
+                
+                
+            }
+
+        }
+
+    }
+    public void SetVariableInDatabase(string objectName, bool win, string objectInfoText1)
     {
 
         foreach (MuseumObject item in itemDB.list)
@@ -170,7 +200,7 @@ public class XMLManager : MonoBehaviour {
         }
 
     }
-    public void setVariableInDatabase(string objectName, bool win, string objectInfoText1, string objectInfoText2)
+    public void SetVariableInDatabase(string objectName, bool win, string objectInfoText1, string objectInfoText2)
     {
 
         foreach (MuseumObject item in itemDB.list)
@@ -194,7 +224,7 @@ public class XMLManager : MonoBehaviour {
         }
 
     }
-    public void setVariableInDatabase(string objectName, bool win, string objectInfoText1, string objectInfoText2, string objectInfoText3)
+    public void SetVariableInDatabase(string objectName, bool win, string objectInfoText1, string objectInfoText2, string objectInfoText3)
     {
 
         foreach (MuseumObject item in itemDB.list)
@@ -231,14 +261,15 @@ public class XMLManager : MonoBehaviour {
         SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
         SceneManager.MoveGameObjectToScene(this.gameObject, SceneManager.GetSceneByName(sceneName));
     }
-    public void sceneManager()
+    /*
+    public void SceneManager()
     {
         if (SceneManager.GetActiveScene().name == "Telephone")
         {
             Screen.orientation = ScreenOrientation.Landscape;
         }
     }
-
+    */
 }
 
 [System.Serializable]
@@ -247,10 +278,13 @@ public class MuseumObject
     public string objectName;
     public bool earnedSticker;
     public string objectInfoText1;
+    public bool discoveredFirstInfo;
     public string objectInfoText2;
+    public bool discoveredSecondInfo;
     public string objectInfoText3;
+    public bool discoveredThirdInfo;
 
-   
+
 
 }
 
