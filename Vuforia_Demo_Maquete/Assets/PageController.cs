@@ -51,8 +51,10 @@ public class PageController : MonoBehaviour {
     //XML VARIABLES
     public GameObject xmlManager;
     public XMLManager xmlManagerScript;
+
     //sprites variables
     Sprite[] stickerSprites;
+    GameObject[] pageLeftImages;
 
     // Use this for initialization
     void Start () {
@@ -92,25 +94,27 @@ public class PageController : MonoBehaviour {
         //xmlManagerScript.LoadItems();
 
         stickerSprites = Resources.LoadAll<Sprite>("ObjectosColecaoReduced");
+        //FIND OBJECTS WITH TAG SÓ FUNCIONA SE O OBJECTO ESTIVER ACTIVO NA HIERARQUIA
+        //pageLeftImages = GameObject.FindGameObjectsWithTag("SmallImages");
+        //Debug.Log(pageLeftImages[0].name);
 
         foreach (pageData pagedata in pages)
         {
             pageAnimators.Add(pagedata.page.gameObject.GetComponent<Animator>());
-            //Debug.Log(pagedata.name);
+            
             if (pagedata.canvasRight != null)
             {
                 //vai colocar os componentes do canvas direito com rotação 180 para ficar na rotação da pagina
                 foreach (Transform child in pagedata.canvasRight.transform)
                 {
-                    //Debug.Log("entrei aqui 2");
+                    
                     child.localRotation = new Quaternion(0.0f, 180.0f, 0.0f, 0.0f);
-                    //child.Find("TelephoneDemo").Find("ObjectImage").GetComponent<Image>().sprite = stickerSprites[4];
+                    
 
                 }
                 //se tiver na pagina do telefone faz load das coisas do telefone
                 if (pagedata.name == "Page1")
                 {
-                    //Debug.Log(xmlManager.GetComponent<XMLManager>().itemDB.list);
                     foreach (MuseumObject obj in XMLManager.ins.itemDB.list)
                     {
 
@@ -119,56 +123,89 @@ public class PageController : MonoBehaviour {
                 }
                 //ADICIONAR AQUI O RESPECTIVO DE CADA PÁGINA
 
-                // popular os colliders de cada pagina
-                //SceneManager.LoadScene("Telephone", LoadSceneMode.Single);
+                
             }
             //como queremos fazer com que a página da esquerda esteja sempre actualizada e são basicamente copias umas das outras
             //vai encontrar todos os objectos na cena com essa tag, depois iteramos e comparamos com a base de dados
-            foreach(GameObject smallImages in GameObject.FindGameObjectsWithTag("SmallImages"))
+
+            if (pagedata.canvasLeft != null)
             {
-                foreach (MuseumObject obj in XMLManager.ins.itemDB.list)
+
+                if(pagedata.name == "Tutorial2")
                 {
 
-                    if (smallImages.transform.childCount > 0 && smallImages.transform.name == obj.objectName)
-                    { //verificar os que têm filhos quer dizer que têm imagens e que já poderam ser contabilizados
-                        
+               
+                    //vai colocar os componentes do canvas direito com rotação 180 para ficar na rotação da pagina
+                    foreach (Transform child in pagedata.canvasLeft.transform) //buscar os filho de canvas
+                    {
 
+                        if (child.name == "Panel")
+                        {
+                            foreach (Transform image in child)//buscar os filhos de panel
+                            {
+                                
+
+                                if (image.childCount > 0)
+                                { //se tiver filhos quer dizer que tem uma imagem para ser alterada
+                                    
+                                    foreach (MuseumObject obj in XMLManager.ins.itemDB.list) //iterar pelos objectos existentes no xml
+                                    {
+                                        Debug.Log("O nome do objecto é: " + obj.objectName);
+                                        Debug.Log("O nome da imagem é: " + image.name);
+                                        if (image.name == obj.objectName)
+                                        {
+                                            
+                                            RefreshLeftCanvas(image, obj);
+                                            break;
+                                        }
+                                        
+                                        //break;
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
-            }
+
                 //ADICIONAR AQUI O RESPECTIVO DE CADA PÁGINA
 
-                
-            
+
+            }
         }
 
        
 
         animationStateFirstPage = bookAnimator.GetCurrentAnimatorStateInfo(0);
         myAnimatorClipFirstPage = bookAnimator.GetCurrentAnimatorClipInfo(0);
-        //float myTime = myAnimatorClip[0].clip.length * animationState.normalizedTime;
-
-       // Debug.Log("Starting clip: " + myAnimatorClip.Length);
-       // Debug.Log("mid clip: " + myAnimatorClip[1].clip);
-        //Debug.Log("end clip: " + myAnimatorClip[2].clip);
-
-        // targetObject = gameObject;
-
     }
+
     //funciona partindo do principio que os nomes da UI entre objectos se mantêm
-    void RefreshLeftCnavas(pageData page, MuseumObject obj, string objectCanvas, string objectName, int indexEarnedSticker, int indexDidntEarnSticker)
+    void RefreshLeftCanvas(Transform imageGameObject, MuseumObject obj)
     {
+        int indexEarnedSticker = 0;
+        int indexDidntEarnSticker = 0;
+        if(obj.objectName == "Telephone")
+        {
+            indexEarnedSticker = 4;
+            indexDidntEarnSticker = 3;
+        }
+        else if (obj.objectName == "FreqMachine")
+        {
+            indexEarnedSticker = 1;
+            indexDidntEarnSticker = 0;
+        }
+
         if (obj.earnedSticker)
         {
             Debug.Log("entrei no sticker = true");
-            page.canvasLeft.transform.Find("ClickableImage").Find("ObjectImage").GetComponent<Image>().sprite = stickerSprites[indexEarnedSticker];//posição do telefone ganho
+            imageGameObject.Find("ObjectImage").GetComponent<Image>().sprite = stickerSprites[indexEarnedSticker];//posição do telefone ganho
 
         }
 
         else
         {
             Debug.Log("entrei no sticker = false");
-            page.canvasLeft.transform.Find("ClickableImage").Find("ObjectImage").GetComponent<Image>().sprite = stickerSprites[indexDidntEarnSticker];
+            imageGameObject.Find("ObjectImage").GetComponent<Image>().sprite = stickerSprites[indexDidntEarnSticker];
 
         }
 
@@ -177,20 +214,35 @@ public class PageController : MonoBehaviour {
     }
     void RefreshBookInfo(pageData page, MuseumObject obj, string objectName)
     {
+
+        int indexEarnedSticker = 0;
+        int indexDidntEarnSticker = 0;
+        if (objectName == "Telephone")
+        {
+            indexEarnedSticker = 4;
+            indexDidntEarnSticker = 3;
+        }
+        else if (objectName == "FreqMachine")
+        {
+            indexEarnedSticker = 1;
+            indexDidntEarnSticker = 0;
+        }
+
+
         if (obj.objectName == objectName)
         {
 
             if (obj.earnedSticker)
             {
                 Debug.Log("entrei no sticker = true");
-                page.canvasRight.transform.Find("ClickableImage").Find("ObjectImage").GetComponent<Image>().sprite = stickerSprites[4];//posição do telefone ganho
+                page.canvasRight.transform.Find("ClickableImage").Find("ObjectImage").GetComponent<Image>().sprite = stickerSprites[indexEarnedSticker];//posição do telefone ganho
 
             }
 
             else
             {
                 Debug.Log("entrei no sticker = false");
-                page.canvasRight.transform.Find("ClickableImage").Find("ObjectImage").GetComponent<Image>().sprite = stickerSprites[3];
+                page.canvasRight.transform.Find("ClickableImage").Find("ObjectImage").GetComponent<Image>().sprite = stickerSprites[indexDidntEarnSticker];
 
             }
             if (obj.discoveredFirstInfo)

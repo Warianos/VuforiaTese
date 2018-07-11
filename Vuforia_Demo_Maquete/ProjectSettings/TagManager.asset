@@ -19,6 +19,7 @@ TagManager:
   - XMLManager
   - TelephoneDemo
   - SmallImages
+  - Debug
   layers:
   - Default
   - TransparentFX

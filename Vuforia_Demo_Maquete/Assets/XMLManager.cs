@@ -7,6 +7,7 @@ using System.Xml;                 //basic xml attributes
 using System.Xml.Serialization;   //access xmlSerializer
 using System.IO;                  //file management
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class XMLManager : MonoBehaviour {
     
@@ -14,7 +15,7 @@ public class XMLManager : MonoBehaviour {
      
     public static XMLManager ins;
     private static bool created = false;
-
+    
 
     // Use this for initialization
 
@@ -30,16 +31,43 @@ public class XMLManager : MonoBehaviour {
         Debug.Log("entrei aqui no start do XMLManager");
         if (SystemInfo.deviceType == DeviceType.Handheld)
         {
+            if (!FileChk())// se o ficheiro não existe, passa a exisitr
+            {
+                ResetDatabase();
+                SaveItemsFirstTime(); //é pelo filestream para ter o xml arranjadinho porque o streamwriter escreve tudo afrente e para ir editar o xml fica um bocado dificil
+            }
+            
+            
+            FileChk();
             LoadItems();
+            //debugManager.debugInst.debugText.text += "Nome do primeiro objecto: " + itemDB.list[0].objectName + "\n";
             Debug.Log(itemDB.list[0].objectName);
         }
         else
         {
             LoadItems();
+            //debugText.text += "Nome do primeiro objecto: " + itemDB.list[0].objectName + "\n";
             Debug.Log(itemDB.list[0].objectName);
         }
         
         //LoadItems();
+    }
+
+    private void Start()
+    {
+        Debug.Log("entrei aqui no start do XMLManager");
+        if (SystemInfo.deviceType == DeviceType.Handheld)
+        {
+            //LoadItems();
+            debugManager.debugInst.debugText.text += "Nome do primeiro objecto: " + itemDB.list[0].objectName + "\n";
+            Debug.Log(itemDB.list[0].objectName);
+        }
+        else
+        {
+            //LoadItems();
+            debugManager.debugInst.debugText.text += "Nome do primeiro objecto: " + itemDB.list[0].objectName + "\n";
+            Debug.Log(itemDB.list[0].objectName);
+        }
     }
     ///////////////////////////////////////FIM Singleton pattern/////////////////////////
 
@@ -47,7 +75,7 @@ public class XMLManager : MonoBehaviour {
     public ItemDatabase itemDB;
 
     //save functions
-    public void SaveItems()
+    public void SaveItemsFirstTime()
     {
         //open a new xmlFile
         XmlSerializer serializer = new XmlSerializer(typeof(ItemDatabase));
@@ -56,7 +84,7 @@ public class XMLManager : MonoBehaviour {
         //ANDROID
         if (SystemInfo.deviceType == DeviceType.Handheld)
         {
-            filename = "jar:file://" + Application.streamingAssetsPath + "!/XML/item_data.xml";
+            filename = Application.persistentDataPath + "/item_data.xml";
         }
         //DESKTOP
         if (SystemInfo.deviceType == DeviceType.Desktop)
@@ -64,8 +92,34 @@ public class XMLManager : MonoBehaviour {
             filename = Application.streamingAssetsPath + "/XML/item_data.xml";
         }
         
-        //FileStream stream = new FileStream(Application.persistentDataPath + "/StreamingAssets/XML/item_data.xml", FileMode.Create);
-        StreamWriter stream = new StreamWriter(filename);
+        FileStream stream = new FileStream(filename, FileMode.Create);
+        //StreamWriter stream = new StreamWriter(filename); //mete default utf-8 
+        serializer.Serialize(stream, itemDB);
+        stream.Close();
+
+
+
+    }
+
+    public void SaveItems()
+    {
+        //open a new xmlFile
+        XmlSerializer serializer = new XmlSerializer(typeof(ItemDatabase));
+
+        string filename = "";
+        //ANDROID
+        if (SystemInfo.deviceType == DeviceType.Handheld)
+        {
+            filename = Application.persistentDataPath + "/item_data.xml";
+        }
+        //DESKTOP
+        if (SystemInfo.deviceType == DeviceType.Desktop)
+        {
+            filename = Application.streamingAssetsPath + "/XML/item_data.xml";
+        }
+
+        //FileStream stream = new FileStream(filename, FileMode.Create);
+        StreamWriter stream = new StreamWriter(filename); //mete default utf-8 
         serializer.Serialize(stream, itemDB);
         stream.Close();
 
@@ -115,6 +169,25 @@ public class XMLManager : MonoBehaviour {
 
 
     }
+    public bool FileChk()
+    {
+        string filePath = Application.persistentDataPath + "/item_data.xml";
+
+        if (System.IO.File.Exists(filePath))
+        {
+            // The file exists -> run event
+            debugManager.debugInst.debugText.text += "FICHEIRO EXISTE";
+            return true;
+        }
+        else
+        {
+
+            debugManager.debugInst.debugText.text += "FICHEIRO NÃO EXISTE";
+            return false;
+            // The file does not exist -> run event
+        }
+        
+    }
 
     //load function
     public void LoadItems()
@@ -126,14 +199,16 @@ public class XMLManager : MonoBehaviour {
         //ANDROID
         if (SystemInfo.deviceType == DeviceType.Handheld)
         {
-            filename = "jar:file://" + Application.streamingAssetsPath + "!/XML/item_data.xml";
+            filename = Application.persistentDataPath + "/item_data.xml";
+            debugManager.debugInst.debugText.text += "Nome do caminho no android: " + Application.persistentDataPath + "/item_data.xml" + "\n";
         }
         //DESKTOP
         if (SystemInfo.deviceType == DeviceType.Desktop)
         {
             filename = Application.streamingAssetsPath + "/XML/item_data.xml";
+            debugManager.debugInst.debugText.text += "Nome do caminho no windows: " + Application.streamingAssetsPath + "!/XML/item_data.xml" + "\n";
         }
-
+        //WWW www = new WWW(filename);
         FileStream stream = new FileStream(filename, FileMode.Open);
         itemDB = serializer.Deserialize(stream) as ItemDatabase;
         stream.Close();
