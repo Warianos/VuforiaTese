@@ -12,7 +12,7 @@ public class PageController : MonoBehaviour {
     private bool correr = true;
 
     //animators variables
-    private List<Animator> pageAnimators;
+    public List<Animator> pageAnimators;
     private Animator bookAnimator;
     private AnimatorStateInfo animationStateFirstPage;
     private AnimatorClipInfo[] myAnimatorClipFirstPage;
@@ -121,9 +121,17 @@ public class PageController : MonoBehaviour {
                         RefreshBookInfo(pagedata, obj, "Telephone");
                     }
                 }
+                if (pagedata.name == "Page2")
+                {
+                    foreach (MuseumObject obj in XMLManager.ins.itemDB.list)
+                    {
+
+                        RefreshBookInfo(pagedata, obj, "FreqMachine");
+                    }
+                }
                 //ADICIONAR AQUI O RESPECTIVO DE CADA PÁGINA
 
-                
+
             }
             //como queremos fazer com que a página da esquerda esteja sempre actualizada e são basicamente copias umas das outras
             //vai encontrar todos os objectos na cena com essa tag, depois iteramos e comparamos com a base de dados
@@ -131,7 +139,7 @@ public class PageController : MonoBehaviour {
             if (pagedata.canvasLeft != null)
             {
 
-                if(pagedata.name == "Tutorial2")
+                if(pagedata.name == "Tutorial2" || pagedata.name == "Page1")
                 {
 
                
@@ -167,6 +175,8 @@ public class PageController : MonoBehaviour {
                     }
                 }
 
+
+
                 //ADICIONAR AQUI O RESPECTIVO DE CADA PÁGINA
 
 
@@ -191,9 +201,12 @@ public class PageController : MonoBehaviour {
         }
         else if (obj.objectName == "FreqMachine")
         {
+            Debug.Log("ENTREI AQUI NO FREQMACHINEEEEEE");
             indexEarnedSticker = 1;
             indexDidntEarnSticker = 0;
         }
+
+        //ADICIONAR AQUI OUTROS OBJECTOS 
 
         if (obj.earnedSticker)
         {
@@ -227,7 +240,7 @@ public class PageController : MonoBehaviour {
             indexEarnedSticker = 1;
             indexDidntEarnSticker = 0;
         }
-
+        //ADICIONAR AQUI OUTROS OBJECTOS 
 
         if (obj.objectName == objectName)
         {
@@ -236,14 +249,11 @@ public class PageController : MonoBehaviour {
             {
                 Debug.Log("entrei no sticker = true");
                 page.canvasRight.transform.Find("ClickableImage").Find("ObjectImage").GetComponent<Image>().sprite = stickerSprites[indexEarnedSticker];//posição do telefone ganho
-
             }
-
             else
             {
                 Debug.Log("entrei no sticker = false");
                 page.canvasRight.transform.Find("ClickableImage").Find("ObjectImage").GetComponent<Image>().sprite = stickerSprites[indexDidntEarnSticker];
-
             }
             if (obj.discoveredFirstInfo)
             {
@@ -356,7 +366,7 @@ public class PageController : MonoBehaviour {
                     //  Debug.Log("nome do argetObject no Page Controller: " + targetObject);
                     // }
 
-                    //Debug.Log("targetObjectName: " + targetObject.name );
+                    Debug.Log("targetObjectName: " + targetObject.name );
                 }
             }
             // caso o livro esteja fechado o raio vai colidir com o livro de maneira a abri-lo
@@ -512,7 +522,7 @@ public class PageController : MonoBehaviour {
         }
     }
 
-    void turnPage(Animator pageAnimator, int pageIndex, bool right)
+   public void turnPage(Animator pageAnimator, int pageIndex, bool right)
     {
         actualPageIndex = pageIndex;
         actualGesture = right;

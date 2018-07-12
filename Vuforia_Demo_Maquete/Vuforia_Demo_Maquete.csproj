@@ -301,6 +301,7 @@
     <Compile Include="Assets\bobineFade.cs" />
     <Compile Include="Assets\BobineToTarget.cs" />
     <Compile Include="Assets\ButtonTouchRaycastController.cs" />
+    <Compile Include="Assets\changePageByImageClickController.cs" />
     <Compile Include="Assets\changePageColliders.cs" />
     <Compile Include="Assets\debugManager.cs" />
     <Compile Include="Assets\delayVuforiaInitialization.cs" />

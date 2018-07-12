@@ -1,14 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ItemDatabase xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Objects>
     <MuseumObject>
       <objectName>Telephone</objectName>
-      <earnedSticker>true</earnedSticker>
+      <earnedSticker>false</earnedSticker>
       <objectInfoText1>Antigamente, quando se queria telefonar a alguem, era necessário rodar a manivela ao lado das bobinas vermelhas, de maneira a produzir energia suficiente para enviar um impulso eletrico à central telefónica para podermos dizer a um/uma resposavel, o numero de telefone para o qual queriamos ligar, é por isso que este telefone não tem nenhum marcador de numeros.</objectInfoText1>
       <discoveredFirstInfo>true</discoveredFirstInfo>
       <objectInfoText2>Este object azul representa uma bateria antiga de 5 volts, que é o necessário para fazer os auscutadores funcionarem</objectInfoText2>
       <discoveredSecondInfo>false</discoveredSecondInfo>
       <objectInfoText3>Os auscutadores recebem a informação que a pessoa do outro lado quer dizer em impulsos eletricos e convertem esses impulsos eletricos em vibrações produzindo ondas sonoras.</objectInfoText3>
+      <discoveredThirdInfo>false</discoveredThirdInfo>
+    </MuseumObject>
+    <MuseumObject>
+      <objectName>FreqMachine</objectName>
+      <earnedSticker>true</earnedSticker>
+      <objectInfoText1>Info1</objectInfoText1>
+      <discoveredFirstInfo>false</discoveredFirstInfo>
+      <objectInfoText2>Info2</objectInfoText2>
+      <discoveredSecondInfo>false</discoveredSecondInfo>
+      <objectInfoText3>Info3</objectInfoText3>
       <discoveredThirdInfo>false</discoveredThirdInfo>
     </MuseumObject>
   </Objects>
