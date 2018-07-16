@@ -5,7 +5,7 @@ AnimationClip:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: IdleUpPanel
+  m_Name: ObjectivesAppearing
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -21,13 +21,25 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: -199
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 1
-        value: -199
+        time: 0.5
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+      - serializedVersion: 2
+        time: 0.5833333
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+      - serializedVersion: 2
+        time: 0.6666667
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -43,12 +55,24 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: 100
+        value: 200
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 1
+        time: 0.5
+        value: 100
+        inSlope: -102.85715
+        outSlope: -102.85715
+        tangentMode: 136
+      - serializedVersion: 2
+        time: 0.5833333
+        value: 85
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+      - serializedVersion: 2
+        time: 0.6666667
         value: 100
         inSlope: 0
         outSlope: 0
@@ -70,14 +94,14 @@ AnimationClip:
     genericBindings:
     - serializedVersion: 2
       path: 0
-      attribute: 1460864421
+      attribute: 538195251
       script: {fileID: 0}
       typeID: 224
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
       path: 0
-      attribute: 538195251
+      attribute: 1460864421
       script: {fileID: 0}
       typeID: 224
       customType: 0
@@ -88,7 +112,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1
+    m_StopTime: 0.6666667
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -109,13 +133,25 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: -199
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 1
-        value: -199
+        time: 0.5
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+      - serializedVersion: 2
+        time: 0.5833333
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+      - serializedVersion: 2
+        time: 0.6666667
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -131,12 +167,24 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: 100
+        value: 200
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 1
+        time: 0.5
+        value: 100
+        inSlope: -102.85715
+        outSlope: -102.85715
+        tangentMode: 136
+      - serializedVersion: 2
+        time: 0.5833333
+        value: 85
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+      - serializedVersion: 2
+        time: 0.6666667
         value: 100
         inSlope: 0
         outSlope: 0

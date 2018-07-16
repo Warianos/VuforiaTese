@@ -34,7 +34,9 @@ public class panelAnimationController : MonoBehaviour
         Debug.Log("Nome do gameobject: " + gameObject.name);
         if (gameObject.tag == "Objectives")
         {
-           // Debug.Log("Nome do gameobject: " + gameObject.name);
+            // Debug.Log("Nome do gameobject: " + gameObject.name);
+            //se carregar nos objetivos faz reset a variavel de tremer pois quer dizer que o player já viu que estava a tremer
+            animator.SetBool("somethingNew",false);
             if (animator.GetBool("clickedLeftPanel"))
             {
                 animator.SetBool("clickedLeftPanel", false);
@@ -60,6 +62,8 @@ public class panelAnimationController : MonoBehaviour
         {
             //gameObject.SetActive(false);
             animator.SetBool("clickedOrTimeOut", true);
+            GameObject.FindGameObjectWithTag("GameController").GetComponent<EletricityController>().canvasStart = true;
+            GameObject.FindGameObjectWithTag("GameController").GetComponent<EletricityController>().firstTimeObjectiveShakeAnim = true;
             
         }
 
@@ -69,7 +73,7 @@ public class panelAnimationController : MonoBehaviour
     {
 
         Destroy(this.gameObject);
-        Destroy();
+        
     }
 
 }

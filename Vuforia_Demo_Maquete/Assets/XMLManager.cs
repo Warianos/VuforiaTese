@@ -65,7 +65,7 @@ public class XMLManager : MonoBehaviour {
         else
         {
             //LoadItems();
-            debugManager.debugInst.debugText.text += "Nome do primeiro objecto: " + itemDB.list[0].objectName + "\n";
+            //debugManager.debugInst.debugText.text += "Nome do primeiro objecto: " + itemDB.list[0].objectName + "\n";
             Debug.Log(itemDB.list[0].objectName);
         }
     }
@@ -206,7 +206,7 @@ public class XMLManager : MonoBehaviour {
         if (SystemInfo.deviceType == DeviceType.Desktop)
         {
             filename = Application.streamingAssetsPath + "/XML/item_data.xml";
-            debugManager.debugInst.debugText.text += "Nome do caminho no windows: " + Application.streamingAssetsPath + "!/XML/item_data.xml" + "\n";
+            //debugManager.debugInst.debugText.text += "Nome do caminho no windows: " + Application.streamingAssetsPath + "!/XML/item_data.xml" + "\n";
         }
         //WWW www = new WWW(filename);
         FileStream stream = new FileStream(filename, FileMode.Open);

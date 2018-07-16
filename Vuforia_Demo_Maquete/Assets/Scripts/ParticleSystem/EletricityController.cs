@@ -55,6 +55,9 @@ public class EletricityController : MonoBehaviour {
     public Text desligarText;
     public Text falarText;
     public Text naoFalarText;
+    public GameObject canvasAnimatorController;
+    public bool canvasStart;
+    private bool infoFirstTime;
 
     //canvas Objetives
     public Text primeiroDesafioText;
@@ -63,6 +66,9 @@ public class EletricityController : MonoBehaviour {
 
     //canvas infoPanel
     public GameObject infoPanel;
+
+    //canvas timers
+    public float canvasTimerToAppear;
     //Objetos para animar
 
     public GameObject Sinos;
@@ -93,10 +99,12 @@ public class EletricityController : MonoBehaviour {
     public Text info1;
     public Text info2;
     public Text info3;
+    public Text info;
 
     private bool showInfo1;
     private bool showInfo2;
     private bool showInfo3;
+    public bool firstTimeObjectiveShakeAnim;
 
     XMLManager xmlManager;
     private bool xmlManagerSticker;
@@ -115,10 +123,15 @@ public class EletricityController : MonoBehaviour {
         SinosAnimator = Sinos.GetComponent<Animator>();
         PlacaPretaAnimator = PlacaPreta.GetComponent<Animator>();
         TubosAnimator = Tubos.GetComponent<Animator>();
-
+        canvasStart = false;
         showInfo1 = true;
         showInfo2 = true;
         showInfo3 = true;
+
+        infoFirstTime = true;
+        firstTimeObjectiveShakeAnim = false;
+
+        telefonou = false;
 
         falarText.enabled = true;
         naoFalarText.enabled = false;
@@ -139,6 +152,12 @@ public class EletricityController : MonoBehaviour {
         timeRecieveSoundINI = 0;
         timeSoundWavesLeftINI = 0;
         timeSoundWavesRightINI = 0;
+
+        
+        //INICIAR O CANVAS ANTES DE TER LIGADO
+        //canvasAnimatorController.
+        //FINAL DE CANVAS TER LIGADO
+
         //GetComponent<RaycastColliderDetection>().finishFirstDemo
         //Invoke("instantiatePSLeft", 0);
         //Invoke("instantiatePSRight", 0);
@@ -150,7 +169,7 @@ public class EletricityController : MonoBehaviour {
         //xmlManager = new XMLManager();
         XMLManager.ins.LoadItems();
         //xmlManagerSticker = xmlManager.GetComponent<XMLManager>().itemDB.list[0].earnedSticker; //primeiro elemento é o telefone e tras o booleano actual feito do load do XML
-        xmlManagerSticker = XMLManager.ins.itemDB.list[0].earnedSticker;
+        //xmlManagerSticker = XMLManager.ins.itemDB.list[0].earnedSticker;
         info1.text = XMLManager.ins.itemDB.list[0].objectInfoText1;
         info2.text = XMLManager.ins.itemDB.list[0].objectInfoText2;
         info3.text = XMLManager.ins.itemDB.list[0].objectInfoText3;
@@ -203,15 +222,46 @@ public class EletricityController : MonoBehaviour {
 
     void Update()
     {
+        Debug.Log("a variavel é: "  + telefonou);
         /*
         if (!IsInvoking("refreshVariables")){
             Invoke("refreshVariables", 0.1f);
         }
           */  
         refreshVariables();
+        ///////////////////////////////////////////////////////ini start canvas
+        if (!finishFirstDemo)
+        {
+            if (canvasStart)
+            {
+                canvasTimerToAppear += Time.deltaTime;
+            }
+
+            if (telefonou && infoFirstTime)
+            {
+                sendinfo(info);
+                infoFirstTime = false;
+            }
+            if (telefonou && canvasStart && canvasTimerToAppear >= 0.5f)
+            {
+                Debug.Log("entreia qui no temporizador");
+                canvasAnimatorController.GetComponent<canvasAnimationController>().returnButtonAnimator.SetBool("canShowMenu", true);
+                canvasAnimatorController.GetComponent<canvasAnimationController>().objectivePanelAnimator.SetBool("canShowMenu", true);
+
+                
+                //canvasStart = false;
+            }
+            //vibrar a primeira vez apenas
+            if (firstTimeObjectiveShakeAnim && canvasTimerToAppear >= 2.0f)
+            {
+                canvasStart = false;
+
+                firstTimeObjectiveShakeAnim = false;
+                canvasAnimatorController.GetComponent<canvasAnimationController>().objectivePanelAnimator.SetBool("somethingNew", true);
+            }
+        }
         
-        
-        
+        //////////////////////////////////////////////////////fin start canvas
         if (possoAtender)
         {
                 
@@ -224,7 +274,7 @@ public class EletricityController : MonoBehaviour {
             if (!finishFirstDemo)
         {
             
-            //se atendeu muda as letras para desligar
+            //se atendeu muda as letras para desligar SE PUXOU OS AUSCUTADORES
             if (atendeu)
             {
                 atenderText.enabled = false;
@@ -255,6 +305,8 @@ public class EletricityController : MonoBehaviour {
             XMLManager.ins.SaveItems();
             //xmlManager.LoadItems();
             //fim de alterar variavel de desbloquear o cromo
+            primeiroDesafioText.transform.Find("CheckBox").gameObject.SetActive(false);
+            segundoDesafioText.color = new Color(0.1f, 0.1f, 0.1f,1.0f); //meter cor cinzenta escura
             sendinfo(info1);
         }
 
@@ -268,13 +320,14 @@ public class EletricityController : MonoBehaviour {
             Debug.Log("atender bool: " + atendeu);
             if (telefonou)
             {
+                /*
                 //por os 2 primeiros colliders do telefone ligados
                 if(phonesColliders[0].enabled == false)
                 {
                     phonesColliders[0].enabled = true;
                     phonesColliders[1].enabled = true;
                 }
-               
+               */
                 Telefonar.interactable = false;
                 Atender.interactable = true;
                 SinosAnimator.SetBool("canRing", true);
@@ -295,7 +348,9 @@ public class EletricityController : MonoBehaviour {
                 SinosAnimator.SetBool("canRing", false);
                 TubosAnimator.SetBool("canAnimTubes", true);
                 TubosAnimator.SetBool("canReturnStartPos", false);
-                segundoDesafioText.color = new Color(0.302f, 0.671f, 0.318f);
+                segundoDesafioText.transform.Find("CheckBox").gameObject.SetActive(false);
+                terceiroDesafioText.color = new Color(0.302f, 0.671f, 0.318f, 1.0f); //meter cor cinzenta escura
+                
                 //Telefonar.interactable = false;
             }
             //se não atendeu muda as letras para ligar
@@ -519,6 +574,10 @@ public class EletricityController : MonoBehaviour {
 
     private void sendinfo(Text info)
     {
+        Debug.Log("entreia qui no sendINFO");
+        this.info.gameObject.SetActive(false);
+        infoPanelToEnable.SetActive(false);
+        info.gameObject.SetActive(false);
         infoPanelToEnable.SetActive(true);
         info.gameObject.SetActive(true);
     }

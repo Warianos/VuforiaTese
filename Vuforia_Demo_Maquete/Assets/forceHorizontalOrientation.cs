@@ -5,7 +5,7 @@ using UnityEngine;
 public class forceHorizontalOrientation : MonoBehaviour {
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         Screen.orientation = ScreenOrientation.LandscapeLeft;
     }
 	
