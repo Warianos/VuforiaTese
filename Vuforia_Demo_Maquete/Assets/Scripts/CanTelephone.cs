@@ -10,6 +10,8 @@ public class CanTelephone : MonoBehaviour {
     public ParticleSystem sparksPSBottom;
     private Animator buttonAnim;
 
+    
+
     //public ParticleSystem s;
     public GameObject gameController;
     private Button button;
@@ -64,7 +66,7 @@ public class CanTelephone : MonoBehaviour {
             }
         }
 
-        else if(finishedFirstDemo || firstTimeAfterFirstDemo)
+        else if(finishedFirstDemo && firstTimeAfterFirstDemo)
         {
             buttonAnim.SetBool("canPulse", true);
             firstTimeAfterFirstDemo = false;
@@ -92,7 +94,8 @@ public class CanTelephone : MonoBehaviour {
             sparksPS.gameObject.SetActive(true);
             
             gameController.GetComponent<EletricityController>().telefonou = true;
-            
+            gameController.GetComponent<EletricityController>().eletricityBobineON = true;
+
 
         }
 

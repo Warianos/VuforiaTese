@@ -15,6 +15,16 @@ public class EletricityController : MonoBehaviour {
     public ParticleSystem photonParticleSendSound;
     public ParticleSystem photonParticleRecieveSound;
 
+    public GameObject eletricityBobine;
+    public GameObject eletricityGoingUp;
+    public GameObject eletricityDownOFF;
+    public GameObject eletricityDown;
+
+    public float eletricityBobineTime;
+
+    public bool eletricityBobineON;
+    
+
     //tempo final
     public float timeBobine;
     public float timeLeftParticle;
@@ -58,6 +68,7 @@ public class EletricityController : MonoBehaviour {
     public GameObject canvasAnimatorController;
     public bool canvasStart;
     private bool infoFirstTime;
+    public bool canInteractWithPhone;
 
     //canvas Objetives
     public Text primeiroDesafioText;
@@ -127,11 +138,13 @@ public class EletricityController : MonoBehaviour {
         showInfo1 = true;
         showInfo2 = true;
         showInfo3 = true;
-
+        canInteractWithPhone = false;
         infoFirstTime = true;
         firstTimeObjectiveShakeAnim = false;
 
         telefonou = false;
+        eletricityBobineON = false;
+        eletricityBobineTime = 0;
 
         falarText.enabled = true;
         naoFalarText.enabled = false;
@@ -227,9 +240,83 @@ public class EletricityController : MonoBehaviour {
         if (!IsInvoking("refreshVariables")){
             Invoke("refreshVariables", 0.1f);
         }
-          */  
+          */
+
+        ////////////////////////////////////////////////////////////INI ElectricityController////////////
+        ///////////////////////////////////INI BOBINE ESTRAGADA////////
+        // if (!finishFirstDemo && !eletricityBobineON)
+        //{
+        //eletricityBobineON = true;
+        //}
+        if (!finishFirstDemo)
+        {
+            if (eletricityBobineON)
+            {
+                eletricityBobine.SetActive(true);
+                eletricityBobineTime += Time.deltaTime;
+                Debug.Log(eletricityBobineTime);
+            }
+
+            if (eletricityBobineTime >= 3.0f)
+            {
+
+                eletricityBobine.GetComponent<Animator>().SetBool("canFadeOut", true);
+                //eletricityBobineON = false;
+
+
+
+            }
+            if (eletricityBobineTime >= 5.0f)
+            {
+                eletricityBobineTime = 0;
+                eletricityBobine.SetActive(false);
+                eletricityBobineON = false;
+            }
+        }
+       
+        ///////////////////////////////////FIN BOBINE ESTRAGADA////////
+
+        ///////////////////////////////////INI BOBINE ARRANJADA////////
+        if (finishFirstDemo)
+        {
+            if (eletricityBobineON)
+            {
+                eletricityBobine.SetActive(true);
+                eletricityBobineTime += Time.deltaTime;
+                Debug.Log(eletricityBobineTime);
+
+                if (atendeu)
+                {
+                    eletricityBobineTime += Time.deltaTime;
+                    eletricityBobine.GetComponent<Animator>().SetBool("canFadeOut", true);
+                    if (eletricityBobineTime >= 1.5)
+                    {
+                        eletricityBobineTime = 0;
+                        eletricityBobine.SetActive(false);
+                    }
+                }
+
+            }
+
+            if (atendeu) //e se passou o segundo demo
+            {
+                //colocar aqui cenas da eletricidade quando a chamada é atendida
+            }
+             //public GameObject eletricityBobine;
+             //public GameObject eletricityGoingUp;
+             //public GameObject eletricityDownOFF;
+             //public GameObject eletricityDown;
+
+}
+        
+
+        ///////////////////////////////////FIN BOBINE ARRANJADA////////
+
+        ////////////////////////////////////////////////////////////FIN ElectricityController////////////
+
         refreshVariables();
-        ///////////////////////////////////////////////////////ini start canvas
+        ///////////////////////////////////////////////////////INI START CANVAS////////////
+        Debug.Log("canInteractWithPhone ELETRICITY CONTROLLER" + canInteractWithPhone);
         if (!finishFirstDemo)
         {
             if (canvasStart)
@@ -239,6 +326,7 @@ public class EletricityController : MonoBehaviour {
 
             if (telefonou && infoFirstTime)
             {
+                
                 sendinfo(info);
                 infoFirstTime = false;
             }
@@ -255,13 +343,13 @@ public class EletricityController : MonoBehaviour {
             if (firstTimeObjectiveShakeAnim && canvasTimerToAppear >= 2.0f)
             {
                 canvasStart = false;
-
+                canInteractWithPhone = true;
                 firstTimeObjectiveShakeAnim = false;
                 canvasAnimatorController.GetComponent<canvasAnimationController>().objectivePanelAnimator.SetBool("somethingNew", true);
             }
         }
         
-        //////////////////////////////////////////////////////fin start canvas
+        //////////////////////////////////////////////////////FIN START CANVAS///////////
         if (possoAtender)
         {
                 
@@ -320,18 +408,18 @@ public class EletricityController : MonoBehaviour {
             Debug.Log("atender bool: " + atendeu);
             if (telefonou)
             {
-                /*
+                
                 //por os 2 primeiros colliders do telefone ligados
                 if(phonesColliders[0].enabled == false)
                 {
                     phonesColliders[0].enabled = true;
                     phonesColliders[1].enabled = true;
                 }
-               */
+               
                 Telefonar.interactable = false;
                 Atender.interactable = true;
                 SinosAnimator.SetBool("canRing", true);
-                primeiroDesafioText.color = new Color(0.302f, 0.671f, 0.318f);
+                //primeiroDesafioText.color = new Color(0.302f, 0.671f, 0.318f);
             }
             if (!telefonou && !atendeu)
             {
@@ -570,6 +658,7 @@ public class EletricityController : MonoBehaviour {
         finishSecondDemo = GetComponent<RaycastColliderDetection>().finishSecondDemo;
         atendeu = GetComponent<RaycastColliderDetection>().atendeu;
         falou = GetComponent<RaycastColliderDetection>().speaking;
+        phonesColliders = GetComponent<RaycastColliderDetection>().phonesColliders;
     }
 
     private void sendinfo(Text info)
