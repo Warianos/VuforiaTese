@@ -20,6 +20,8 @@ TagManager:
   - TelephoneDemo
   - SmallImages
   - Debug
+  - FadeBattery
+  - Battery
   layers:
   - Default
   - TransparentFX

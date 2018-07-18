@@ -103,6 +103,7 @@ public class CanTelephone : MonoBehaviour {
         {
             gameController.GetComponent<EletricityController>().telefonou = true;
             gameController.GetComponent<EletricityController>().possoAtender = true;
+            gameController.GetComponent<EletricityController>().eletricityBobineON = true;
         }
 
         

@@ -10,13 +10,17 @@ public class RaycastColliderDetection : MonoBehaviour {
     public bool finishFirstDemo;
     public bool finishSecondDemo;
     public GameObject empty;
+    public GameObject emptyBatteryPivot;
     private float distCameraToMiddle;
     public bool finishedBobinePuzzle;
     private bool flagDragDoor = false;
     public bool isInsideFinCollider = false;
+    public bool isInsideColliderBattery = false;
     public bool canReturnOriginalPlace = false;
     [SerializeField]
     public bool flagObjectToMouse = false;
+    [SerializeField]
+    public bool flagBatteryToMouse = false;
     [SerializeField]
     public bool atendeu = false;
     [SerializeField]
@@ -26,7 +30,7 @@ public class RaycastColliderDetection : MonoBehaviour {
     private GameObject target;
     Vector3 mousePosition;
     Vector3 worldMousePosition;
-    Vector3 bobineIniPos;
+    Vector3 objectIniPos;
     Vector3 currentBobinePos;
     Vector3 camaraPos;
     Vector3 screenCamaraPosition;
@@ -56,7 +60,7 @@ public class RaycastColliderDetection : MonoBehaviour {
     void Start()
     {
         finishFirstDemo = false;
-        finishSecondDemo = true;
+        finishSecondDemo = false;
         layerMask = 9;
         contarColliders = true;
         telefonar = GetComponent<EletricityController>().telefonou;
@@ -79,7 +83,7 @@ public class RaycastColliderDetection : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         //só depois do canvas comecar é que se pode interagir com o resto
-        Debug.Log("canInteractWithPhone e!!!!!!!!!!!!!!!!!!!!!!!" + canInteractWithPhone);
+       // Debug.Log("canInteractWithPhone e!!!!!!!!!!!!!!!!!!!!!!!" + canInteractWithPhone);
         if (!canInteractWithPhone) //sóa ctualiza a variavel até n ser precisa novamente
         {
             canInteractWithPhone = GetComponent<EletricityController>().canInteractWithPhone;
@@ -92,13 +96,13 @@ public class RaycastColliderDetection : MonoBehaviour {
             //só acontece primeira vez
             if (firstTimeUpdate)
             {
-                Debug.Log("entire aqui nos colliders");
+               // Debug.Log("entire aqui nos colliders");
                 phonesColliders = GameObject.FindGameObjectWithTag("Phones").GetComponents<BoxCollider>();
                 for (int i = 0; i < phonesColliders.Length; i++)
                 {
 
                     phonesColliders[i].enabled = false;
-                    Debug.Log(phonesColliders[i].enabled);
+                    //Debug.Log(phonesColliders[i].enabled);
                 }
                 firstTimeUpdate = false;
             }
@@ -142,16 +146,29 @@ public class RaycastColliderDetection : MonoBehaviour {
                         //Debug.Log("distancia percorrida pelo raio: "+ rayCastLength);
                         target = hit.collider.gameObject;
                         target.transform.parent = null;
-                    
-                        bobineIniPos = target.transform.position;
+
+                        objectIniPos = target.transform.position;
                         flagObjectToMouse = true;
                         //Debug.Log("nomeDoGameObject: " + target.name);
                     }
+
+                    else if (hit.collider.gameObject.tag == "Battery" /*|| !finishFirstDemo*/)
+                    {
+
+                        //Debug.Log("distancia percorrida pelo raio: "+ rayCastLength);
+                        target = hit.collider.gameObject;
+                        target.transform.parent = null;
+
+                        objectIniPos = target.transform.position;
+                        flagBatteryToMouse = true;
+                        Debug.Log("nomeDoGameObject: " + target.tag);
+                    }
+
                     else if(hit.collider.gameObject.tag == "Phones")
                     {
                         telefonar = GetComponent<EletricityController>().telefonou;
                         //Collider[] colliders = hit.collider.gameObject.GetComponents<Collider>();
-                        Debug.Log("entrei no contarColliders");
+                        //Debug.Log("entrei no contarColliders");
 
                         if (telefonar && phonesColliders[0].enabled)
                         {
@@ -187,7 +204,13 @@ public class RaycastColliderDetection : MonoBehaviour {
 
             if (flagObjectToMouse)
             {
-               objectToMouse();
+               objectToMouse(empty);
+
+            }
+
+            if (flagBatteryToMouse)
+            {
+                objectToMouse(emptyBatteryPivot);
 
             }
 
@@ -198,21 +221,35 @@ public class RaycastColliderDetection : MonoBehaviour {
                    // Debug.Log("entrei aqui na flag de terminar a bobine");
                 }
                 //verifica se o objecto actual é a bobine e se o demo nãoa cabou e se não esta dentro do collider de chegada da bobine
-                else if (target != null && target.gameObject.tag == "Bobine" && (finishFirstDemo == false && isInsideFinCollider == false))
+                if (target != null && target.gameObject.tag == "Bobine" && (finishFirstDemo == false && isInsideFinCollider == false))
                 {
                     Debug.Log("posso retornar a posição inicial");
                     canReturnOriginalPlace = true;
                     //flagObjectToMouse = true;
                     //returnObjectToPlace();
                 }
+                if (target != null && target.gameObject.tag == "Battery" && (finishSecondDemo == false && isInsideColliderBattery == false))
+                {
+                    Debug.Log("bateria pode retornar a posição inicial");
+                    canReturnOriginalPlace = true;
+                    //flagObjectToMouse = true;
+                    //returnObjectToPlace();
+                }
+
                 flagDragDoor = false;
                 flagObjectToMouse = false;
+                flagBatteryToMouse = false;
             }
 
-            if (canReturnOriginalPlace && target.gameObject.tag == "Bobine" )
+            if (canReturnOriginalPlace && target.gameObject.tag == "Bobine")
             {
                 Debug.Log("vou retornar a posição inicial");
-                returnObjectToPlace();
+                returnObjectToPlace(objectIniPos);
+            }
+            if (canReturnOriginalPlace && target.gameObject.tag == "Battery")
+            {
+                Debug.Log("vou retornar a posição inicial a batteria");
+                returnObjectToPlace(objectIniPos);
             }
 
         }
@@ -259,7 +296,7 @@ public class RaycastColliderDetection : MonoBehaviour {
     /// /////////////////////////////////////////////////////////////////////ObjectMousePos//////////////////////////////////////////////////////////////////
     /// </summary>
 
-    void objectToMouse()
+    void objectToMouse(GameObject empty)
     {
         
         camaraPos = Camera.main.transform.position;
@@ -299,13 +336,13 @@ public class RaycastColliderDetection : MonoBehaviour {
     }
     
 
-    void returnObjectToPlace()
+    void returnObjectToPlace(Vector3 objectIniPos)
     {
-        Debug.Log("entrei aqui no return Object To Place");
-        target.transform.position = Vector3.MoveTowards(target.transform.position, bobineIniPos, Time.deltaTime * 2.0f);
-        if (target.gameObject.transform.position == bobineIniPos)
+       // Debug.Log("entrei aqui no return Object To Place");
+        target.transform.position = Vector3.MoveTowards(target.transform.position, objectIniPos, Time.deltaTime * 2.0f);
+        if (target.gameObject.transform.position == objectIniPos)
         {
-            Debug.Log("cheguei a posição inicial");
+            //Debug.Log("cheguei a posição inicial");
             canReturnOriginalPlace = false;
         }
     }

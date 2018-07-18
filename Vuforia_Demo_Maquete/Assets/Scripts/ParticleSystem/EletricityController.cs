@@ -21,8 +21,11 @@ public class EletricityController : MonoBehaviour {
     public GameObject eletricityDown;
 
     public float eletricityBobineTime;
+    public float eletricityDownTime;
 
+    private bool eletricityDownFlag1;
     public bool eletricityBobineON;
+    private bool eletricityFlag1;
     
 
     //tempo final
@@ -142,10 +145,13 @@ public class EletricityController : MonoBehaviour {
         infoFirstTime = true;
         firstTimeObjectiveShakeAnim = false;
 
+        eletricityDownFlag1 = false;
+
         telefonou = false;
         eletricityBobineON = false;
         eletricityBobineTime = 0;
-
+        eletricityDownTime = 0;
+        eletricityFlag1 = true;
         falarText.enabled = true;
         naoFalarText.enabled = false;
 
@@ -242,8 +248,8 @@ public class EletricityController : MonoBehaviour {
         }
           */
 
-        ////////////////////////////////////////////////////////////INI ElectricityController////////////
-        ///////////////////////////////////INI BOBINE ESTRAGADA////////
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////INI ElectricityController////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////INI BOBINE ESTRAGADA////////
         // if (!finishFirstDemo && !eletricityBobineON)
         //{
         //eletricityBobineON = true;
@@ -254,7 +260,7 @@ public class EletricityController : MonoBehaviour {
             {
                 eletricityBobine.SetActive(true);
                 eletricityBobineTime += Time.deltaTime;
-                Debug.Log(eletricityBobineTime);
+                //Debug.Log(eletricityBobineTime);
             }
 
             if (eletricityBobineTime >= 3.0f)
@@ -273,17 +279,29 @@ public class EletricityController : MonoBehaviour {
                 eletricityBobineON = false;
             }
         }
-       
-        ///////////////////////////////////FIN BOBINE ESTRAGADA////////
 
-        ///////////////////////////////////INI BOBINE ARRANJADA////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////FIN BOBINE ESTRAGADA////////
+
+        ////////////////////////////////////////////////////////////////////////////////////////////INI BOBINE ARRANJADA////////
         if (finishFirstDemo)
         {
+            if (eletricityBobineTime >= 3.0f) //caso tenha finalizado o primeiro demo sem acabar a animação toda, reinicia aqui as variaveis
+            {
+                eletricityBobineTime = 0;
+                eletricityBobineON = false;
+            }
             if (eletricityBobineON)
             {
-                eletricityBobine.SetActive(true);
-                eletricityBobineTime += Time.deltaTime;
-                Debug.Log(eletricityBobineTime);
+                //eletricityBobine.SetActive(false);
+                if(eletricityFlag1)
+                {
+                    eletricityBobine.SetActive(false);
+                    eletricityBobine.SetActive(true);
+                    eletricityFlag1 = false;
+                }
+                
+                //eletricityBobineTime += Time.deltaTime;
+               // Debug.Log(eletricityBobineTime);
 
                 if (atendeu)
                 {
@@ -292,27 +310,51 @@ public class EletricityController : MonoBehaviour {
                     if (eletricityBobineTime >= 1.5)
                     {
                         eletricityBobineTime = 0;
+                        eletricityBobineON = false;
                         eletricityBobine.SetActive(false);
+                        eletricityFlag1 = true;
                     }
                 }
 
             }
-
-            if (atendeu) //e se passou o segundo demo
+            if (finishSecondDemo)
             {
-                //colocar aqui cenas da eletricidade quando a chamada é atendida
+                if (atendeu)  //e se passou o segundo demo
+                {
+                    eletricityDown.SetActive(true);
+                    
+                    eletricityDownFlag1 = true;
+                    //colocar aqui cenas da eletricidade quando a chamada é atendida
+                }
+                if (eletricityDownFlag1)
+                {
+                    //eletricityDownTime += Time.deltaTime;
+                }
+                if (!atendeu)
+                {
+                    if (eletricityDownFlag1)
+                    {
+                        eletricityDownFlag1 = false;
+                        eletricityDown.SetActive(false);
+                        //eletricityDown.GetComponent<Animator>().SetBool("canFadeOut", true);
+                        //eletricityDownTime += Time.deltaTime;
+                    }
+                    
+                    
+                }
             }
+           
              //public GameObject eletricityBobine;
              //public GameObject eletricityGoingUp;
              //public GameObject eletricityDownOFF;
              //public GameObject eletricityDown;
 
 }
-        
 
-        ///////////////////////////////////FIN BOBINE ARRANJADA////////
 
-        ////////////////////////////////////////////////////////////FIN ElectricityController////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////FIN BOBINE ARRANJADA////////
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////FIN ElectricityController////////////
 
         refreshVariables();
         ///////////////////////////////////////////////////////INI START CANVAS////////////
