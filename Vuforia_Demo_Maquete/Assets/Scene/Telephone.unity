@@ -3154,7 +3154,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 658335282}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.845, z: -0.297}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3176,6 +3176,8 @@ MonoBehaviour:
   DoorRotSpeed: 100
   finishFirstDemo: 0
   finishSecondDemo: 0
+  canStartSecondPartOfSecondDemo: 0
+  starsPS: {fileID: 198732682687265802, guid: 6656e314c044be34f94abe62de2f2632, type: 2}
   empty: {fileID: 986607257}
   emptyBatteryPivot: {fileID: 1361995743}
   finishedBobinePuzzle: 0
@@ -3186,6 +3188,9 @@ MonoBehaviour:
   flagBatteryToMouse: 0
   atendeu: 0
   speaking: 0
+  bobineToDrag: {fileID: 1002920833}
+  batteryToDrag: {fileID: 1623774699}
+  scaleBatteryOnFirstClick: 0
   phonesColliders: []
 --- !u!114 &658335286
 MonoBehaviour:
@@ -4435,6 +4440,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1002920833 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1151103054617426, guid: 84b55c64f3bd64b4db9ef1d8a2ee927c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1610616081}
 --- !u!1 &1028096009
 GameObject:
   m_ObjectHideFlags: 0
@@ -5023,7 +5033,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 019b8cef2f7d7e14eaa76f979b72bc93, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -13093,7 +13103,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4904555514301104, guid: 7d079a1e9d687184d8aab9f880453873, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0.581
+      value: -0.331
       objectReference: {fileID: 0}
     - target: {fileID: 4904555514301104, guid: 7d079a1e9d687184d8aab9f880453873, type: 2}
       propertyPath: m_LocalRotation.x

@@ -46,12 +46,14 @@ public class BatteryToTarget : MonoBehaviour {
             {
                 //Debug.Log("entrei aqui nesta cena da flag a true");
                 Destroy(GameObject.FindGameObjectWithTag("FadeBattery"));
-                GetComponent<BoxCollider>().isTrigger = false;
+                GetComponent<BoxCollider>().enabled = false;
                 //GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().canReturnOriginalPlace = false;
                 //Instantiate(starsPS);
-
-                GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().finishSecondDemo = true; //mete flag a true para dizer que ja acabou o demo para puder passar a outras coisas
+                other.GetComponent<Animator>().SetBool("canStayTransparent", true);
+                //GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().finishSecondDemo = true; //mete flag a true para dizer que ja acabou o demo para puder passar a outras coisas
                 GameObject.FindGameObjectWithTag("GameController").GetComponent<EletricityController>().telefonou = false;
+                GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().canStartSecondPartOfSecondDemo = true;
+                //GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().flagBatteryToMouse = false;
             }
         }
        
@@ -61,8 +63,11 @@ public class BatteryToTarget : MonoBehaviour {
     void OnTriggerExit(Collider other)
     {
         // Debug.Log("sai no Trigger");
-        if (other.name == "Battery");
-        GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().isInsideColliderBattery = false;//e esta
+        if (other.name == "Battery")
+        {
+            GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().isInsideColliderBattery = false;//e esta
+        }
+        
     }
 
     void moveToPlace(Collider other)

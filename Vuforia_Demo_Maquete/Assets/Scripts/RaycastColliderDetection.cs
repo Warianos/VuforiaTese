@@ -7,8 +7,13 @@ public class RaycastColliderDetection : MonoBehaviour {
     public float rayLength;
     public float distanceMousePosDoorUP;
     public float DoorRotSpeed;
+
     public bool finishFirstDemo;
     public bool finishSecondDemo;
+    public bool canStartSecondPartOfSecondDemo;
+    private int batteryClickCounter;
+    public ParticleSystem starsPS;
+
     public GameObject empty;
     public GameObject emptyBatteryPivot;
     private float distCameraToMiddle;
@@ -30,8 +35,16 @@ public class RaycastColliderDetection : MonoBehaviour {
     private GameObject target;
     Vector3 mousePosition;
     Vector3 worldMousePosition;
-    Vector3 objectIniPos;
+
+    Vector3 bobineIniPos;
+    Vector3 batteryIniPos;
+    public GameObject bobineToDrag;
+    public GameObject batteryToDrag;
+
+    public bool scaleBatteryOnFirstClick;
+
     Vector3 currentBobinePos;
+
     Vector3 camaraPos;
     Vector3 screenCamaraPosition;
     Vector3 objectPos;
@@ -65,6 +78,10 @@ public class RaycastColliderDetection : MonoBehaviour {
         contarColliders = true;
         telefonar = GetComponent<EletricityController>().telefonou;
         canInteractWithPhone = GetComponent<EletricityController>().canInteractWithPhone;
+        batteryIniPos = batteryToDrag.transform.position;
+        bobineIniPos = bobineToDrag.transform.position;
+        canStartSecondPartOfSecondDemo = false;
+        batteryClickCounter = 0;
         //bobineIniPos = 
         //rayCastLength = 0;
         //rayLength = 0;
@@ -140,27 +157,41 @@ public class RaycastColliderDetection : MonoBehaviour {
                         //Debug.Log("nomeDoGameObject: " + target.name);
                     }
 
-                    else if (hit.collider.gameObject.tag == "Bobine" /*|| !finishFirstDemo*/)
+                    else if (!finishFirstDemo && hit.collider.gameObject.tag == "Bobine" /*|| !finishFirstDemo*/)
                     {
 
                         //Debug.Log("distancia percorrida pelo raio: "+ rayCastLength);
                         target = hit.collider.gameObject;
                         target.transform.parent = null;
 
-                        objectIniPos = target.transform.position;
+                        //objectIniPos = bobineToDrag.transform.position;
                         flagObjectToMouse = true;
                         //Debug.Log("nomeDoGameObject: " + target.name);
                     }
 
-                    else if (hit.collider.gameObject.tag == "Battery" /*|| !finishFirstDemo*/)
+                    else if (!finishSecondDemo && hit.collider.gameObject.tag == "Battery" /*|| !finishFirstDemo*/)
                     {
-
+                      
                         //Debug.Log("distancia percorrida pelo raio: "+ rayCastLength);
                         target = hit.collider.gameObject;
                         target.transform.parent = null;
+                        scaleBatteryOnFirstClick = true;
+                        Debug.Log("CLIQUEI NA BATERIA");
+                        if (canStartSecondPartOfSecondDemo)
+                        {
+                            Debug.Log("FIZ POWERUP CARALHO");
+                            batteryClickCounter++;
+                            target.GetComponent<Animator>().SetTrigger("canPowerUp");
+                        }
+                        else
+                        {
+                            Debug.Log("ENTREIA AQUI NO flagBATTERYtoMOUSE");
+                            flagBatteryToMouse = true; //se n tiver entrado ainda na segunda parte do desafio, já n deixa ir para a mão
+                        }
 
-                        objectIniPos = target.transform.position;
-                        flagBatteryToMouse = true;
+
+                        //objectIniPos = batteryToDrag.transform.position;
+                       
                         Debug.Log("nomeDoGameObject: " + target.tag);
                     }
 
@@ -196,6 +227,14 @@ public class RaycastColliderDetection : MonoBehaviour {
             
             
             }
+            if (batteryClickCounter == 5)
+            {
+                canStartSecondPartOfSecondDemo = false;
+                finishSecondDemo = true;
+                batteryClickCounter = 0;
+                Instantiate(starsPS);
+            }
+
             if (flagDragDoor )
             {
                 OnMouseDrag();
@@ -244,12 +283,12 @@ public class RaycastColliderDetection : MonoBehaviour {
             if (canReturnOriginalPlace && target.gameObject.tag == "Bobine")
             {
                 Debug.Log("vou retornar a posição inicial");
-                returnObjectToPlace(objectIniPos);
+                returnObjectToPlace(bobineIniPos);
             }
             if (canReturnOriginalPlace && target.gameObject.tag == "Battery")
             {
                 Debug.Log("vou retornar a posição inicial a batteria");
-                returnObjectToPlace(objectIniPos);
+                returnObjectToPlace(batteryIniPos);
             }
 
         }
@@ -328,6 +367,11 @@ public class RaycastColliderDetection : MonoBehaviour {
         empty.transform.position = worldMousePosition;
         
         target.transform.parent = empty.transform;
+        if (scaleBatteryOnFirstClick && target.transform.tag == "Battery") //colocar o scale correcto dele quando está dentro do pai
+        {
+            target.GetComponent<Animator>().SetTrigger("clickedBattery");
+            scaleBatteryOnFirstClick = false;
+        }
         target.gameObject.transform.position = Vector3.MoveTowards(target.gameObject.transform.position, empty.transform.position, Time.deltaTime * 2.0f);
         //empty.transform.position = new Vector3(empty.transform.position.x, empty.transform.position.y, distCameraToMiddle / 100);
 
@@ -344,6 +388,8 @@ public class RaycastColliderDetection : MonoBehaviour {
         {
             //Debug.Log("cheguei a posição inicial");
             canReturnOriginalPlace = false;
+            //flagObjectToMouse = false;
+            //flagBatteryToMouse = false;
         }
     }
 
