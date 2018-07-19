@@ -177,9 +177,9 @@ public class RaycastColliderDetection : MonoBehaviour {
                         target.transform.parent = null;
                         scaleBatteryOnFirstClick = true;
                         Debug.Log("CLIQUEI NA BATERIA");
-                        if (canStartSecondPartOfSecondDemo)
+                        if (canStartSecondPartOfSecondDemo)//BUG DE CLICAR RAPIDO DE MAIS
                         {
-                            Debug.Log("FIZ POWERUP CARALHO");
+                            Debug.Log("FIZ POWERUP LOL"); 
                             batteryClickCounter++;
                             target.GetComponent<Animator>().SetTrigger("canPowerUp");
                         }

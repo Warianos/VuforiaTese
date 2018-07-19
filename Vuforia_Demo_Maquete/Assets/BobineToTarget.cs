@@ -28,28 +28,31 @@ public class BobineToTarget : MonoBehaviour {
 
     void OnTriggerStay(Collider other)
     {
-        if(other.name == "BobineLeft")
+        if (other.name == "BobineLeft")
         {
-            //apenas pode mudar quando o objecto n esta a ser clicado quer dizer que o objecto é para fazer snap 
-            canMove = !GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().flagObjectToMouse;
-
-
-            if (canMove)
+            if (GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().canReturnOriginalPlace == false)//para asegurar que não vai para o lugar se o jogador deixar num sitio e o caminho de retorno tocar no collider ele vai tentar ir na mesma, mas como tem a flag de retornar para o sitio, ele faz o que o algoritmo do collider diz e depois volta ao lugar
             {
-                moveToPlace(other);
-            }
-            //Se a posição do objecto for a mm que o target então retiramos o trigger para não haver Extra computação
-            if (other.gameObject.transform.position == transform.position)
-            {
-                //Debug.Log("entrei aqui nesta cena da flag a true");
-                Destroy(GameObject.FindGameObjectWithTag("FadeBobine"));
-                GetComponent<BoxCollider>().isTrigger = false;
-                //GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().canReturnOriginalPlace = false;
-                Instantiate(starsPS);
+                //apenas pode mudar quando o objecto n esta a ser clicado quer dizer que o objecto é para fazer snap 
+                canMove = !GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().flagObjectToMouse;
 
-                GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().finishFirstDemo = true; //mete flag a true para dizer que ja acabou o demo para puder passar a outras coisas
-                GameObject.FindGameObjectWithTag("GameController").GetComponent<EletricityController>().telefonou = false;
-               // GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().flagObjectToMouse = false;
+
+                if (canMove)
+                {
+                    moveToPlace(other);
+                }
+                //Se a posição do objecto for a mm que o target então retiramos o trigger para não haver Extra computação
+                if (other.gameObject.transform.position == transform.position)
+                {
+                    //Debug.Log("entrei aqui nesta cena da flag a true");
+                    Destroy(GameObject.FindGameObjectWithTag("FadeBobine"));
+                    GetComponent<BoxCollider>().isTrigger = false;
+                    //GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().canReturnOriginalPlace = false;
+                    Instantiate(starsPS);
+
+                    GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().finishFirstDemo = true; //mete flag a true para dizer que ja acabou o demo para puder passar a outras coisas
+                    GameObject.FindGameObjectWithTag("GameController").GetComponent<EletricityController>().telefonou = false;
+                    // GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().flagObjectToMouse = false;
+                }
             }
         }
       

@@ -19,6 +19,7 @@ public class EletricityController : MonoBehaviour {
     public GameObject eletricityGoingUp;
     public GameObject eletricityDownOFF;
     public GameObject eletricityDown;
+    public GameObject eletricityGoingDown;
 
     public float eletricityBobineTime;
     public float eletricityDownTime;
@@ -307,49 +308,64 @@ public class EletricityController : MonoBehaviour {
                 {
                     eletricityBobineTime += Time.deltaTime;
                     eletricityBobine.GetComponent<Animator>().SetBool("canFadeOut", true);
+                    
                     if (eletricityBobineTime >= 1.5)
                     {
+                        eletricityDownFlag1 = true;
                         eletricityBobineTime = 0;
                         eletricityBobineON = false;
                         eletricityBobine.SetActive(false);
                         eletricityFlag1 = true;
+
+                        eletricityGoingDown.SetActive(true);//enviar 
+                        eletricityDown.SetActive(true);
                     }
                 }
+               
 
             }
-            if (finishSecondDemo)
+
+            if (eletricityDownFlag1)
             {
-                if (atendeu)  //e se passou o segundo demo
-                {
-                    eletricityDown.SetActive(true);
-                    
-                    eletricityDownFlag1 = true;
-                    //colocar aqui cenas da eletricidade quando a chamada é atendida
-                }
+                //eletricityDownTime += Time.deltaTime;
+            }
+            if (!atendeu)
+            {
+                Debug.Log("eletricityDownFlag1 é: " + eletricityDownFlag1);
                 if (eletricityDownFlag1)
                 {
+                    Debug.Log("entrei no eletricityDownFlag1 " + eletricityDownFlag1);
+                    eletricityGoingDown.GetComponent<Animator>().SetBool("canFadeOut", true);
+                    eletricityDown.SetActive(false);
+                    eletricityDownTime += Time.deltaTime;
+                    if (eletricityDownTime >= 1.5f)
+                    {
+                        eletricityDownTime = 0;
+                        eletricityDownFlag1 = false;
+                        eletricityGoingDown.SetActive(false);
+                    }
+                    //enviar 
+                    //eletricityDown.GetComponent<Animator>().SetBool("canFadeOut", true);
                     //eletricityDownTime += Time.deltaTime;
                 }
-                if (!atendeu)
-                {
-                    if (eletricityDownFlag1)
-                    {
-                        eletricityDownFlag1 = false;
-                        eletricityDown.SetActive(false);
-                        //eletricityDown.GetComponent<Animator>().SetBool("canFadeOut", true);
-                        //eletricityDownTime += Time.deltaTime;
-                    }
-                    
-                    
-                }
-            }
-           
-             //public GameObject eletricityBobine;
-             //public GameObject eletricityGoingUp;
-             //public GameObject eletricityDownOFF;
-             //public GameObject eletricityDown;
 
-}
+
+            }
+
+
+            //public GameObject eletricityBobine;
+            //public GameObject eletricityGoingUp;
+            //public GameObject eletricityDownOFF;
+            //public GameObject eletricityDown;
+
+        }
+        
+        if (finishSecondDemo)
+        {
+            
+
+            
+        }
 
 
         ////////////////////////////////////////////////////////////////////////////////////////////FIN BOBINE ARRANJADA////////
@@ -424,20 +440,33 @@ public class EletricityController : MonoBehaviour {
             
         }
         
-        ////////////////////////////////////////////////////////////////INICIO verificar se acabou o demo a primeira vez para desbloquear a primeira informação//////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////verificação dos acontecimentos para aparecer informação//////////////////////////////////////////////////
 
         if(finishFirstDemo && showInfo1)
         {
             showInfo1 = false;
             //alterar a variavel de ter desbloqueado o cromo
-            XMLManager.ins.SetVariableInDatabase("Telephone", true,0);
-            XMLManager.ins.SetVariableInDatabase("Telephone",true);
-            XMLManager.ins.SaveItems();
+            //XMLManager.ins.SetVariableInDatabase("Telephone", true,0);
+            //XMLManager.ins.SetVariableInDatabase("Telephone",true);
+            //XMLManager.ins.SaveItems();
             //xmlManager.LoadItems();
             //fim de alterar variavel de desbloquear o cromo
             primeiroDesafioText.transform.Find("CheckBox").gameObject.SetActive(false);
             segundoDesafioText.color = new Color(0.1f, 0.1f, 0.1f,1.0f); //meter cor cinzenta escura
             sendinfo(info1);
+        }
+        if (finishSecondDemo && showInfo2)
+        {
+            showInfo2 = false;
+            //alterar a variavel de ter desbloqueado o cromo
+            XMLManager.ins.SetVariableInDatabase("Telephone", true, 0);
+            XMLManager.ins.SetVariableInDatabase("Telephone", true);
+            XMLManager.ins.SaveItems();
+            //xmlManager.LoadItems();
+            //fim de alterar variavel de desbloquear o cromo
+            segundoDesafioText.transform.Find("CheckBox").gameObject.SetActive(false);
+            segundoDesafioText.color = new Color(0.1f, 0.1f, 0.1f, 1.0f); //meter cor cinzenta escura
+            sendinfo(info2);
         }
 
         ////////////////////////////////////////////////////////////////FIM verificar se acabou o demo a primeira vez para desbloquear a primeira informação//////////////////////////////////////////////////
