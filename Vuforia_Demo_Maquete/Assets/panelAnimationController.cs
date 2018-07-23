@@ -62,6 +62,10 @@ public class panelAnimationController : MonoBehaviour
         {
             //gameObject.SetActive(false);
             animator.SetBool("clickedOrTimeOut", true);
+            if(GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().atendeu == true && GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().finishSecondDemo != true)
+            {
+                GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().atendeu = false;
+            }
             GameObject.FindGameObjectWithTag("GameController").GetComponent<EletricityController>().canvasStart = true;
             GameObject.FindGameObjectWithTag("GameController").GetComponent<EletricityController>().firstTimeObjectiveShakeAnim = true;
             

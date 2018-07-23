@@ -23,6 +23,7 @@ public class EletricityController : MonoBehaviour {
 
     public float eletricityBobineTime;
     public float eletricityDownTime;
+    public float timeToAnswerAgain;
 
     private bool eletricityDownFlag1;
     public bool eletricityBobineON;
@@ -101,8 +102,10 @@ public class EletricityController : MonoBehaviour {
     public bool call;
     private float time;
     private bool canRing;
+
     private bool finishFirstDemo;
-    private bool finishSecondDemo;
+    public bool finishSecondDemo;
+    private bool canSendSoundTubes;
     public bool atendeu;
     private bool atendiUmaVez;
     private bool falou;
@@ -111,14 +114,18 @@ public class EletricityController : MonoBehaviour {
 
     //informação que é desbloquada
     public GameObject infoPanelToEnable;
-    public Text info1;
-    public Text info2;
-    public Text info3;
-    public Text info;
+    public Text Info1;
+    public Text Info2;
+    public Text Info3;
+    public Text Info;
 
     private bool showInfo1;
     private bool showInfo2;
     private bool showInfo3;
+    public bool canShowInfo2;
+    private bool showInfoTelephone;
+    private bool showInfoAcceptCallnot2Challenge;
+    
     public bool firstTimeObjectiveShakeAnim;
 
     XMLManager xmlManager;
@@ -131,8 +138,10 @@ public class EletricityController : MonoBehaviour {
     //Use this for initialization
     void Start () {
         time = ps.GetComponent<ParticleSystemFollowPath>().time;
+
         finishFirstDemo = GetComponent<RaycastColliderDetection>().finishFirstDemo;
         finishSecondDemo = GetComponent<RaycastColliderDetection>().finishSecondDemo;
+        canSendSoundTubes = true;
         atendeu = GetComponent<RaycastColliderDetection>().atendeu;
         phonesColliders = GetComponent<RaycastColliderDetection>().phonesColliders;
         SinosAnimator = Sinos.GetComponent<Animator>();
@@ -142,6 +151,9 @@ public class EletricityController : MonoBehaviour {
         showInfo1 = true;
         showInfo2 = true;
         showInfo3 = true;
+        canShowInfo2 = false;
+        showInfoTelephone = true;
+        showInfoAcceptCallnot2Challenge = true;
         canInteractWithPhone = false;
         infoFirstTime = true;
         firstTimeObjectiveShakeAnim = false;
@@ -152,6 +164,7 @@ public class EletricityController : MonoBehaviour {
         eletricityBobineON = false;
         eletricityBobineTime = 0;
         eletricityDownTime = 0;
+        timeToAnswerAgain = 0;
         eletricityFlag1 = true;
         falarText.enabled = true;
         naoFalarText.enabled = false;
@@ -190,9 +203,9 @@ public class EletricityController : MonoBehaviour {
         XMLManager.ins.LoadItems();
         //xmlManagerSticker = xmlManager.GetComponent<XMLManager>().itemDB.list[0].earnedSticker; //primeiro elemento é o telefone e tras o booleano actual feito do load do XML
         //xmlManagerSticker = XMLManager.ins.itemDB.list[0].earnedSticker;
-        info1.text = XMLManager.ins.itemDB.list[0].objectInfoText1;
-        info2.text = XMLManager.ins.itemDB.list[0].objectInfoText2;
-        info3.text = XMLManager.ins.itemDB.list[0].objectInfoText3;
+        Info1.text = XMLManager.ins.itemDB.list[0].objectInfoText1;
+        Info2.text = XMLManager.ins.itemDB.list[0].objectInfoText2;
+        Info3.text = XMLManager.ins.itemDB.list[0].objectInfoText3;
 
     }
 
@@ -360,13 +373,45 @@ public class EletricityController : MonoBehaviour {
 
         }
         
-        if (finishSecondDemo)
+        if (finishSecondDemo && atendeu)
         {
-            
+            Debug.Log("timeSoundWavesLeftINI = " + timeSoundWavesLeftINI);
+            Debug.Log("timeSoundWavesLeft = " + timeSoundWavesLeft);
+            Debug.Log("activateCancelSoundWavesLeft = " + activateCancelSoundWavesLeft);
+            //////////////////////////////////////////////////////////////////SOUND TUBES INI//////////////////////////////////////////////////////////////
+            if (timeSoundWavesLeftINI <= timeSoundWavesLeft)
+            {
+                timeSoundWavesLeftINI += Time.deltaTime;
+            }
 
-            
+            if (timeSoundWavesLeftINI >= timeSoundWavesLeft)
+            {
+                activateCancelSoundWavesLeft = true;
+            }
+
+            if (activateCancelSoundWavesLeft)
+            {
+
+                timeSoundWavesLeftINI = 0;
+                activateCancelSoundWavesLeft = false;
+                instantiatePSSoundLeft();
+                instantiatePSSoundRight();
+            }
+
+            canSendSoundTubes = true;
+            //////////////////////////////////////////////////////////////////SOUND TUBES FIN//////////////////////////////////////////////////////////////
+            //////////////////////////////////////////////////////////////////Enviar mensagem de ter feito o segundo desafio
+
+
+
+
         }
-
+        /*
+        if (finishSecondDemo && !atendeu)
+            if (canSendSoundTubes) {
+                pssound
+        }
+        */
 
         ////////////////////////////////////////////////////////////////////////////////////////////FIN BOBINE ARRANJADA////////
 
@@ -385,7 +430,7 @@ public class EletricityController : MonoBehaviour {
             if (telefonou && infoFirstTime)
             {
                 
-                sendinfo(info);
+                sendinfo(Info);
                 infoFirstTime = false;
             }
             if (telefonou && canvasStart && canvasTimerToAppear >= 0.5f)
@@ -442,32 +487,42 @@ public class EletricityController : MonoBehaviour {
         
         ////////////////////////////////////////////////////////////////verificação dos acontecimentos para aparecer informação//////////////////////////////////////////////////
 
-        if(finishFirstDemo && showInfo1)
+        if(finishFirstDemo && showInfo1 && !telefonou)
         {
             showInfo1 = false;
-            //alterar a variavel de ter desbloqueado o cromo
-            //XMLManager.ins.SetVariableInDatabase("Telephone", true,0);
-            //XMLManager.ins.SetVariableInDatabase("Telephone",true);
-            //XMLManager.ins.SaveItems();
-            //xmlManager.LoadItems();
-            //fim de alterar variavel de desbloquear o cromo
+         
             primeiroDesafioText.transform.Find("CheckBox").gameObject.SetActive(false);
+            primeiroDesafioText.transform.Find("CheckBoxCorrect").gameObject.SetActive(true);
             segundoDesafioText.color = new Color(0.1f, 0.1f, 0.1f,1.0f); //meter cor cinzenta escura
-            sendinfo(info1);
+            sendinfo(Info1);
+            canvasAnimatorController.GetComponent<canvasAnimationController>().objectivePanelAnimator.SetBool("somethingNew", true);
         }
-        if (finishSecondDemo && showInfo2)
+        if (canShowInfo2)
         {
-            showInfo2 = false;
-            //alterar a variavel de ter desbloqueado o cromo
-            XMLManager.ins.SetVariableInDatabase("Telephone", true, 0);
-            XMLManager.ins.SetVariableInDatabase("Telephone", true);
-            XMLManager.ins.SaveItems();
-            //xmlManager.LoadItems();
-            //fim de alterar variavel de desbloquear o cromo
-            segundoDesafioText.transform.Find("CheckBox").gameObject.SetActive(false);
-            segundoDesafioText.color = new Color(0.1f, 0.1f, 0.1f, 1.0f); //meter cor cinzenta escura
-            sendinfo(info2);
+            canShowInfo2 = false;
+            
+            sendinfo(Info2);
+            
+
         }
+        if (finishFirstDemo && showInfo2 && telefonou)
+        {
+            segundoDesafioText.transform.Find("CheckBox").gameObject.SetActive(false);
+            segundoDesafioText.transform.Find("CheckBoxCorrect").gameObject.SetActive(true);
+            terceiroDesafioText.color = new Color(0.1f, 0.1f, 0.1f, 1.0f); //meter cor cinzenta escura
+            canvasAnimatorController.GetComponent<canvasAnimationController>().objectivePanelAnimator.SetBool("somethingNew", true);
+            showInfo2 = false;
+        }
+        if (finishSecondDemo && showInfo3 && atendeu)
+        {
+            showInfo3 = false;
+            //atendeu = false;
+            terceiroDesafioText.transform.Find("CheckBox").gameObject.SetActive(false);
+            terceiroDesafioText.transform.Find("CheckBoxCorrect").gameObject.SetActive(true);
+            terceiroDesafioText.color = new Color(0.1f, 0.1f, 0.1f, 1.0f); //meter cor cinzenta escura
+            sendinfo(Info3);
+        }
+
 
         ////////////////////////////////////////////////////////////////FIM verificar se acabou o demo a primeira vez para desbloquear a primeira informação//////////////////////////////////////////////////
 
@@ -479,7 +534,12 @@ public class EletricityController : MonoBehaviour {
             Debug.Log("atender bool: " + atendeu);
             if (telefonou)
             {
-                
+                if (showInfoTelephone)//mostrar informação sobre ter telefonado depois de ter feito o primeiro desafio
+                {
+                    Info.text = "Já estamos a receber energia, em principio poderemos ouvir a chamada";
+                    sendinfo(Info);
+                    showInfoTelephone = false;
+                }
                 //por os 2 primeiros colliders do telefone ligados
                 if(phonesColliders[0].enabled == false)
                 {
@@ -497,9 +557,18 @@ public class EletricityController : MonoBehaviour {
                 Atender.interactable = false;
                 
             }
+
+            
             //se atendeu muda as letras para desligar
             if (atendeu)
             {
+                if (showInfoAcceptCallnot2Challenge && !finishSecondDemo)//mostrar informação sobre ter telefonado depois de ter feito o primeiro desafio
+                {
+                    
+                    Info.text = "Estamos a receber a chamada, mas não estamos a conseguir ouvir nada...será que poderá ser falta da bateria?";
+                    sendinfo(Info);
+                    showInfoAcceptCallnot2Challenge = false;
+                }
                 atenderText.enabled = false;
                 desligarText.enabled = true;
                 telefonou = false;
@@ -508,7 +577,7 @@ public class EletricityController : MonoBehaviour {
                 TubosAnimator.SetBool("canAnimTubes", true);
                 TubosAnimator.SetBool("canReturnStartPos", false);
                 segundoDesafioText.transform.Find("CheckBox").gameObject.SetActive(false);
-                terceiroDesafioText.color = new Color(0.302f, 0.671f, 0.318f, 1.0f); //meter cor cinzenta escura
+                terceiroDesafioText.color = new Color(0.1f, 0.1f, 0.1f, 1.0f); //meter cor cinzenta escura
                 
                 //Telefonar.interactable = false;
             }
@@ -529,7 +598,7 @@ public class EletricityController : MonoBehaviour {
                 TubosAnimator.SetBool("canReturnStartPos", true);
                 //Atender.interactable = false;
             }
-
+            
             Debug.Log("Falar bool : " +  falou);
             if (falou)
             {
@@ -548,106 +617,9 @@ public class EletricityController : MonoBehaviour {
 
        
 
-        //FAZER RESET AS VARIAVEIS QUANDO SAI DO FILTER!!!!!
-        if (filter)
-        {
-            terceiroDesafioText.color = new Color(0.302f, 0.671f, 0.318f); //greenish
-            //////////////////////////////////////////////////////////////////BOBINE ESTRAGADA INI//////////////////////////////////////////////////////////////
-            if (!finishFirstDemo && !photonParticleBobine.IsAlive() && telefonou && activateCancelBobineTelephoneOnce)
-            {
-                
-                telefonou = false;
-                instantiatePSBobine();
-            }
-            if (finishFirstDemo && telefonou == false)
-            {
-                activateCancelBobineTelephoneOnce = false;
-            }
-            //////////////////////////////////////////////////////////////////BOBINE ESTRAGADA FIN//////////////////////////////////////////////////////////////
+      
 
-            if (finishFirstDemo)
-            {
-                //////////////////////////////////////////////////////////////////BOBINE ARRANJADA INI//////////////////////////////////////////////////////////////
-                if (timeBobineINI <= timeBobine)
-                {
-                    timeBobineINI += Time.deltaTime;
-                }
-                if (timeBobineINI >= timeBobine)
-                {
-                    activateCancelBobineOnce = true;
-                }
-                if (finishFirstDemo && telefonou && activateCancelBobineOnce && atendeu == false)
-                {
-                    Debug.Log("entrei aqui no invoke da bobine repetidamente");
-                    timeBobineINI = 0;
-                    activateCancelBobineOnce = false;
-                    //telefonou = false;
-                    instantiatePSBobine();
-                   
-                }
-                //////////////////////////////////////////////////////////////////BOBINE ARRANJADA FIN//////////////////////////////////////////////////////////////
-                if (atendeu)// e FALOU MAS AINDA N ESTA FEITO
-                {
-
-                    //Falar.interactable = true;
-
-                    //////////////////////////////////////////////////////////////////RECIEVE SOUND INI//////////////////////////////////////////////////////////////
-                    if (timeRecieveSoundINI <= timeRecieveSound)
-                    {
-                        timeRecieveSoundINI += Time.deltaTime;
-                    }
-                    if (timeRecieveSoundINI >= timeRecieveSound)
-                    {
-                        activateCancelRecieveSoundOnce = true;
-                    }
-                    if (activateCancelRecieveSoundOnce)
-                    {
-                        timeRecieveSoundINI = 0;
-                        activateCancelRecieveSoundOnce = false;
-                        instantiatePSRecieveSound();
-                    }
-                
-                    //////////////////////////////////////////////////////////////////RECIEVE SOUND FIN//////////////////////////////////////////////////////////////
-
-                    //////////////////////////////////////////////////////////////////ELETRICITY TUBES INI//////////////////////////////////////////////////////////////
-                    if (timeLeftParticleINI <= timeLeftParticle)
-                    {
-                        timeLeftParticleINI += Time.deltaTime;
-                    }
-                    if (timeLeftParticleINI >= timeLeftParticle)
-                    {
-                        activateCancelLeftParticleOnce = true;
-                    }
-                    if (activateCancelLeftParticleOnce)
-                    {
-
-                        timeLeftParticleINI = 0;
-                        activateCancelLeftParticleOnce = false;
-                        instantiatePSLeft();
-                        instantiatePSRight();
-                    }
-
-                    //////////////////////////////////////////////////////////////////ELETRICITY TUBES FIN//////////////////////////////////////////////////////////////
-
-                    //////////////////////////////////////////////////////////////////SOUND TUBES INI//////////////////////////////////////////////////////////////
-                    if (timeSoundWavesLeftINI <= timeSoundWavesLeft)
-                    {
-                        timeSoundWavesLeftINI += Time.deltaTime;
-                    }
-                    if (timeSoundWavesLeftINI >= timeSoundWavesLeft)
-                    {
-                        activateCancelSoundWavesLeft = true;
-                    }
-                    if (activateCancelSoundWavesLeft)
-                    {
-
-                        timeSoundWavesLeftINI = 0;
-                        activateCancelSoundWavesLeft = false;
-                        instantiatePSSoundLeft();
-                        instantiatePSSoundRight();
-                    }
-
-                    //////////////////////////////////////////////////////////////////SOUND TUBES FIN//////////////////////////////////////////////////////////////
+                    
                     if (falou)
                     {
                         //////////////////////////////////////////////////////////////////SEND SOUND INI//////////////////////////////////////////////////////////////
@@ -690,17 +662,13 @@ public class EletricityController : MonoBehaviour {
                         //////////////////////////////////////////////////////////////////SEND SOUND FIN//////////////////////////////////////////////////////////////
                     }
 
-                }
+                
 
-            }
-            
-
-           
-
-        }
+         
 
 
         // refresh variaveis do filtro
+        /*
         else
         {
             activateCancelBobineTelephoneOnce = true;
@@ -720,7 +688,7 @@ public class EletricityController : MonoBehaviour {
             timeSoundWavesRightINI = 0;
         }
         
-        
+        */
     }
 
     private void refreshVariables()
@@ -735,9 +703,36 @@ public class EletricityController : MonoBehaviour {
     private void sendinfo(Text info)
     {
         Debug.Log("entreia qui no sendINFO");
-        this.info.gameObject.SetActive(false);
+        /////////////////////////////////////////////Desativar tudo o que n diz respeito a info que se quer mostrar
+        if (info.gameObject.name == "Q1")
+        {
+            Info2.gameObject.SetActive(false);
+            Info3.gameObject.SetActive(false);
+            Info.gameObject.SetActive(false);
+        }
+        else if(info.gameObject.name == "Q2")
+        {
+            Info1.gameObject.SetActive(false);
+            Info3.gameObject.SetActive(false);
+            Info.gameObject.SetActive(false);
+        }
+        else if (info.gameObject.name == "Q3")
+        {
+            Info1.gameObject.SetActive(false);
+            Info2.gameObject.SetActive(false);
+            Info.gameObject.SetActive(false);
+        }
+        else if (info.gameObject.name == "Info")
+        {
+            Info1.gameObject.SetActive(false);
+            Info2.gameObject.SetActive(false);
+            Info3.gameObject.SetActive(false);
+        }
+        
+
         infoPanelToEnable.SetActive(false);
-        info.gameObject.SetActive(false);
+        /////////////////////////////////////////////Desativar tudo o que n diz respeito a info que se quer mostrar
+
         infoPanelToEnable.SetActive(true);
         info.gameObject.SetActive(true);
     }

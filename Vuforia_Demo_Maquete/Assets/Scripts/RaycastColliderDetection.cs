@@ -40,6 +40,9 @@ public class RaycastColliderDetection : MonoBehaviour {
     Vector3 batteryIniPos;
     public GameObject bobineToDrag;
     public GameObject batteryToDrag;
+    public GameObject topDoor;
+    public GameObject bottomDoor;
+    public GameObject phones;
 
     public bool scaleBatteryOnFirstClick;
 
@@ -55,10 +58,23 @@ public class RaycastColliderDetection : MonoBehaviour {
     private bool telefonar;
     private bool firstTimeUpdate = true;
     public BoxCollider[] phonesColliders;
-    private GameObject phones;
+    //private GameObject phones;
 
     //canvas
     private bool canInteractWithPhone;
+
+    //non Interaction Animation Variables
+    private float interactFalseFirstDemoTimer;
+    private float interactTrueFirstDemoTimer;
+    private float interactFalseSecondDemoTimer;
+    private float interactTrueSecondDemoTimer;
+
+    public float lackingInteractionTimerLimit;
+
+    public bool interactFalseFirstDemoBool;
+    public bool interactTrueFirstDemoBool;
+    public bool interactFalseSecondDemoBool;
+    public bool interactTrueSecondDemoBool;
 
     //public LayerMask;
     // Use this for initialization
@@ -82,13 +98,23 @@ public class RaycastColliderDetection : MonoBehaviour {
         bobineIniPos = bobineToDrag.transform.position;
         canStartSecondPartOfSecondDemo = false;
         batteryClickCounter = 0;
+        interactFalseFirstDemoTimer = 0;
+        interactTrueFirstDemoTimer = 0;
+        interactFalseSecondDemoTimer = 0;
+        interactTrueSecondDemoTimer = 0;
+
+        interactFalseFirstDemoBool = false;
+        interactTrueFirstDemoBool = false;
+        interactFalseSecondDemoBool = false;
+        interactTrueSecondDemoBool = false;
+
         //bobineIniPos = 
         //rayCastLength = 0;
         //rayLength = 0;
         //distanceMousePosDoorUP = 0;
         //DoorRotSpeed = 0;
         //meter os colliders dos auscutadores a false inicialmente, e só ficam activos quando o primeiro demo está completado e foi clicado no telefonar
-        // phones = GameObject.FindGameObjectWithTag("Phones");
+        //phones = GameObject.FindGameObjectWithTag("Phones");
         //phones = GameObject.FindGameObjectWithTag("Phones");
         //Debug.Log(phones.name);
 
@@ -100,7 +126,65 @@ public class RaycastColliderDetection : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         //só depois do canvas comecar é que se pode interagir com o resto
-       // Debug.Log("canInteractWithPhone e!!!!!!!!!!!!!!!!!!!!!!!" + canInteractWithPhone);
+        // Debug.Log("canInteractWithPhone e!!!!!!!!!!!!!!!!!!!!!!!" + canInteractWithPhone);
+
+        ////////////////////////////////////////////////////////////////////////////////////////INI Controlar os timers de feedback se não tiver a interagir durante algum tempo//////////////////////////////////
+        if (!finishFirstDemo && !interactFalseFirstDemoBool)
+        {
+            interactFalseFirstDemoTimer += Time.deltaTime;
+        }
+
+        if (!finishSecondDemo && !interactFalseSecondDemoBool)
+        {
+            interactFalseSecondDemoTimer += Time.deltaTime;
+        }
+
+        if (finishFirstDemo && !interactTrueFirstDemoBool)
+        {
+            interactTrueFirstDemoTimer += Time.deltaTime;
+        }
+        if (finishSecondDemo && !interactTrueSecondDemoBool)
+        {
+            interactTrueSecondDemoTimer += Time.deltaTime;
+        }
+
+        /*
+         *  public GameObject bobineToDrag;
+    public GameObject batteryToDrag;
+    public GameObject topDoor;
+    public GameObject bottomDoor;
+         */
+
+        //tubos e bateria são trigger
+        if (interactFalseFirstDemoBool) //adicionar bool para entrar só uma vez
+        {
+            topDoor.GetComponent<Animator>().SetBool("canGlowScale", false);
+            bottomDoor.GetComponent<Animator>().SetBool("canGlowScale", false);
+            
+
+        }
+        if (!interactFalseFirstDemoBool && interactFalseFirstDemoTimer >= lackingInteractionTimerLimit) // se não passou o primeiro demo e não clicou em nada faz animação das cenas do primeiro demo
+        {
+            topDoor.GetComponent<Animator>().SetBool("canGlowScale",true);
+            bottomDoor.GetComponent<Animator>().SetBool("canGlowScale", true);
+            bobineToDrag.GetComponent<Animator>().SetBool("canGlowScale", true);
+            interactFalseFirstDemoTimer = 0;
+        }
+
+        if (!interactFalseSecondDemoBool && interactFalseSecondDemoTimer >= lackingInteractionTimerLimit) // se não passou o primeiro demo e não clicou em nada faz animação das cenas do primeiro demo
+        {
+            batteryToDrag.GetComponent<Animator>().SetTrigger("canGlowScale");
+            interactFalseSecondDemoTimer = 0;
+
+        }
+        if(!interactTrueFirstDemoBool && finishFirstDemo && interactTrueFirstDemoTimer >= lackingInteractionTimerLimit)
+        {
+            Debug.Log("Entrei aqui naquele IF que queres saber");
+            bobineToDrag.GetComponent<Animator>().SetBool("canGlowScale", false);
+            phones.GetComponent<Animator>().SetTrigger("canGlowScale");
+            interactTrueFirstDemoTimer = 0;
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////FIN Controlar os timers de feedback se não tiver a interagir durante algum tempo//////////////////////////////////
         if (!canInteractWithPhone) //sóa ctualiza a variavel até n ser precisa novamente
         {
             canInteractWithPhone = GetComponent<EletricityController>().canInteractWithPhone;
@@ -141,7 +225,8 @@ public class RaycastColliderDetection : MonoBehaviour {
                 
                         if (hit.collider.gameObject.tag == "TopDoor")
                     {
-                    
+                        interactFalseFirstDemoBool = true;
+                        //interactTrueFirstDemoBool = true;
                         //Debug.Log("distancia percorrida pelo raio: "+ rayCastLength);
                         target = hit.collider.gameObject;
                         flagDragDoor = true;
@@ -150,7 +235,8 @@ public class RaycastColliderDetection : MonoBehaviour {
 
                     else if (hit.collider.gameObject.tag == "BottomDoor")
                     {
-
+                        interactFalseFirstDemoBool = true;
+                        //interactTrueFirstDemoBool = true;
                         //Debug.Log("distancia percorrida pelo raio: "+ rayCastLength);
                         target = hit.collider.gameObject;
                         flagDragDoor = true;
@@ -177,6 +263,7 @@ public class RaycastColliderDetection : MonoBehaviour {
                         target.transform.parent = null;
                         scaleBatteryOnFirstClick = true;
                         Debug.Log("CLIQUEI NA BATERIA");
+                        interactFalseSecondDemoBool = true;
                         if (canStartSecondPartOfSecondDemo)//BUG DE CLICAR RAPIDO DE MAIS
                         {
                             Debug.Log("FIZ POWERUP LOL"); 
@@ -198,6 +285,7 @@ public class RaycastColliderDetection : MonoBehaviour {
                     else if(hit.collider.gameObject.tag == "Phones")
                     {
                         telefonar = GetComponent<EletricityController>().telefonou;
+                        interactTrueFirstDemoBool = true;
                         //Collider[] colliders = hit.collider.gameObject.GetComponents<Collider>();
                         //Debug.Log("entrei no contarColliders");
 

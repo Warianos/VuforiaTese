@@ -18,10 +18,12 @@ public class CanTelephone : MonoBehaviour {
     private bool finishedFirstDemo;
     public GameObject infoPanel;
     public bool firstTimeAfterFirstDemo;
-	// Use this for initialization
-	void Start () {
+    private bool finishSecondDemo;
+    // Use this for initialization
+    void Start () {
         button = gameObject.GetComponent<Button>();
         finishedFirstDemo = false;
+        finishSecondDemo = false;
         buttonAnim = gameObject.GetComponent<Animator>();
         firstTimeAfterFirstDemo = true;
     }
@@ -87,6 +89,7 @@ public class CanTelephone : MonoBehaviour {
     {
         buttonAnim.SetBool("canPulse", false); //meter a animação a false quando se clica pois já fez o efeito que era dar atenção
         finishedFirstDemo = gameController.GetComponent<RaycastColliderDetection>().finishFirstDemo;
+        finishSecondDemo = gameController.GetComponent<RaycastColliderDetection>().finishSecondDemo;
         if (finishedFirstDemo == false && smokePS.isPlaying == false)
         {
             //infoPanel.SetActive(true);
@@ -104,10 +107,24 @@ public class CanTelephone : MonoBehaviour {
             gameController.GetComponent<EletricityController>().telefonou = true;
             gameController.GetComponent<EletricityController>().possoAtender = true;
             gameController.GetComponent<EletricityController>().eletricityBobineON = true;
+            
+        }
+        Debug.Log("o boleano de ter acabado primeiro demo é: " + finishedFirstDemo);
+        Debug.Log("o boleano de ter acabado o segundo demo é: " + finishSecondDemo);
+
+        if (!finishSecondDemo && smokePSBottom.isPlaying == false)
+        {
+            //infoPanel.SetActive(true);
+            smokePSBottom.gameObject.SetActive(true);
+            sparksPSBottom.gameObject.SetActive(true);
+
+            
+
+
         }
 
-        
-       
+
+
 
     }
 }
