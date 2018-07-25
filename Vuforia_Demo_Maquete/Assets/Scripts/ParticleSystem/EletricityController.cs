@@ -122,6 +122,7 @@ public class EletricityController : MonoBehaviour {
     private bool showInfo1;
     private bool showInfo2;
     private bool showInfo3;
+    private bool showInfo4;
     public bool canShowInfo2;
     private bool showInfoTelephone;
     private bool showInfoAcceptCallnot2Challenge;
@@ -151,6 +152,7 @@ public class EletricityController : MonoBehaviour {
         showInfo1 = true;
         showInfo2 = true;
         showInfo3 = true;
+        showInfo4 = true;
         canShowInfo2 = false;
         showInfoTelephone = true;
         showInfoAcceptCallnot2Challenge = true;
@@ -375,9 +377,9 @@ public class EletricityController : MonoBehaviour {
         
         if (finishSecondDemo && atendeu)
         {
-            Debug.Log("timeSoundWavesLeftINI = " + timeSoundWavesLeftINI);
-            Debug.Log("timeSoundWavesLeft = " + timeSoundWavesLeft);
-            Debug.Log("activateCancelSoundWavesLeft = " + activateCancelSoundWavesLeft);
+            //Debug.Log("timeSoundWavesLeftINI = " + timeSoundWavesLeftINI);
+            //Debug.Log("timeSoundWavesLeft = " + timeSoundWavesLeft);
+            //Debug.Log("activateCancelSoundWavesLeft = " + activateCancelSoundWavesLeft);
             //////////////////////////////////////////////////////////////////SOUND TUBES INI//////////////////////////////////////////////////////////////
             if (timeSoundWavesLeftINI <= timeSoundWavesLeft)
             {
@@ -496,12 +498,14 @@ public class EletricityController : MonoBehaviour {
             segundoDesafioText.color = new Color(0.1f, 0.1f, 0.1f,1.0f); //meter cor cinzenta escura
             sendinfo(Info1);
             canvasAnimatorController.GetComponent<canvasAnimationController>().objectivePanelAnimator.SetBool("somethingNew", true);
+            XMLManager.ins.SetVariableInDatabase("Telephone", true, 0);
+            XMLManager.ins.SaveItems();
         }
         if (canShowInfo2)
         {
             canShowInfo2 = false;
-            
-            sendinfo(Info2);
+            Info.text = "oh não, a bateria está sem energia, sera que podes utilizar a tua energia para carrega-la?";
+            sendinfo(Info);
             
 
         }
@@ -512,6 +516,16 @@ public class EletricityController : MonoBehaviour {
             terceiroDesafioText.color = new Color(0.1f, 0.1f, 0.1f, 1.0f); //meter cor cinzenta escura
             canvasAnimatorController.GetComponent<canvasAnimationController>().objectivePanelAnimator.SetBool("somethingNew", true);
             showInfo2 = false;
+            
+        }
+        if (finishSecondDemo && showInfo4)
+        {
+           
+            sendinfo(Info2);
+            XMLManager.ins.SetVariableInDatabase("Telephone", true, 1);
+            XMLManager.ins.SaveItems();
+            showInfo4 = false;
+
         }
         if (finishSecondDemo && showInfo3 && atendeu)
         {
@@ -521,6 +535,9 @@ public class EletricityController : MonoBehaviour {
             terceiroDesafioText.transform.Find("CheckBoxCorrect").gameObject.SetActive(true);
             terceiroDesafioText.color = new Color(0.1f, 0.1f, 0.1f, 1.0f); //meter cor cinzenta escura
             sendinfo(Info3);
+            XMLManager.ins.SetVariableInDatabase("Telephone", true, 2);
+            XMLManager.ins.SetVariableInDatabase("Telephone", true);
+            XMLManager.ins.SaveItems();
         }
 
 

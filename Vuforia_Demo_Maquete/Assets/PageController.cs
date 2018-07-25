@@ -101,7 +101,7 @@ public class PageController : MonoBehaviour {
         foreach (pageData pagedata in pages)
         {
             pageAnimators.Add(pagedata.page.gameObject.GetComponent<Animator>());
-            
+            ///////////////////////////////////////////////////////////////////////INI Actualizar as paginas da DIREITA(sem contar com o tutorial/////////////////////////////////
             if (pagedata.canvasRight != null)
             {
                 //vai colocar os componentes do canvas direito com rotação 180 para ficar na rotação da pagina
@@ -133,9 +133,10 @@ public class PageController : MonoBehaviour {
 
 
             }
+            ///////////////////////////////////////////////////////////////////////FIN Actualizar as paginas da DIREITA(sem contar com o tutorial/////////////////////////////////
             //como queremos fazer com que a página da esquerda esteja sempre actualizada e são basicamente copias umas das outras
             //vai encontrar todos os objectos na cena com essa tag, depois iteramos e comparamos com a base de dados
-
+            ///////////////////////////////////////////////////////////////////////INI Actualizar as paginas da ESQUERDA(sem contar com o tutorial/////////////////////////////////
             if (pagedata.canvasLeft != null)
             {
 
@@ -181,9 +182,10 @@ public class PageController : MonoBehaviour {
 
 
             }
+            ///////////////////////////////////////////////////////////////////////FIN Actualizar as paginas da ESQUERDA(sem contar com o tutorial/////////////////////////////////
         }
 
-       
+
 
         animationStateFirstPage = bookAnimator.GetCurrentAnimatorStateInfo(0);
         myAnimatorClipFirstPage = bookAnimator.GetCurrentAnimatorClipInfo(0);

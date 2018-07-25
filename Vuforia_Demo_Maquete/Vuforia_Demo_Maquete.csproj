@@ -263,6 +263,9 @@
     <Reference Include="UnityEditor.Android.Extensions">
       <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEditor.WebGL.Extensions">
+      <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor.WindowsStandalone.Extensions">
       <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
     </Reference>
@@ -311,6 +314,7 @@
     <Compile Include="Assets\DontDestroyOnLoad.cs" />
     <Compile Include="Assets\forceHorizontalOrientation.cs" />
     <Compile Include="Assets\forcePortraitOrientation.cs" />
+    <Compile Include="Assets\FPSDisplay.cs" />
     <Compile Include="Assets\LeanTouch\Examples\Scripts\LeanAddForce.cs" />
     <Compile Include="Assets\LeanTouch\Examples\Scripts\LeanCameraMove.cs" />
     <Compile Include="Assets\LeanTouch\Examples\Scripts\LeanCameraMoveSmooth.cs" />

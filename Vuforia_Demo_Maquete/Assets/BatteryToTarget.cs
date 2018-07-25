@@ -54,7 +54,7 @@ public class BatteryToTarget : MonoBehaviour {
                     //Instantiate(starsPS);
                     other.GetComponent<Animator>().SetBool("canStayTransparent", true);
                     //GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().finishSecondDemo = true; //mete flag a true para dizer que ja acabou o demo para puder passar a outras coisas
-                    GameObject.FindGameObjectWithTag("GameController").GetComponent<EletricityController>().telefonou = false;
+                    //GameObject.FindGameObjectWithTag("GameController").GetComponent<EletricityController>().telefonou = false;
                     GameObject.FindGameObjectWithTag("GameController").GetComponent<EletricityController>().canShowInfo2 = true;
                     GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().canStartSecondPartOfSecondDemo = true;
                     //GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().flagBatteryToMouse = false;
