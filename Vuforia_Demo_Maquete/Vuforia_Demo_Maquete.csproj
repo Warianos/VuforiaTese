@@ -306,6 +306,7 @@
     <Compile Include="Assets\bobineFade.cs" />
     <Compile Include="Assets\BobineToTarget.cs" />
     <Compile Include="Assets\ButtonTouchRaycastController.cs" />
+    <Compile Include="Assets\cameraRotationController.cs" />
     <Compile Include="Assets\canvasAnimationController.cs" />
     <Compile Include="Assets\changePageByImageClickController.cs" />
     <Compile Include="Assets\changePageColliders.cs" />

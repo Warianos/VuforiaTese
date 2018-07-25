@@ -20,6 +20,8 @@ public class EletricityController : MonoBehaviour {
     public GameObject eletricityDownOFF;
     public GameObject eletricityDown;
     public GameObject eletricityGoingDown;
+    public GameObject eletricityBatteryDown;
+    public GameObject eletricityBatteryUP;
 
     public float eletricityBobineTime;
     public float eletricityDownTime;
@@ -28,7 +30,9 @@ public class EletricityController : MonoBehaviour {
     private bool eletricityDownFlag1;
     public bool eletricityBobineON;
     private bool eletricityFlag1;
-    
+    private bool eletricityFlag2;
+    private bool eletricityFlag3;
+
 
     //tempo final
     public float timeBobine;
@@ -168,6 +172,8 @@ public class EletricityController : MonoBehaviour {
         eletricityDownTime = 0;
         timeToAnswerAgain = 0;
         eletricityFlag1 = true;
+        eletricityFlag2 = true;
+        eletricityFlag3 = true;
         falarText.enabled = true;
         naoFalarText.enabled = false;
 
@@ -301,6 +307,11 @@ public class EletricityController : MonoBehaviour {
         ////////////////////////////////////////////////////////////////////////////////////////////INI BOBINE ARRANJADA////////
         if (finishFirstDemo)
         {
+            if (eletricityFlag2)
+            {
+                eletricityBatteryDown.SetActive(true);
+                eletricityFlag2 = false;
+            }
             if (eletricityBobineTime >= 3.0f) //caso tenha finalizado o primeiro demo sem acabar a animação toda, reinicia aqui as variaveis
             {
                 eletricityBobineTime = 0;
@@ -407,6 +418,11 @@ public class EletricityController : MonoBehaviour {
 
 
 
+        }
+        if (finishSecondDemo && eletricityFlag3)
+        {
+            eletricityBatteryUP.SetActive(true);
+            eletricityFlag3 = false;
         }
         /*
         if (finishSecondDemo && !atendeu)

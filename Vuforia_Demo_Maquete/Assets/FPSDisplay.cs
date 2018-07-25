@@ -24,10 +24,10 @@ public class FPSDisplay : MonoBehaviour
             avgFPS += 1.0f / deltaTime;
         }
         
-        Debug.Log(avgFPS);
+        //Debug.Log(avgFPS);
         if (timeForAvgFPS >= 5.0f && enterIF)
         {
-            Debug.Log("entrei aqui no debug.log do FPSDISPLAY");
+            //Debug.Log("entrei aqui no debug.log do FPSDISPLAY");
             enterIF = false;
             avgFPS = avgFPS / framesCounted;
             
