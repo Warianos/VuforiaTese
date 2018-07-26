@@ -4,7 +4,7 @@ Assets/Scene/MenuAberto.unity
 Assets/Scene/Telephone.unity
 SceneListEnd?
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.NewBehaviourScript
-6a5051a58227928ac658ddf776192d4b Assembly-CSharp.dll:.EletricityController
+03b73bdc4a0f43933c1f1521bb732303 Assembly-CSharp.dll:.EletricityController
 07124d9d8ceb4747b3d5fe0bdd7bad3e Assembly-CSharp.dll:.SceneParticleController
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.CameraFocusController
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
@@ -19,6 +19,7 @@ ff05dcdf90651c3d98a9cad3df5e471e UnityEngine.Timeline.dll:UnityEngine.Timeline.C
 31aaf521b3ef8699466676591ea0efd4 UnityEngine.Timeline.dll:UnityEngine.Timeline.GroupTrack
 31aaf521b3ef8699466676591ea0efd4 UnityEngine.Timeline.dll:UnityEngine.Timeline.PlayableTrack
 df374c01140c2d578bf70cbd60073d1d UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
+dd5481137759597d614818793c90a7fe Assembly-CSharp.dll:.BatteryToTarget
 f8b19b97900ca06b9c1ad0eec4014aa2 Assembly-CSharp.dll:Lean.Touch.LeanFingerDown
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ReverseNormals
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:.SampleInfo
@@ -61,6 +62,7 @@ f61c0793411f10cf5fbfa1473fef5ef2 UnityEngine.UI.dll:UnityEngine.UI.ToggleGroup
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Lean.Touch.LeanTouchEvents
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.DontDestroyOnLoad
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ChangeScene
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.forcePortraitOrientation
 65b2fb1dc4d41d04b5bc517d54373b02 Assembly-CSharp.dll:Lean.Touch.LeanSelect
 a35dc9cca2faebc5f5f1aeb9e8e47bbe UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput
@@ -109,7 +111,7 @@ ff05dcdf90651c3d98a9cad3df5e471e UnityEngine.Timeline.dll:UnityEngine.Timeline.C
 31aaf521b3ef8699466676591ea0efd4 UnityEngine.Timeline.dll:UnityEngine.Timeline.GroupTrack
 31aaf521b3ef8699466676591ea0efd4 UnityEngine.Timeline.dll:UnityEngine.Timeline.PlayableTrack
 df374c01140c2d578bf70cbd60073d1d UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
-cf342d1e709d223b6a80187e19f79e4c Assembly-CSharp.dll:.CanTelephone
+e757651a00b5ea8bee9f19d8e5041bf1 Assembly-CSharp.dll:.CanTelephone
 9533bdce691ddaa86412eaecce8b78f4 Assembly-CSharp.dll:Lean.Touch.LeanFingerDrag
 fc1e0f4d8439d9928083474691511a13 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Networking.dll:UnityEngine.Networking.NetworkBehaviour
@@ -129,6 +131,7 @@ e9bdabf9265d758d56f01bb188916fa8 UnityEngine.Networking.dll:UnityEngine.Networki
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ReturnToBook
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.DefaultInitializationErrorHandler
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.bobineFade
+3d5f0c2b0613ff5b869e2de620a9ebe2 Assembly-CSharp.dll:.FPSDisplay
 114d1130d93478c52ddf8bcecec2879e Assembly-CSharp.dll:.randomParticleRotation
 381ce6ca82673f74d791480ddfe87363 Assembly-CSharp.dll:Lean.Touch.LeanFingerSwipe
 322cb40e1e282f28af980cbef7922a90 UnityEngine.Analytics.dll:UnityEngine.Analytics.AnalyticsEventTracker
@@ -176,6 +179,7 @@ d2a2bd333db22f480a8589e167314ecc Vuforia.UnityExtensions.dll:Vuforia.UserDefined
 3d1b89310e77c34bc0c8d7132231345c Vuforia.UnityExtensions.dll:Vuforia.WireframeBehaviour
 05524b8f659e7bfe5756d1335fec24ba Vuforia.UnityExtensions.dll:Vuforia.WireframeTrackableEventHandler
 15bea26698002c6c4a3087131232ce5c Vuforia.UnityExtensions.dll:Vuforia.WordBehaviour
+49db6e1a4804ca303f7525797e974a57 Assembly-CSharp.dll:.cameraRotationController
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.forceHorizontalOrientation
 26215f135eeb48d8fa1189498c107f6c Vuforia.UnityExtensions.dll:Vuforia.AnchorBehaviour
 0561521e336e270e6e5a9c61387cb838 Vuforia.UnityExtensions.dll:Vuforia.AnchorInputListenerBehaviour
@@ -250,6 +254,7 @@ cb8474f76d7d59155891d5cbc5f91526 Assembly-CSharp.dll:.DetectCollisionByClick
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.Callbacks.PlayModeRunnerCallback
 96d0fbde9fd209878a0a291f82c9bcdd UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.PlaymodeTestsController
 64eb32cc721b1cc68a91ed57461e188c UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.Callbacks.RemoteTestResultSender
+328a3072af10b8100af59d7b84b35e30 Assembly-CSharp.dll:.canvasAnimationController
 4b74cdf301a11675588cf2beab909192 Assembly-CSharp.dll:Lean.Touch.LeanAddForce
 e0f7ffd5d5c2abe4b2e16569a21163da UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioRoom
 1521d031337da9424e192b5f7892a977 Assembly-CSharp.dll:Lean.Touch.LeanSelectable
@@ -266,7 +271,7 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 2c1c9ca24124d1c2f2663139ec0115f8 Assembly-CSharp.dll:Lean.Touch.LeanCameraZoomSmooth
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:.RotateSample
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Charge
-266390a4f0212b0e8d8592c05661920f Assembly-CSharp.dll:.RaycastColliderDetection
+9f0e0d8faa3786d7a49840514a2a7c56 Assembly-CSharp.dll:.RaycastColliderDetection
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 c23567de7068d554c905c20656a91b08 Assembly-CSharp.dll:Lean.Touch.LeanCameraMoveSmooth
 493c211ab85ec2db8c090d3ba6c0a013 Assembly-CSharp.dll:Lean.Touch.LeanSelectableSpriteRendererColor
@@ -279,6 +284,7 @@ ff5f38ce6e3733499a7f8eb8b4b3faf9 Assembly-CSharp.dll:.PageController
 75f17fb9bd4464dd934541ea4a00eaf3 Assembly-CSharp.dll:Lean.Touch.LeanTranslate
 5652388a27686e3b4c5bbff6e0e7c256 Assembly-CSharp.dll:Lean.Touch.LeanFingerUp
 a5d67f191327584103a68ac29df2b722 Assembly-CSharp.dll:.filterON
+db323b40be95e5360eda530a9d3c5966 Assembly-CSharp.dll:.AutoTextureOffset
 d49c4dceabcd0f316458072a477aeae8 Assembly-CSharp.dll:Lean.Touch.LeanSpawn
 26215f135eeb48d8fa1189498c107f6c Vuforia.UnityExtensions.dll:Vuforia.AnchorBehaviour
 0561521e336e270e6e5a9c61387cb838 Vuforia.UnityExtensions.dll:Vuforia.AnchorInputListenerBehaviour
@@ -356,4 +362,3 @@ d2a2bd333db22f480a8589e167314ecc Vuforia.UnityExtensions.dll:Vuforia.UserDefined
 3d1b89310e77c34bc0c8d7132231345c Vuforia.UnityExtensions.dll:Vuforia.WireframeBehaviour
 05524b8f659e7bfe5756d1335fec24ba Vuforia.UnityExtensions.dll:Vuforia.WireframeTrackableEventHandler
 15bea26698002c6c4a3087131232ce5c Vuforia.UnityExtensions.dll:Vuforia.WordBehaviour
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.forcePortraitOrientation

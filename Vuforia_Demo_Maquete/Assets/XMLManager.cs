@@ -40,7 +40,7 @@ public class XMLManager : MonoBehaviour {
             
             FileChk();
             LoadItems();
-            //debugManager.debugInst.debugText.text += "Nome do primeiro objecto: " + itemDB.list[0].objectName + "\n";
+            
             Debug.Log(itemDB.list[0].objectName);
         }
         else
@@ -59,13 +59,13 @@ public class XMLManager : MonoBehaviour {
         if (SystemInfo.deviceType == DeviceType.Handheld)
         {
             //LoadItems();
-            debugManager.debugInst.debugText.text += "Nome do primeiro objecto: " + itemDB.list[0].objectName + "\n";
-            Debug.Log(itemDB.list[0].objectName);
+            //debugManager.debugInst.debugText.text += "Nome do primeiro objecto: " + itemDB.list[0].objectName + "\n";
+          //  Debug.Log(itemDB.list[0].objectName);
         }
         else
         {
             //LoadItems();
-            debugManager.debugInst.debugText.text += "Nome do primeiro objecto: " + itemDB.list[0].objectName + "\n";
+            //debugManager.debugInst.debugText.text += "Nome do primeiro objecto: " + itemDB.list[0].objectName + "\n";
             //Debug.Log(itemDB.list[0].objectName);
         }
     }
@@ -176,13 +176,13 @@ public class XMLManager : MonoBehaviour {
         if (System.IO.File.Exists(filePath))
         {
             // The file exists -> run event
-            debugManager.debugInst.debugText.text += "FICHEIRO EXISTE";
+            //debugManager.debugInst.debugText.text += "FICHEIRO EXISTE";
             return true;
         }
         else
         {
 
-            debugManager.debugInst.debugText.text += "FICHEIRO NÃO EXISTE";
+            //debugManager.debugInst.debugText.text += "FICHEIRO NÃO EXISTE";
             return false;
             // The file does not exist -> run event
         }
@@ -200,7 +200,7 @@ public class XMLManager : MonoBehaviour {
         if (SystemInfo.deviceType == DeviceType.Handheld)
         {
             filename = Application.persistentDataPath + "/item_data.xml";
-            debugManager.debugInst.debugText.text += "Nome do caminho no android: " + Application.persistentDataPath + "/item_data.xml" + "\n";
+           // debugManager.debugInst.debugText.text += "Nome do caminho no android: " + Application.persistentDataPath + "/item_data.xml" + "\n";
         }
         //DESKTOP
         if (SystemInfo.deviceType == DeviceType.Desktop)

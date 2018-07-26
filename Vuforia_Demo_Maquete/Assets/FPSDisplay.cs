@@ -8,7 +8,7 @@ public class FPSDisplay : MonoBehaviour
     float timeForAvgFPS = 0.0f;
     int framesCounted = 0;
     bool enterIF = true;
-
+    public float timeToCalculateAvgFPS;
 
     private void Awake()
     {
@@ -25,7 +25,7 @@ public class FPSDisplay : MonoBehaviour
         }
         
         //Debug.Log(avgFPS);
-        if (timeForAvgFPS >= 5.0f && enterIF)
+        if (timeForAvgFPS >= timeToCalculateAvgFPS && enterIF)
         {
             //Debug.Log("entrei aqui no debug.log do FPSDISPLAY");
             enterIF = false;

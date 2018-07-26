@@ -215,6 +215,10 @@ public class EletricityController : MonoBehaviour {
         Info2.text = XMLManager.ins.itemDB.list[0].objectInfoText2;
         Info3.text = XMLManager.ins.itemDB.list[0].objectInfoText3;
 
+        //debugManager.debugInst.debugText.text = "Nome do primeiro objecto: " + XMLManager.ins.itemDB.list[0].objectInfoText1 + "\n";
+        //debugManager.debugInst.debugText.text += "Nome do primeiro objecto: " + XMLManager.ins.itemDB.list[0].objectInfoText2 + "\n";
+        //debugManager.debugInst.debugText.text += "Nome do primeiro objecto: " + XMLManager.ins.itemDB.list[0].objectInfoText3 + "\n";
+
     }
 
 
@@ -516,6 +520,7 @@ public class EletricityController : MonoBehaviour {
             canvasAnimatorController.GetComponent<canvasAnimationController>().objectivePanelAnimator.SetBool("somethingNew", true);
             XMLManager.ins.SetVariableInDatabase("Telephone", true, 0);
             XMLManager.ins.SaveItems();
+
         }
         if (canShowInfo2)
         {

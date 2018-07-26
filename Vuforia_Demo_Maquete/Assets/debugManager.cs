@@ -10,6 +10,7 @@ public class debugManager : MonoBehaviour {
     // Use this for initialization
     void Awake () {
         debugInst = this;
+        DontDestroyOnLoad(this);
 
 	}
 	

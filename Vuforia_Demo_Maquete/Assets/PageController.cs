@@ -21,6 +21,9 @@ public class PageController : MonoBehaviour {
     private float myFirstPageIniTime;
     private float myFirstPageIniTimeHelper;
 
+    //cameraAnimator
+    private cameraRotationController CameraRotationController;
+
     //raycast variables
     private RaycastHit hit;
 
@@ -73,10 +76,10 @@ public class PageController : MonoBehaviour {
         activatedFirstTwoCanvas = false;
         enabledFirstPage = false;
         bookColliders = gameObject.GetComponents<Collider>();
+        CameraRotationController = GameObject.FindGameObjectWithTag("cameraController").GetComponent<cameraRotationController>();
 
-         
     // Use this for initialization
-    
+
         if (GameObject.FindGameObjectWithTag("XMLManager")) //se nao existe, passa a existir
         {
             //Instantiate(xmlManager);
@@ -401,7 +404,7 @@ public class PageController : MonoBehaviour {
                     //houve drag para a esquerda
                     // Debug.Log("Houve drag para a esquerda");
 
-                    
+                    CameraRotationController.resetCameraPos();
                     if (targetObject.name == "Tutorial2")
                     {
                         turnPage(pageAnimators[1], 1, false);
@@ -421,7 +424,7 @@ public class PageController : MonoBehaviour {
                 {
                     mouseXEndPos = 0;//reset a variavel
                     mouseXIniPos = 0;//reset a variavel
-
+                    CameraRotationController.resetCameraPos();
                     if (targetObject.name == "Tutorial1")
                     {
                         closeBook();

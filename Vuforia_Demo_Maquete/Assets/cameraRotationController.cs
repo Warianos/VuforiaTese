@@ -22,8 +22,15 @@ public class cameraRotationController : MonoBehaviour {
    
     void Update()
     {
-       
         
+
+
+    }
+    public void resetCameraPos()
+    {
+        cameraAnimator.SetBool("zoomQuestion1", false);
+        cameraAnimator.SetBool("zoomQuestion2", false);
+        cameraAnimator.SetBool("zoomQuestion3", false);
     }
     public void moveCamera(GameObject info)
     {
