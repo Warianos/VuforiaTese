@@ -351,6 +351,7 @@
     <Compile Include="Assets\LeanTouch\Scripts\LeanTouch.cs" />
     <Compile Include="Assets\LoadingSceneManager.cs" />
     <Compile Include="Assets\LoadSceneSingleton.cs" />
+    <Compile Include="Assets\MotorToTarget.cs" />
     <Compile Include="Assets\PageController.cs" />
     <Compile Include="Assets\panelAnimationController.cs" />
     <Compile Include="Assets\Particle Ribbon by Moonflower Carnivore\Scripts\randomParticleRotation.cs" />

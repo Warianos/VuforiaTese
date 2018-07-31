@@ -23,6 +23,8 @@ TagManager:
   - FadeBattery
   - Battery
   - cameraController
+  - Motor
+  - FadeMotor
   layers:
   - Default
   - TransparentFX
