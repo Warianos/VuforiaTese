@@ -14,6 +14,7 @@ public class EletricityController : MonoBehaviour {
     public ParticleSystem photonParticleBobine;
     public ParticleSystem photonParticleSendSound;
     public ParticleSystem photonParticleRecieveSound;
+    public ParticleSystem sparksFinalPS;
 
     public GameObject eletricityBobine;
     public GameObject eletricityGoingUp;
@@ -115,6 +116,8 @@ public class EletricityController : MonoBehaviour {
     private bool falou;
     private bool atendeuPrimeiro;
     public bool possoAtender;
+    private bool discoveredAll;
+    private int countObjectivesDone;
 
     //informação que é desbloquada
     public GameObject infoPanelToEnable;
@@ -128,8 +131,8 @@ public class EletricityController : MonoBehaviour {
     private bool showInfo3;
     private bool showInfo4;
     public bool canShowInfo2;
-    private bool showInfoTelephone;
-    private bool showInfoAcceptCallnot2Challenge;
+    public bool showInfoTelephone;
+    public bool showInfoAcceptCallnot2Challenge;
     
     public bool firstTimeObjectiveShakeAnim;
 
@@ -158,6 +161,7 @@ public class EletricityController : MonoBehaviour {
         showInfo3 = true;
         showInfo4 = true;
         canShowInfo2 = false;
+        discoveredAll = false;
         showInfoTelephone = true;
         showInfoAcceptCallnot2Challenge = true;
         canInteractWithPhone = false;
@@ -171,6 +175,7 @@ public class EletricityController : MonoBehaviour {
         eletricityBobineTime = 0;
         eletricityDownTime = 0;
         timeToAnswerAgain = 0;
+        countObjectivesDone = 0;
         eletricityFlag1 = true;
         eletricityFlag2 = true;
         eletricityFlag3 = true;
@@ -347,8 +352,9 @@ public class EletricityController : MonoBehaviour {
                         eletricityBobine.SetActive(false);
                         eletricityFlag1 = true;
 
-                        eletricityGoingDown.SetActive(true);//enviar 
-                        eletricityDown.SetActive(true);
+                        eletricityGoingDown.SetActive(true);//enviar
+                        //activar ondas de som a irem pelo cano?
+                        //eletricityDown.SetActive(true);
                     }
                 }
                
@@ -366,7 +372,8 @@ public class EletricityController : MonoBehaviour {
                 {
                     Debug.Log("entrei no eletricityDownFlag1 " + eletricityDownFlag1);
                     eletricityGoingDown.GetComponent<Animator>().SetBool("canFadeOut", true);
-                    eletricityDown.SetActive(false);
+                    //desligar ondas de som a irem pelo cano?
+                    //eletricityDown.SetActive(false);
                     eletricityDownTime += Time.deltaTime;
                     if (eletricityDownTime >= 1.5f)
                     {
@@ -515,6 +522,7 @@ public class EletricityController : MonoBehaviour {
          
             primeiroDesafioText.transform.Find("CheckBox").gameObject.SetActive(false);
             primeiroDesafioText.transform.Find("CheckBoxCorrect").gameObject.SetActive(true);
+            countObjectivesDone++;
             segundoDesafioText.color = new Color(0.1f, 0.1f, 0.1f,1.0f); //meter cor cinzenta escura
             sendinfo(Info1);
             canvasAnimatorController.GetComponent<canvasAnimationController>().objectivePanelAnimator.SetBool("somethingNew", true);
@@ -543,6 +551,7 @@ public class EletricityController : MonoBehaviour {
         {
            
             sendinfo(Info2);
+            countObjectivesDone++;
             XMLManager.ins.SetVariableInDatabase("Telephone", true, 1);
             XMLManager.ins.SaveItems();
             showInfo4 = false;
@@ -556,12 +565,20 @@ public class EletricityController : MonoBehaviour {
             terceiroDesafioText.transform.Find("CheckBoxCorrect").gameObject.SetActive(true);
             terceiroDesafioText.color = new Color(0.1f, 0.1f, 0.1f, 1.0f); //meter cor cinzenta escura
             sendinfo(Info3);
+            countObjectivesDone++;
             XMLManager.ins.SetVariableInDatabase("Telephone", true, 2);
             XMLManager.ins.SetVariableInDatabase("Telephone", true);
             XMLManager.ins.SaveItems();
         }
 
-
+        if (countObjectivesDone == 3 && infoPanel.GetComponent<Animator>().GetBool("clickedOrTimeOut") == true)
+        {
+            Instantiate(sparksFinalPS);
+            countObjectivesDone = 0;
+            Info.text = "Parabêns! conseguiste arranjar o telefone! Agora se quiseres podes voltar atras ao livro e ver os pedaços de história que descobriste, ou então podes continuar a interagir com o telefone";
+            sendinfo(Info);
+            
+        }
         ////////////////////////////////////////////////////////////////FIM verificar se acabou o demo a primeira vez para desbloquear a primeira informação//////////////////////////////////////////////////
 
 
@@ -572,6 +589,10 @@ public class EletricityController : MonoBehaviour {
             Debug.Log("atender bool: " + atendeu);
             if (telefonou)
             {
+                if (!showInfoAcceptCallnot2Challenge && !finishSecondDemo)
+                {
+                    showInfoAcceptCallnot2Challenge = true;
+                }
                 if (showInfoTelephone)//mostrar informação sobre ter telefonado depois de ter feito o primeiro desafio
                 {
                     Info.text = "Já estamos a receber energia, em principio poderemos ouvir a chamada";

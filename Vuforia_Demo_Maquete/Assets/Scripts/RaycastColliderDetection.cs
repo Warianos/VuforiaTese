@@ -79,6 +79,9 @@ public class RaycastColliderDetection : MonoBehaviour {
     //public LayerMask;
     // Use this for initialization
 
+    private EletricityController eletricityController;
+    private bool canSendFirstTimeTubes;
+
     private void Awake()
     {
         
@@ -92,6 +95,7 @@ public class RaycastColliderDetection : MonoBehaviour {
         finishSecondDemo = false;
         layerMask = 9;
         contarColliders = true;
+        eletricityController = GetComponent<EletricityController>();
         telefonar = GetComponent<EletricityController>().telefonou;
         canInteractWithPhone = GetComponent<EletricityController>().canInteractWithPhone;
         batteryIniPos = batteryToDrag.transform.position;
@@ -102,7 +106,7 @@ public class RaycastColliderDetection : MonoBehaviour {
         interactTrueFirstDemoTimer = 0;
         interactFalseSecondDemoTimer = 0;
         interactTrueSecondDemoTimer = 0;
-
+        canSendFirstTimeTubes = true;
         interactFalseFirstDemoBool = false;
         interactTrueFirstDemoBool = false;
         interactFalseSecondDemoBool = false;
@@ -288,7 +292,7 @@ public class RaycastColliderDetection : MonoBehaviour {
                         interactTrueFirstDemoBool = true;
                         //Collider[] colliders = hit.collider.gameObject.GetComponents<Collider>();
                         //Debug.Log("entrei no contarColliders");
-
+                        
                         if (telefonar && phonesColliders[0].enabled)
                         {
                             phonesColliders[0].enabled = false;
