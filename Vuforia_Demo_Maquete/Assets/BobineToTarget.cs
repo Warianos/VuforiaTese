@@ -49,10 +49,10 @@ public class BobineToTarget : MonoBehaviour {
                     //GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().canReturnOriginalPlace = false;
                     Instantiate(starsPS);
 
-                    GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().finishFirstDemo = true; //mete flag a true para dizer que ja acabou o demo para puder passar a outras coisas
+                    GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().finishHandHeldDemo = true; //mete flag a true para dizer que ja acabou o demo para puder passar a outras coisas
                     GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().interactFalseFirstDemoBool = true;
                    // GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().interactFalseFirstDemoBool = true;
-                    GameObject.FindGameObjectWithTag("GameController").GetComponent<EletricityController>().telefonou = false;
+                    //GameObject.FindGameObjectWithTag("GameController").GetComponent<EletricityController>().telefonou = false;
                     // GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().flagObjectToMouse = false;
                 }
             }

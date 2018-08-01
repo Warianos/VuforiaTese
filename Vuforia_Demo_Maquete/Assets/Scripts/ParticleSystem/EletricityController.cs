@@ -130,6 +130,7 @@ public class EletricityController : MonoBehaviour {
     private bool showInfo2;
     private bool showInfo3;
     private bool showInfo4;
+    public bool canShowInfo5;
     public bool canShowInfo2;
     public bool showInfoTelephone;
     public bool showInfoAcceptCallnot2Challenge;
@@ -600,7 +601,7 @@ public class EletricityController : MonoBehaviour {
                     showInfoTelephone = false;
                 }
                 //por os 2 primeiros colliders do telefone ligados
-                if(phonesColliders[0].enabled == false)
+                if(phonesColliders[0].enabled == false) //COLOCAR ISTO A APSSAR APENAS UMA VEZ
                 {
                     phonesColliders[0].enabled = true;
                     phonesColliders[1].enabled = true;

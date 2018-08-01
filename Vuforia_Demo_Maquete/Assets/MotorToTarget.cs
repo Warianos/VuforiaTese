@@ -25,7 +25,7 @@ public class MotorToTarget : MonoBehaviour
     {
         if (other.name == "Motor")
         {
-            GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().isInsideColliderBattery = true; //falta criar esta variavel
+            GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().isInsideColliderMotor = true; //falta criar esta variavel
         }
 
     }
@@ -49,14 +49,19 @@ public class MotorToTarget : MonoBehaviour
                 if (other.gameObject.transform.position == transform.position)
                 {
                     //Debug.Log("entrei aqui nesta cena da flag a true");
-                    Destroy(GameObject.FindGameObjectWithTag("FadeMotor"));
+                    GameObject fadeMotor = GameObject.FindGameObjectWithTag("FadeMotor");
+                    other.transform.parent = fadeMotor.transform.parent;
+                    Destroy(fadeMotor);
                     GetComponent<BoxCollider>().enabled = false;
                     //GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().canReturnOriginalPlace = false;
                     //Instantiate(starsPS);
                     //other.GetComponent<Animator>().SetBool("canStayTransparent", true);
                     //GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().finishSecondDemo = true; //mete flag a true para dizer que ja acabou o demo para puder passar a outras coisas
-                    //GameObject.FindGameObjectWithTag("GameController").GetComponent<EletricityController>().telefonou = false;
+                    GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().finishFirstDemo = true;
+                    GameObject.FindGameObjectWithTag("GameController").GetComponent<EletricityController>().telefonou = false;
+                    //GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().interactFalseFirstDemoBool = true;
                     GameObject.FindGameObjectWithTag("GameController").GetComponent<EletricityController>().canShowInfo5 = true;
+                    
                     //GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().canStartSecondPartOfSecondDemo = true;
                     //GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().flagBatteryToMouse = false;
                     //colocar o canmove to place a false!!!
@@ -71,9 +76,9 @@ public class MotorToTarget : MonoBehaviour
     void OnTriggerExit(Collider other)
     {
         // Debug.Log("sai no Trigger");
-        if (other.name == "Battery")
+        if (other.name == "Motor")
         {
-            GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().isInsideColliderBattery = false;//e esta
+            GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().isInsideColliderMotor = false;//e esta
         }
 
     }
