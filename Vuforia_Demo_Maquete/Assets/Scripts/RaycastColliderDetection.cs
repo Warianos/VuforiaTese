@@ -337,16 +337,35 @@ public class RaycastColliderDetection : MonoBehaviour {
                     }
                     else if(hit.collider.gameObject.tag == "VibratePlate")
                     {
-                        if (hit.collider.gameObject.GetComponent<Animator>().GetBool("canMoveOut")){
-                            hit.collider.gameObject.GetComponent<Animator>().SetBool("canMoveOut", false);
+                        
+                        Animator anim = hit.collider.gameObject.GetComponent<Animator>();
+                        if (anim.GetBool("canMoveOut")){
+                            anim.SetBool("canMoveOut", false);
                         }
                         else
                         {
-                            hit.collider.gameObject.GetComponent<Animator>().SetBool("canMoveOut", true);
+                            eletricityController.vibratePlateBool = true;
+                            anim.SetBool("canMoveOut", true);
                         }
                         
                     }
-                    
+                    else if (hit.collider.gameObject.tag == "Handheld")
+                    {
+                        
+                        Animator anim = hit.collider.gameObject.GetComponent<Animator>();
+                        if (anim.GetBool("canRotate"))
+                        {
+                            anim.SetBool("canRotate", false);
+                        }
+                        else
+                        {
+                            
+                            eletricityController.handHeldBool = true;
+                            anim.SetBool("canRotate", true);
+                        }
+
+                    }
+
                 }
 
             

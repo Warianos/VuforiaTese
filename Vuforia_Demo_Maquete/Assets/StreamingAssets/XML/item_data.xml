@@ -6,9 +6,9 @@
       <earnedSticker>true</earnedSticker>
       <objectInfoText1>Antigamente, quando se queria telefonar a alguem, era necessário rodar a manivela ao lado das bobinas vermelhas, de maneira a produzir energia suficiente para enviar um impulso eletrico à central telefónica para podermos dizer a um/uma resposavel, o numero de telefone para o qual queriamos ligar, é por isso que este telefone não tem nenhum marcador de numeros.</objectInfoText1>
       <discoveredFirstInfo>true</discoveredFirstInfo>
-      <objectInfoText2>Esta bateria tem uma potência de 5 volts, e sem ela não é possivel, ouvir pelos auscutadores </objectInfoText2>
+      <objectInfoText2>A bateria tem uma potência de 5 volts, e sem ela não é possivel, ouvir pelos auscutadores, pois esta bateria é a responsavel por fornecer energia ao microfone situado dentro da caixa com a placa preta. </objectInfoText2>
       <discoveredSecondInfo>true</discoveredSecondInfo>
-      <objectInfoText3>Os auscutadores recebem a informação que a pessoa do outro lado quer dizer em impulsos eletricos e convertem esses impulsos eletricos em vibrações produzindo ondas sonoras.</objectInfoText3>
+      <objectInfoText3>A caixa com tampa preta representa o microfone do telefone, sendo que a placa preta vibra de acordo com a fala da pessoa, e dentro da caixa contem um mecanismo que converte essas vibrações em eletricidade e envia pela corrente eletrica essa informção OU converte a informação vinda de eletricidade e converte em som para se ouvir nos auscutadores.</objectInfoText3>
       <discoveredThirdInfo>true</discoveredThirdInfo>
     </MuseumObject>
     <MuseumObject>

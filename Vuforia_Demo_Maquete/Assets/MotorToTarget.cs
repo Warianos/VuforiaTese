@@ -7,6 +7,7 @@ public class MotorToTarget : MonoBehaviour
 
     private bool canMove;
     public float speed;
+    public ParticleSystem starsPS;
     // public ParticleSystem starsPS;
     // Use this for initialization
     void Start()
@@ -53,6 +54,7 @@ public class MotorToTarget : MonoBehaviour
                     other.transform.parent = fadeMotor.transform.parent;
                     Destroy(fadeMotor);
                     GetComponent<BoxCollider>().enabled = false;
+                    starsPS.gameObject.SetActive(true);
                     //GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().canReturnOriginalPlace = false;
                     //Instantiate(starsPS);
                     //other.GetComponent<Animator>().SetBool("canStayTransparent", true);

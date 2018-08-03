@@ -7,7 +7,7 @@ public class LoadSceneSingleton : MonoBehaviour
 
     private string levelName;
     AsyncOperation async;
-
+    //public GameObject loadingSceneManager;
     public static LoadSceneSingleton instance;
 
     private string lastScene;
@@ -20,6 +20,7 @@ public class LoadSceneSingleton : MonoBehaviour
         {
             instance = this;
         }
+        Debug.Log("o loadingSceneSingleton acordou");
     }
 
   
@@ -27,12 +28,18 @@ public class LoadSceneSingleton : MonoBehaviour
     public void StartLoading(string name)
     {
         levelName = name;
-        StartCoroutine("load");
+        StartCoroutine("Load");
     }
 
-    IEnumerator load()
+    IEnumerator Load()
     {
+        gameObject.GetComponent<LoadingSceneManager>().changedScene = true;
+        gameObject.GetComponent<LoadingSceneManager>().loadingMenu.SetActive(true);
+
+        gameObject.GetComponent<Animator>().SetBool("canFade", true);
+        yield return new WaitForSeconds(1f);
         async = SceneManager.LoadSceneAsync(levelName);
+        //Debug.Log(levelName);
         async.allowSceneActivation = false;
         yield return async;
     }

@@ -86,7 +86,7 @@ public class EletricityController : MonoBehaviour {
     public Text terceiroDesafioText;
 
     //canvas infoPanel
-    public GameObject infoPanel;
+    //public GameObject infoPanel;
 
     //canvas timers
     public float canvasTimerToAppear;
@@ -110,6 +110,7 @@ public class EletricityController : MonoBehaviour {
 
     private bool finishFirstDemo;
     public bool finishSecondDemo;
+    private bool finishHandHeldDemo;
     private bool canSendSoundTubes;
     public bool atendeu;
     private bool atendiUmaVez;
@@ -126,15 +127,34 @@ public class EletricityController : MonoBehaviour {
     public Text Info3;
     public Text Info;
 
+    //escrita presente no telefone
+    private string bobineDoneStr;
+    private string motorDoneStr;
+    private string batteryDoneBeforeMotorStr;
+    private string bateryDoneStr;
+    private string atendeuDoneStr;
+    private string batteryLowStr;
+    private string finishedGameStr;
+    private string startingToHaveEnergyStr;
+    private string notEaringAnythingStr;
+    private string vibratePlateStr;
+    private string handHeldStr;
+
     private bool showInfo1;
     private bool showInfo2;
     private bool showInfo3;
     private bool showInfo4;
+    private bool showInfoMotor;
     public bool canShowInfo5;
     public bool canShowInfo2;
     public bool showInfoTelephone;
+    private bool canShowInfoVibratePlate;
+    private bool showInfoBatterDidnotFinishFristDemo;
     public bool showInfoAcceptCallnot2Challenge;
-    
+    public bool canShowHandheldInfo;
+    public bool handHeldBool;
+    public bool vibratePlateBool;
+
     public bool firstTimeObjectiveShakeAnim;
 
     XMLManager xmlManager;
@@ -161,9 +181,12 @@ public class EletricityController : MonoBehaviour {
         showInfo2 = true;
         showInfo3 = true;
         showInfo4 = true;
+        showInfoMotor = true;
         canShowInfo2 = false;
         discoveredAll = false;
         showInfoTelephone = true;
+        canShowInfoVibratePlate = true;
+        showInfoBatterDidnotFinishFristDemo = true;
         showInfoAcceptCallnot2Challenge = true;
         canInteractWithPhone = false;
         infoFirstTime = true;
@@ -217,9 +240,19 @@ public class EletricityController : MonoBehaviour {
         XMLManager.ins.LoadItems();
         //xmlManagerSticker = xmlManager.GetComponent<XMLManager>().itemDB.list[0].earnedSticker; //primeiro elemento é o telefone e tras o booleano actual feito do load do XML
         //xmlManagerSticker = XMLManager.ins.itemDB.list[0].earnedSticker;
-        Info1.text = XMLManager.ins.itemDB.list[0].objectInfoText1;
-        Info2.text = XMLManager.ins.itemDB.list[0].objectInfoText2;
-        Info3.text = XMLManager.ins.itemDB.list[0].objectInfoText3;
+        bobineDoneStr = XMLManager.ins.itemDB.list[0].objectInfoText1;
+        bateryDoneStr = XMLManager.ins.itemDB.list[0].objectInfoText2;
+        atendeuDoneStr = "Já estamos a conseguir ouvir a chamada, aumenta o som do telemovel e exprimenta aproximar-te dos auscutadores digitais";
+        motorDoneStr = "Este motor ao receber enegia eletrica fazia com que as pessoas soubessem que lhes tavam a querer telefonar. Exprimenta telefonar agora para o Gower Bell ";
+        batteryDoneBeforeMotorStr = "Já temos a bateria a funcionar, mas parece que o telefone ainda não está a tocar. Tenta investigar";
+        batteryLowStr = "oh não, a bateria está sem energia, sera que podes utilizar a tua energia para carrega-la ? ";
+        finishedGameStr = "Parabêns! conseguiste arranjar o telefone! Agora se quiseres podes voltar atras ao livro e ver os pedaços de história que descobriste, ou então podes continuar a interagir com o telefone";
+        startingToHaveEnergyStr = "Já estamos a receber energia, em principio poderemos ouvir a chamada";
+        notEaringAnythingStr = "Estamos a receber a chamada, mas não estamos a conseguir ouvir nada...será que poderá ser falta da bateria?";
+        vibratePlateStr = XMLManager.ins.itemDB.list[0].objectInfoText3;
+        Info1.text = bobineDoneStr;
+        Info2.text = bateryDoneStr;
+        Info3.text = vibratePlateStr;
 
         //debugManager.debugInst.debugText.text = "Nome do primeiro objecto: " + XMLManager.ins.itemDB.list[0].objectInfoText1 + "\n";
         //debugManager.debugInst.debugText.text += "Nome do primeiro objecto: " + XMLManager.ins.itemDB.list[0].objectInfoText2 + "\n";
@@ -514,11 +547,12 @@ public class EletricityController : MonoBehaviour {
             
             
         }
-        
-        ////////////////////////////////////////////////////////////////verificação dos acontecimentos para aparecer informação//////////////////////////////////////////////////
 
-        if(finishFirstDemo && showInfo1 && !telefonou)
+        ////////////////////////////////////////////////////////////////verificação dos acontecimentos para aparecer informação//////////////////////////////////////////////////
+        Debug.Log("O FINISHHADNHELDDEMO É: " + finishHandHeldDemo);
+        if (finishHandHeldDemo && showInfo1 )
         {
+            Debug.Log("ENTREI AQUI NO FINISHHADNHELDDEMO");
             showInfo1 = false;
          
             primeiroDesafioText.transform.Find("CheckBox").gameObject.SetActive(false);
@@ -531,10 +565,42 @@ public class EletricityController : MonoBehaviour {
             XMLManager.ins.SaveItems();
 
         }
+        if(finishFirstDemo && showInfoMotor && !telefonou)
+        {
+            showInfoMotor = false;
+            Info.text = motorDoneStr;
+            sendinfo(Info);
+        }
+
+        if (finishSecondDemo && showInfo4)
+        {
+
+            sendinfo(Info2);
+            telefonou = false;
+            countObjectivesDone++;
+            XMLManager.ins.SetVariableInDatabase("Telephone", true, 1);
+            XMLManager.ins.SaveItems();
+            showInfo4 = false;
+
+        }
+
+        Debug.Log("finishFirstDemo: " + finishFirstDemo + " finishSecondDemo: " + finishSecondDemo + " showInfoBatterDidnotFinishFristDemo: " + showInfoBatterDidnotFinishFristDemo + " telefonou: " + telefonou );
+       // Debug.Log("ENTREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEI " + infoPanelToEnable.GetComponent<Animator>().GetBool("clickedOrTimeOut"));
+        if (!finishFirstDemo && finishSecondDemo && showInfoBatterDidnotFinishFristDemo && telefonou)
+        {
+            
+          //  if (infoPanelToEnable.GetComponent<Animator>().GetBool("clickedOrTimeOut") == true){
+                Debug.Log("ENTREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEI");
+                showInfoBatterDidnotFinishFristDemo = false;
+                Info.text = batteryDoneBeforeMotorStr;
+                sendinfo(Info);
+            //}
+            
+        }
         if (canShowInfo2)
         {
             canShowInfo2 = false;
-            Info.text = "oh não, a bateria está sem energia, sera que podes utilizar a tua energia para carrega-la?";
+            Info.text = batteryLowStr;
             sendinfo(Info);
             
 
@@ -548,16 +614,17 @@ public class EletricityController : MonoBehaviour {
             showInfo2 = false;
             
         }
-        if (finishSecondDemo && showInfo4)
-        {
-           
-            sendinfo(Info2);
-            countObjectivesDone++;
-            XMLManager.ins.SetVariableInDatabase("Telephone", true, 1);
-            XMLManager.ins.SaveItems();
-            showInfo4 = false;
 
+        if(canShowInfoVibratePlate && vibratePlateBool)
+        {
+            canShowInfoVibratePlate = false;
+            sendinfo(Info3);
+            XMLManager.ins.SetVariableInDatabase("Telephone", true, 2);
+            XMLManager.ins.SetVariableInDatabase("Telephone", true);
+            XMLManager.ins.SaveItems();
         }
+
+       
         if (finishSecondDemo && showInfo3 && atendeu)
         {
             showInfo3 = false;
@@ -565,18 +632,17 @@ public class EletricityController : MonoBehaviour {
             terceiroDesafioText.transform.Find("CheckBox").gameObject.SetActive(false);
             terceiroDesafioText.transform.Find("CheckBoxCorrect").gameObject.SetActive(true);
             terceiroDesafioText.color = new Color(0.1f, 0.1f, 0.1f, 1.0f); //meter cor cinzenta escura
-            sendinfo(Info3);
+            Info.text = atendeuDoneStr;
+            sendinfo(Info);
             countObjectivesDone++;
-            XMLManager.ins.SetVariableInDatabase("Telephone", true, 2);
-            XMLManager.ins.SetVariableInDatabase("Telephone", true);
-            XMLManager.ins.SaveItems();
+            
         }
 
-        if (countObjectivesDone == 3 && infoPanel.GetComponent<Animator>().GetBool("clickedOrTimeOut") == true)
+        if (countObjectivesDone == 3 && infoPanelToEnable.GetComponent<Animator>().GetBool("clickedOrTimeOut") == true)
         {
             Instantiate(sparksFinalPS);
             countObjectivesDone = 0;
-            Info.text = "Parabêns! conseguiste arranjar o telefone! Agora se quiseres podes voltar atras ao livro e ver os pedaços de história que descobriste, ou então podes continuar a interagir com o telefone";
+            Info.text = finishedGameStr;
             sendinfo(Info);
             
         }
@@ -596,7 +662,7 @@ public class EletricityController : MonoBehaviour {
                 }
                 if (showInfoTelephone)//mostrar informação sobre ter telefonado depois de ter feito o primeiro desafio
                 {
-                    Info.text = "Já estamos a receber energia, em principio poderemos ouvir a chamada";
+                    Info.text = startingToHaveEnergyStr;
                     sendinfo(Info);
                     showInfoTelephone = false;
                 }
@@ -625,7 +691,7 @@ public class EletricityController : MonoBehaviour {
                 if (showInfoAcceptCallnot2Challenge && !finishSecondDemo)//mostrar informação sobre ter telefonado depois de ter feito o primeiro desafio
                 {
                     
-                    Info.text = "Estamos a receber a chamada, mas não estamos a conseguir ouvir nada...será que poderá ser falta da bateria?";
+                    Info.text = notEaringAnythingStr;
                     sendinfo(Info);
                     showInfoAcceptCallnot2Challenge = false;
                 }
@@ -755,6 +821,7 @@ public class EletricityController : MonoBehaviour {
     {
         finishFirstDemo = GetComponent<RaycastColliderDetection>().finishFirstDemo;
         finishSecondDemo = GetComponent<RaycastColliderDetection>().finishSecondDemo;
+        finishHandHeldDemo = GetComponent<RaycastColliderDetection>().finishHandHeldDemo;
         atendeu = GetComponent<RaycastColliderDetection>().atendeu;
         falou = GetComponent<RaycastColliderDetection>().speaking;
         phonesColliders = GetComponent<RaycastColliderDetection>().phonesColliders;

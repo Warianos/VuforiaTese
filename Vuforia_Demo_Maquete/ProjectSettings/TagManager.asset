@@ -25,6 +25,8 @@ TagManager:
   - cameraController
   - Motor
   - FadeMotor
+  - Handheld
+  - LoadManagar
   layers:
   - Default
   - TransparentFX

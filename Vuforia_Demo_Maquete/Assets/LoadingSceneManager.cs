@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LoadinSceneManager : MonoBehaviour {
+public class LoadingSceneManager : MonoBehaviour {
 
     public GameObject loadingMenu;
-    GameObject exitBattle;
-    GameObject changeLevel;
+    public bool changedScene;
+    
 
    
 
-    LoadSceneSingleton scene;
+   // LoadSceneSingleton scene;
     /*
     public LoadSceneSingleton Scene
     {
@@ -22,10 +22,11 @@ public class LoadinSceneManager : MonoBehaviour {
     */
     void Awake()
     {
+        Debug.Log("o loadingSceneManager acordou");
         DontDestroyOnLoad(this);
 
 
-        scene = LoadSceneSingleton.instance;
+        //scene = LoadSceneSingleton.instance;
 
         
 
@@ -33,23 +34,30 @@ public class LoadinSceneManager : MonoBehaviour {
         
 
     }
-
-    public void EnterInBattle()
+    private void Update()
     {
-        StartCoroutine("LoadScreen");
+        if (changedScene) EnterFade();
     }
 
-    IEnumerator LoadScreen()
+    public void EnterFade()
     {
-        loadingMenu.SetActive(true); // activar o canvas
-        yield return new WaitUntil(() => LoadSceneSingleton.instance.LoadProgress() >= 0.7f);
+        StartCoroutine("LoadScreenFade");
+    }
+
+    IEnumerator LoadScreenFade()
+    {
+        //loadingMenu.SetActive(true); // activar o canvas
+
+        //yield return new WaitUntil(() => LoadSceneSingleton.instance.LoadProgress() >= 0.7f);
         //faz algo
-        yield return new WaitForSeconds(0.7f);
-        scene.ActivateScene();
+
+        yield return new WaitForSeconds(2.0f);
+        LoadSceneSingleton.instance.ActivateScene();
         yield return new WaitUntil(() => LoadSceneSingleton.instance.CheckIfSceneReady() == true);
-        //faz algo
-        yield return new WaitForSeconds(2);
+        gameObject.GetComponent<Animator>().SetBool("canFade", false);
+        yield return new WaitForSeconds(1.25f);
         loadingMenu.SetActive(false);
+        changedScene = false;
     }
 
    

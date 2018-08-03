@@ -152,8 +152,8 @@ public class XMLManager : MonoBehaviour {
         bool discoveredSecondInfo = false;
         bool discoveredThirdInfo = false;
         string objectInfoText1 = "Antigamente, quando se queria telefonar a alguem, era necessário rodar a manivela ao lado das bobinas vermelhas, de maneira a produzir energia suficiente para enviar um impulso eletrico à central telefónica para podermos dizer a um/uma resposavel, o numero de telefone para o qual queriamos ligar, é por isso que este telefone não tem nenhum marcador de numeros.";
-        string objectInfoText2 = "Este object azul representa uma bateria antiga de 5 volts, que é o necessário para fazer os auscutadores funcionarem.";
-        string objectInfoText3 = "Os auscutadores recebem a informação que a pessoa do outro lado quer dizer em impulsos eletricos e convertem esses impulsos eletricos em vibrações produzindo ondas sonoras.";
+        string objectInfoText2 = "A bateria tem uma potência de 5 volts, e sem ela não é possivel, ouvir pelos auscutadores, pois esta bateria é a responsavel por fornecer energia ao microfone situado dentro da caixa com a placa preta.";
+        string objectInfoText3 = "A caixa com tampa preta representa o microfone do telefone, sendo que a placa preta vibra de acordo com a fala da pessoa, e dentro da caixa contem um mecanismo que converte essas vibrações em eletricidade e envia pela corrente eletrica essa informção OU converte a informação vinda de eletricidade e converte em som para se ouvir nos auscutadores";
         BuildFirstAndroidXMLFile(objectName, win, discoveredFirstInfo, discoveredSecondInfo, discoveredThirdInfo, objectInfoText1, objectInfoText2, objectInfoText3);
 
 
