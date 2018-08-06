@@ -1,10 +1,9 @@
 Android
 SceneListBegin?
-Assets/Scene/MenuAberto.unity
-Assets/Scene/Telephone.unity
+Assets/Scene/Markerless.unity
 SceneListEnd?
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.NewBehaviourScript
-03b73bdc4a0f43933c1f1521bb732303 Assembly-CSharp.dll:.EletricityController
+7385e1fda5fc63e8fe80f881f6e00b41 Assembly-CSharp.dll:.EletricityController
 07124d9d8ceb4747b3d5fe0bdd7bad3e Assembly-CSharp.dll:.SceneParticleController
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.CameraFocusController
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
@@ -61,7 +60,7 @@ f61c0793411f10cf5fbfa1473fef5ef2 UnityEngine.UI.dll:UnityEngine.UI.ToggleGroup
 665a9ec6751c88f549f2daa0b70c846e Assembly-CSharp.dll:Lean.Touch.LeanFingerSet
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Lean.Touch.LeanTouchEvents
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.DontDestroyOnLoad
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ChangeScene
+378c886f67359f39ece6d3642e05a58d Assembly-CSharp.dll:.ChangeScene
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.forcePortraitOrientation
 65b2fb1dc4d41d04b5bc517d54373b02 Assembly-CSharp.dll:Lean.Touch.LeanSelect
 a35dc9cca2faebc5f5f1aeb9e8e47bbe UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
@@ -99,6 +98,7 @@ f61c0793411f10cf5fbfa1473fef5ef2 UnityEngine.UI.dll:UnityEngine.UI.ToggleGroup
 5ff944313f6e956d19f71884f1896da2 Assembly-CSharp.dll:.BobineToTarget
 d687280687e9d41d67635aabef9ac26b Assembly-CSharp.dll:.startXMLManager
 6c15db20cfd69979254593ffa5037d44 Assembly-CSharp.dll:Lean.Touch.LeanDestroy
+5ff944313f6e956d19f71884f1896da2 Assembly-CSharp.dll:.MotorToTarget
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 dbc29a6f2739d277c10da432d73adb6d UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
 8144169769d51429c4aedc8b0f92d47b UnityEngine.Timeline.dll:UnityEngine.Timeline.AnimationPlayableAsset
@@ -223,6 +223,7 @@ e1f1285d86f3a1745afc7444b310fb42 Assembly-CSharp.dll:Lean.Touch.LeanPitchYaw
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.XMLController
 7ec810183283b62dc22c3816aac72ddc Assembly-CSharp.dll:Lean.Touch.LeanMultiTap
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.panelAnimationController
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.LoadSceneSingleton
 1ef852089ee2a39ddee9440e721488cf Assembly-CSharp.dll:Lean.Touch.LeanTranslateSmooth
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Advertisements.dll:UnityEngine.Advertisements.CallbackExecutor
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Advertisements.dll:UnityEngine.Advertisements.Editor.Placeholder
@@ -245,6 +246,7 @@ e9bdabf9265d758d56f01bb188916fa8 UnityEngine.Networking.dll:UnityEngine.Networki
 3f32f08a64daf40b09ed864d96fe3840 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransform
 73843688b51256aed059f049c540bca8 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformChild
 528ea1fd7c01796fc60c4e2f172ea229 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformVisualizer
+dff616056d57b7d007651cd3a5969eeb Assembly-CSharp.dll:.LoadingSceneManager
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.KillParticleSystem
 6ad53a0b0e1b7bbd14016abad1dad63a Assembly-CSharp.dll:Lean.Touch.LeanCameraMove
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.DefaultTrackableEventHandler
@@ -271,7 +273,7 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 2c1c9ca24124d1c2f2663139ec0115f8 Assembly-CSharp.dll:Lean.Touch.LeanCameraZoomSmooth
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:.RotateSample
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Charge
-9f0e0d8faa3786d7a49840514a2a7c56 Assembly-CSharp.dll:.RaycastColliderDetection
+e9cfa91e7ad869e6d9ec9b6709f986f4 Assembly-CSharp.dll:.RaycastColliderDetection
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 c23567de7068d554c905c20656a91b08 Assembly-CSharp.dll:Lean.Touch.LeanCameraMoveSmooth
 493c211ab85ec2db8c090d3ba6c0a013 Assembly-CSharp.dll:Lean.Touch.LeanSelectableSpriteRendererColor

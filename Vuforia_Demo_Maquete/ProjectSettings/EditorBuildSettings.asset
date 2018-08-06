@@ -23,9 +23,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scene/WindowEffect.unity
     guid: c36d61e9a0f43c640927835858567146
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scene/MenuAberto.unity
     guid: 1d133e1ffd80ae5418f4bbb6bf4fc6e0
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scene/Telephone.unity
     guid: 5d0509e33fba3f7468614be72f9740c8
+  - enabled: 1
+    path: Assets/Scene/Markerless.unity
+    guid: 1800c7a317f3d134d8c044f1391a9b23
