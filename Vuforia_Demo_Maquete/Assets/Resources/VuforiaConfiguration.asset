@@ -8,15 +8,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -2067402452, guid: bab6fa851cf5a1a4bba3cec5f191cb8e, type: 3}
+  m_Script: {fileID: -2067402452, guid: 8a9a760f95896c34689febc965510927, type: 3}
   m_Name: VuforiaConfiguration
   m_EditorClassIdentifier: 
   vuforia:
     vuforiaLicenseKey: AVfYRV3/////AAAAmbuuXhrHLEyCgmQYGMe5/7eC0WzM/3HmIKddalK7kUdRdK/AOxvyP+UUaCSNzX1tj9VAt4VMaCX7rAgionZIo3mNByAveE/KpBoQtUrUVnPBkFTQtWlsBX3O359Ye2Um8IVNlJUms3CsKdVudTcJtAZFg3En1nJbBe8jPgxoMVcWXSXm5QYgXuKl4JQl5CUSuwxFNAD1pbWZsGiaaeYMQM1HCf+NRHKoIImJ5OlicbUjSQ2+I2zpuPSsjgpJxJgwsXbQDU3ujfXTFwXw/Cwk3W951+lUZL8F4cGd29OAShM+bWgk5K+o58rjtudIjuMMhLdTftCBHytxOnysUa/k4me2BzW9cvtjwiINgvZae4Gf
-    ufoLicenseKey: QVJKYVp1ei8vLy8vQUFBQUtGRHBseHo1UzBDTXZpd2o4SXdNaWNCR2g4MkFrMDJZV0dabWhmS3Q0b0x3YjViNVlNNStGMVVHSlNIdWpCbUpFYWlqWTlNMGZ2Yno5QjMvbkJ3OWY3M3pycmhVK2YvampOc0lMb2JDNVIzRjU4M25DdGszelllQWJaa1ExUHYxd042T0czMHVtd2s0bFc3ekpQZTRYU0MrcC9XNUJHLzh5SzdJZWhPcy8yY0REbEdJWHVWMjVHRjJtM3lxRGtDVmU1aU9iTnorQXZsbGJocWswZ2syMWtCL1JWTzIybk1hbG84NVF3OEh5L2ZIcjlPUStiYWI2U0pIeGdOK1hKRnNQQTdUYW9TK1VqeGN2b3ZPT3psZ3dVMzVqZHd5WnJGNkg1cnpxY0lNazA4MEIwS3hjYkVaMkk3SU5rR21NLzNqWjdZMitxVWMwK2hlM0F5MXdOc29pSVdncTJRdDM5VXVhZ3hlU0VKMUNEei8=
+    ufoLicenseKey: QVptSVVkVC8vLy8vQUFBQUtDSzJ4LzJCOGtweWlZZzhHQUtDekdON0tPYjFHOUFsY2pGK1hyakdmVlpDdy9FK0FVN0xGeTRHcVpEVGRlN3V1TTlYNUJPL2RVM0MrRlMwVVphOGhtZ1pDc3EyejhlbXFTK3h3azgxWTZyNlpJbGFEN1ZSNjBTVVlXZUZqdDNHb0EwWkkvTnNYZVc3VUJHSktzbnRRcll0VURaeUV1Z3JWWTZHR1FvRjdTV3pYVFFHYWxhV3FJR2RkcTAwRXpDUTNoaEJiYXpCS2xiQUMyNHAzeGV2ZmpjditvSkZxcXVEVi8zOFR6eDI3cnE5N05NUW5PMmtic25IZzE2QnlhYlFpdVBUUERMdU5VY3k2dUlxTGF4NUlEOGNoeGprNm9MaTZkRVNoL2JGak9TTHBJc1dmWHU1bnRhTkdwNlpVRTlsYkJEZ2plRkN3bWtrSXZnNlBKb2pldE5xY09OTnRCOUd4Q0lGdlJ1Q3lkVzM=
     delayedInitialization: 0
     cameraDeviceModeSetting: -1
-    maxSimultaneousImageTargets: 1
+    maxSimultaneousImageTargets: 4
     maxSimultaneousObjectTargets: 1
     useDelayedLoadingObjectTargets: 0
     cameraDirection: 0
@@ -45,14 +45,8 @@ MonoBehaviour:
   databaseLoad:
     dataSetsToLoad:
     - MuseumTargets
-    - Vuforia_Teste_OT
-    - VuforiaMars_Images
-    - Vuforia_Teste
     dataSetsToActivate:
     - MuseumTargets
-    - Vuforia_Teste_OT
-    - VuforiaMars_Images
-    - Vuforia_Teste
   videoBackground:
     clippingMode: 0
     numDivisions: 2
@@ -72,7 +66,7 @@ MonoBehaviour:
     autoInitTracker: 0
     autoStartTracker: 0
   webcam:
-    deviceNameSetInEditor: 
-    flipHorizontally: 1
-    turnOffWebCam: 1
+    deviceNameSetInEditor: Logitech Camera
+    flipHorizontally: 0
+    turnOffWebCam: 0
     renderTextureLayer: 30

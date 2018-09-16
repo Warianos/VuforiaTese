@@ -3,30 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Tools
-  - Objectives
-  - TopDoor
-  - BottomDoor
-  - Bobine
-  - CenterPiece
-  - SoundPS
-  - FadeBobine
-  - VibratePlate
-  - Phones
-  - InfoPanel
-  - Book
-  - XMLManager
-  - TelephoneDemo
-  - SmallImages
-  - Debug
-  - FadeBattery
-  - Battery
-  - cameraController
-  - Motor
-  - FadeMotor
-  - Handheld
-  - LoadManagar
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -36,8 +13,8 @@ TagManager:
   - UI
   - 
   - 
-  - Eletricity
-  - CollidersSemRaycast
+  - 
+  - 
   - 
   - 
   - 

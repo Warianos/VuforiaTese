@@ -6,29 +6,41 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scene/Dismantle.unity
-    guid: 47c72d2d1da7d424c87f8d80bf6051e7
+    path: Assets/SamplesResources/Scenes/0-Splash.unity
+    guid: 7238041e8d31f4d439b8851a5d4bb6fa
   - enabled: 0
-    path: Assets/Scene/3dRecog.unity
-    guid: 9d392f2024f2e2547a3f5f06f5b94990
+    path: Assets/SamplesResources/Scenes/1-Menu.unity
+    guid: 1763269b9427b4a44957006a02f06c30
   - enabled: 0
-    path: Assets/Scene/Particles.unity
-    guid: 60e1169d41c2db14096dd69ae3e8c380
+    path: Assets/SamplesResources/Scenes/2-Loading.unity
+    guid: 22b8f383624ec49ef986b9155d212ac1
   - enabled: 0
-    path: Assets/Scene/Sound.unity
-    guid: 237feb1866f928d4eade55b8a451b504
+    path: Assets/SamplesResources/Scenes/3-CloudReco.unity
+    guid: e434bc354d6d54b899b4fbf77b3118a3
   - enabled: 0
-    path: Assets/Scene/Transformations.unity
-    guid: c8b84b00b9975304eb84327561ae5363
+    path: Assets/SamplesResources/Scenes/3-CylinderTargets.unity
+    guid: b336b80db71704028995a1ea175dad4a
   - enabled: 0
-    path: Assets/Scene/WindowEffect.unity
-    guid: c36d61e9a0f43c640927835858567146
+    path: Assets/SamplesResources/Scenes/3-ImageTargets.unity
+    guid: fa05b4f596c584dc79960294a1b601cc
   - enabled: 0
+    path: Assets/SamplesResources/Scenes/3-MultiTargets.unity
+    guid: d5e3b9c64d95e4105b0f8c39cd4dc3bd
+  - enabled: 0
+    path: Assets/SamplesResources/Scenes/3-ObjectReco.unity
+    guid: 633a6cb9bd1704671bdefaba667099b2
+  - enabled: 0
+    path: Assets/SamplesResources/Scenes/3-UserDefinedTargets.unity
+    guid: 89ed636faaaf34959983482a021ac4e6
+  - enabled: 0
+    path: Assets/SamplesResources/Scenes/3-VirtualButtons.unity
+    guid: 319d9b92c918a47e192e3d3382615bc8
+  - enabled: 0
+    path: Assets/SamplesResources/Scenes/3-VuMark.unity
+    guid: d9b53b25a285640cf8ac170a80603e34
+  - enabled: 1
     path: Assets/Scene/MenuAberto.unity
     guid: 1d133e1ffd80ae5418f4bbb6bf4fc6e0
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scene/Telephone.unity
     guid: 5d0509e33fba3f7468614be72f9740c8
-  - enabled: 1
-    path: Assets/Scene/Markerless.unity
-    guid: 1800c7a317f3d134d8c044f1391a9b23

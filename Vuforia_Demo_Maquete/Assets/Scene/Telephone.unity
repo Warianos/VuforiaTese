@@ -7519,7 +7519,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
+  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 1}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -9538,6 +9538,26 @@ Prefab:
     - target: {fileID: 1085865068291768, guid: c2e1a6a991ee8ce49b82291eed7cd803, type: 2}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198732682687265802, guid: c2e1a6a991ee8ce49b82291eed7cd803,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198732682687265802, guid: c2e1a6a991ee8ce49b82291eed7cd803,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198732682687265802, guid: c2e1a6a991ee8ce49b82291eed7cd803,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198732682687265802, guid: c2e1a6a991ee8ce49b82291eed7cd803,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
       objectReference: {fileID: 0}
     - target: {fileID: 198732682687265802, guid: c2e1a6a991ee8ce49b82291eed7cd803,
         type: 2}

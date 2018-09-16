@@ -147,6 +147,7 @@ public class EletricityController : MonoBehaviour {
     private bool showInfoMotor;
     public bool canShowInfo5;
     public bool canShowInfo2;
+    private bool canshowInfo2Flag = true;
     public bool showInfoTelephone;
     private bool canShowInfoVibratePlate;
     private bool showInfoBatterDidnotFinishFristDemo;
@@ -597,9 +598,10 @@ public class EletricityController : MonoBehaviour {
             //}
             
         }
-        if (canShowInfo2)
+        if (canShowInfo2 && canshowInfo2Flag)
         {
             canShowInfo2 = false;
+            canshowInfo2Flag = false;
             Info.text = batteryLowStr;
             sendinfo(Info);
             
