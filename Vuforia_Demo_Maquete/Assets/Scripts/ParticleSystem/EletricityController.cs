@@ -161,12 +161,24 @@ public class EletricityController : MonoBehaviour {
     XMLManager xmlManager;
     private bool xmlManagerSticker;
 
+    public AudioClip notificationSound;
+    private bool canNotificateFirstTime = true;
+    private bool canRingSound = true;
+    //public AudioSource eletrcityTop;
+    //public AudioSource eletricityMiddle;
+    // public AudioSource eletricityBottom;
+    public AudioClip telephoneRinging;
+    public AudioSource audio;
+    public GameObject AudioSourceObject;
+    
+
     public bool telefonou;
     public GameObject cameraAR;
     private ParticleSystem targetChild;
     private Collider[] phonesColliders;
     //Use this for initialization
     void Start () {
+        audio = AudioSourceObject.GetComponent<AudioSource>();
         time = ps.GetComponent<ParticleSystemFollowPath>().time;
 
         finishFirstDemo = GetComponent<RaycastColliderDetection>().finishFirstDemo;
@@ -325,6 +337,7 @@ public class EletricityController : MonoBehaviour {
             if (eletricityBobineON)
             {
                 eletricityBobine.SetActive(true);
+               // eletrcityTop.Play();
                 eletricityBobineTime += Time.deltaTime;
                 //Debug.Log(eletricityBobineTime);
             }
@@ -340,6 +353,7 @@ public class EletricityController : MonoBehaviour {
             }
             if (eletricityBobineTime >= 5.0f)
             {
+               // eletrcityTop.Stop();
                 eletricityBobineTime = 0;
                 eletricityBobine.SetActive(false);
                 eletricityBobineON = false;
@@ -354,6 +368,7 @@ public class EletricityController : MonoBehaviour {
             if (eletricityFlag2)
             {
                 eletricityBatteryDown.SetActive(true);
+                //eletricityBottom.Play();
                 eletricityFlag2 = false;
             }
             if (eletricityBobineTime >= 3.0f) //caso tenha finalizado o primeiro demo sem acabar a animação toda, reinicia aqui as variaveis
@@ -368,6 +383,7 @@ public class EletricityController : MonoBehaviour {
                 {
                     eletricityBobine.SetActive(false);
                     eletricityBobine.SetActive(true);
+                   // eletrcityTop.Play();
                     eletricityFlag1 = false;
                 }
                 
@@ -379,15 +395,19 @@ public class EletricityController : MonoBehaviour {
                     eletricityBobineTime += Time.deltaTime;
                     eletricityBobine.GetComponent<Animator>().SetBool("canFadeOut", true);
                     
+
+
                     if (eletricityBobineTime >= 1.5)
                     {
                         eletricityDownFlag1 = true;
                         eletricityBobineTime = 0;
                         eletricityBobineON = false;
                         eletricityBobine.SetActive(false);
+                        //eletrcityTop.Stop();
                         eletricityFlag1 = true;
 
                         eletricityGoingDown.SetActive(true);//enviar
+                        //eletricityMiddle.Play();
                         //activar ondas de som a irem pelo cano?
                         //eletricityDown.SetActive(true);
                     }
@@ -415,6 +435,7 @@ public class EletricityController : MonoBehaviour {
                         eletricityDownTime = 0;
                         eletricityDownFlag1 = false;
                         eletricityGoingDown.SetActive(false);
+                        //eletricityMiddle.Stop();
                     }
                     //enviar 
                     //eletricityDown.GetComponent<Animator>().SetBool("canFadeOut", true);
@@ -468,6 +489,7 @@ public class EletricityController : MonoBehaviour {
         if (finishSecondDemo && eletricityFlag3)
         {
             eletricityBatteryUP.SetActive(true);
+           // eletricityBottom.Play();
             eletricityFlag3 = false;
         }
         /*
@@ -507,12 +529,15 @@ public class EletricityController : MonoBehaviour {
                 //canvasStart = false;
             }
             //vibrar a primeira vez apenas
-            if (firstTimeObjectiveShakeAnim && canvasTimerToAppear >= 2.0f)
+            if (firstTimeObjectiveShakeAnim && canvasTimerToAppear >= 2.0f && canNotificateFirstTime)
             {
+                canNotificateFirstTime = false;
                 canvasStart = false;
                 canInteractWithPhone = true;
                 firstTimeObjectiveShakeAnim = false;
+                //canvasTimerToAppear = 0 ;
                 canvasAnimatorController.GetComponent<canvasAnimationController>().objectivePanelAnimator.SetBool("somethingNew", true);
+                audio.PlayOneShot(notificationSound,0.7F);
             }
         }
         
@@ -562,6 +587,8 @@ public class EletricityController : MonoBehaviour {
             segundoDesafioText.color = new Color(0.1f, 0.1f, 0.1f,1.0f); //meter cor cinzenta escura
             sendinfo(Info1);
             canvasAnimatorController.GetComponent<canvasAnimationController>().objectivePanelAnimator.SetBool("somethingNew", true);
+            audio.PlayOneShot(notificationSound, 0.7F);
+            
             XMLManager.ins.SetVariableInDatabase("Telephone", true, 0);
             XMLManager.ins.SaveItems();
 
@@ -613,6 +640,8 @@ public class EletricityController : MonoBehaviour {
             segundoDesafioText.transform.Find("CheckBoxCorrect").gameObject.SetActive(true);
             terceiroDesafioText.color = new Color(0.1f, 0.1f, 0.1f, 1.0f); //meter cor cinzenta escura
             canvasAnimatorController.GetComponent<canvasAnimationController>().objectivePanelAnimator.SetBool("somethingNew", true);
+            audio.PlayOneShot(notificationSound, 0.7F);
+            
             showInfo2 = false;
             
         }
@@ -678,6 +707,14 @@ public class EletricityController : MonoBehaviour {
                 Telefonar.interactable = false;
                 Atender.interactable = true;
                 SinosAnimator.SetBool("canRing", true);
+                if (canRingSound)
+                {
+                    canRingSound = false;
+                    audio.clip = telephoneRinging;  
+                    audio.Play();
+                }
+                
+                
                 //primeiroDesafioText.color = new Color(0.302f, 0.671f, 0.318f);
             }
             if (!telefonou && !atendeu)
@@ -702,6 +739,9 @@ public class EletricityController : MonoBehaviour {
                 telefonou = false;
                 Falar.interactable = true;
                 SinosAnimator.SetBool("canRing", false);
+                canRingSound = true;
+                audio.Stop();
+                
                 TubosAnimator.SetBool("canAnimTubes", true);
                 TubosAnimator.SetBool("canReturnStartPos", false);
                 segundoDesafioText.transform.Find("CheckBox").gameObject.SetActive(false);
@@ -747,7 +787,7 @@ public class EletricityController : MonoBehaviour {
 
       
 
-                    
+                 /*   
                     if (falou)
                     {
                         //////////////////////////////////////////////////////////////////SEND SOUND INI//////////////////////////////////////////////////////////////
@@ -790,7 +830,7 @@ public class EletricityController : MonoBehaviour {
                         //////////////////////////////////////////////////////////////////SEND SOUND FIN//////////////////////////////////////////////////////////////
                     }
 
-                
+                */
 
          
 
