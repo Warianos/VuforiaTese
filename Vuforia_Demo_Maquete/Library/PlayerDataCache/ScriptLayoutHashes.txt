@@ -1,10 +1,11 @@
 Android
 SceneListBegin?
-Assets/SamplesResources/Scenes/3-UserDefinedTargets.unity
+Assets/Scene/MenuAberto.unity
+Assets/Scene/Telephone.unity
 SceneListEnd?
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.SamplesNavigationHandler
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.NewBehaviourScript
-7385e1fda5fc63e8fe80f881f6e00b41 Assembly-CSharp.dll:.EletricityController
+1407b852fd0b030cda90c48c6dee12b8 Assembly-CSharp.dll:.EletricityController
 07124d9d8ceb4747b3d5fe0bdd7bad3e Assembly-CSharp.dll:.SceneParticleController
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.CameraFocusController
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
