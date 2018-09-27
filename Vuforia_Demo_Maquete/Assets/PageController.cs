@@ -57,10 +57,17 @@ public class PageController : MonoBehaviour {
 
     //sprites variables
     Sprite[] stickerSprites;
+    Sprite[] GUIsprites;
     GameObject[] pageLeftImages;
-
+    public bool stopBoolean;
+    public Button[] buttonsInGame;
+    public bool buttonsInteractableBool;
+    public float timeForInfoAnimation;
     // Use this for initialization
     void Start () {
+        timeForInfoAnimation = 0.0f;
+        stopBoolean = false;
+        buttonsInteractableBool = true;
         pageAnimators = new List<Animator>();
         bookAnimator = gameObject.GetComponent<Animator>();
         mouseXIniPos = 0;
@@ -77,6 +84,8 @@ public class PageController : MonoBehaviour {
         enabledFirstPage = false;
         bookColliders = gameObject.GetComponents<Collider>();
         CameraRotationController = GameObject.FindGameObjectWithTag("cameraController").GetComponent<cameraRotationController>();
+
+
 
     // Use this for initialization
 
@@ -97,6 +106,7 @@ public class PageController : MonoBehaviour {
         //xmlManagerScript.LoadItems();
 
         stickerSprites = Resources.LoadAll<Sprite>("ObjectosColecaoReduced");
+        GUIsprites = Resources.LoadAll<Sprite>("GUI");
         //FIND OBJECTS WITH TAG SÓ FUNCIONA SE O OBJECTO ESTIVER ACTIVO NA HIERARQUIA
         //pageLeftImages = GameObject.FindGameObjectsWithTag("SmallImages");
         //Debug.Log(pageLeftImages[0].name);
@@ -263,204 +273,237 @@ public class PageController : MonoBehaviour {
             if (obj.discoveredFirstInfo)
             {
                 page.canvasRight.transform.Find("Panel").Find("Info1").Find("Text").GetComponent<Text>().text = obj.objectInfoText1;
+                page.canvasRight.transform.Find("Panel").Find("Info1").GetComponent<Image>().sprite = GUIsprites[2];
             }
             else if (!obj.discoveredFirstInfo)
             {
-                page.canvasRight.transform.Find("Panel").Find("Info1").Find("Text").GetComponent<Text>().text = "Click in the button above to discover more info";
+                page.canvasRight.transform.Find("Panel").Find("Info1").Find("Text").GetComponent<Text>().text = "Click in the Museum object above to discover more info";
+                page.canvasRight.transform.Find("Panel").Find("Info1").GetComponent<Image>().sprite = GUIsprites[4];
             }
 
             if (obj.discoveredSecondInfo)
             {
                 page.canvasRight.transform.Find("Panel").Find("Info2").Find("Text").GetComponent<Text>().text = obj.objectInfoText2;
+                page.canvasRight.transform.Find("Panel").Find("Info2").GetComponent<Image>().sprite = GUIsprites[2];
             }
             else if (!obj.discoveredSecondInfo)
             {
-                page.canvasRight.transform.Find("Panel").Find("Info2").Find("Text").GetComponent<Text>().text = "Click in the button above to discover more info";
+                page.canvasRight.transform.Find("Panel").Find("Info2").Find("Text").GetComponent<Text>().text = "Click in the Museum object above to discover more info";
+                page.canvasRight.transform.Find("Panel").Find("Info2").GetComponent<Image>().sprite = GUIsprites[4];
             }
 
             if (obj.discoveredThirdInfo)
             {
                 page.canvasRight.transform.Find("Panel").Find("Info3").Find("Text").GetComponent<Text>().text = obj.objectInfoText3;
+                page.canvasRight.transform.Find("Panel").Find("Info3").GetComponent<Image>().sprite = GUIsprites[2];
             }
             else if (!obj.discoveredThirdInfo)
             {
-                page.canvasRight.transform.Find("Panel").Find("Info3").Find("Text").GetComponent<Text>().text = "Click in the button above to discover more info";
+                page.canvasRight.transform.Find("Panel").Find("Info3").Find("Text").GetComponent<Text>().text = "Click in the Museum object above to discover more info";
+                page.canvasRight.transform.Find("Panel").Find("Info3").GetComponent<Image>().sprite = GUIsprites[4];
             }
         }
     }
     // Update is called once per frame
     void Update()
     {
-        //TENHO DE COLOCAR OS COLLIDERS ENABLEDS DEPENDENDO DOS DRAGS
-        animationStateFirstPage = pageAnimators[0].GetCurrentAnimatorStateInfo(0);
-        myAnimatorClipFirstPage = pageAnimators[0].GetCurrentAnimatorClipInfo(0);
-
-
-
-
-        myFirstPageIniTimeHelper = Time.deltaTime;
-        //Isto está feito de maneira a que o utilizador tenha mesmo de fazer drag, caso clique para fazer drag mas arraste apenas um pouco, não conta como drag
-
-        if (bookIsOpen && !enabledFirstPage)
+        //adiciona aqui mais buttões que metas nas paginas para ficarem bloqueados quando aparece informação nova
+        if (stopBoolean & buttonsInteractableBool)
         {
-            pages[1].page.SetActive(true);
-            enabledFirstPage = true;
-            myFirstPageLength = animationStateFirstPage.length;
-            //Debug.Log("Comprimento" + myFirstPageLength);
-        }
-        //se o livro tiver aberto E ANIMAÇÃO TER ACABADO DAPRIMEIRA PAGINA
-        if(bookIsOpen && !activatedFirstTwoCanvas && myFirstPageIniTime <= myFirstPageLength + myFirstPageLength / 2)
-        {
-            myFirstPageIniTime += myFirstPageIniTimeHelper;
-            //se o tempo que passou for superior a metade do lentgh, quer dizer que  a pagina está a meio e poderá mostrar o canvas da segunda pagina
-            if (myFirstPageIniTime >= myFirstPageLength + myFirstPageLength / 2)
+            foreach(Button button in buttonsInGame)
             {
-                //Debug.Log("entrei");
-                pages[0].canvasLeft.gameObject.SetActive(true);
-                pages[1].canvasRight.gameObject.SetActive(true);
-                activatedFirstTwoCanvas = true;
-                myFirstPageIniTime = 0;
+                button.interactable = false;
             }
+            buttonsInteractableBool = false;
+            timeForInfoAnimation = 0.0f;
         }
-        if(!bookIsOpen && activatedFirstTwoCanvas && myFirstPageIniTime <= myFirstPageLength + myFirstPageLength / 2)
+        if (!stopBoolean)
         {
-            myFirstPageIniTime += myFirstPageIniTimeHelper;
-            if (myFirstPageIniTime >= myFirstPageLength + myFirstPageLength / 2)
+            
+            timeForInfoAnimation += Time.deltaTime;
+            if (timeForInfoAnimation >= 1)
             {
-               // Debug.Log("entrei");
-                pages[0].canvasLeft.gameObject.SetActive(false);
-                pages[1].canvasRight.gameObject.SetActive(false);
-                activatedFirstTwoCanvas = false;
-                myFirstPageIniTime = 0;
+
+            
+            if (!buttonsInteractableBool)
+            {
+                foreach (Button button in buttonsInGame)
+                {
+                    button.interactable = true;
+                }
+                buttonsInteractableBool = true;
             }
-        }
-
-        
-        //pagina 2
-
-        // Debug.Log("myFirstPageIniTime: " + myFirstPageIniTime);
-        // Debug.Log("myFirstPageLength: " + myFirstPageLength);
+            //TENHO DE COLOCAR OS COLLIDERS ENABLEDS DEPENDENDO DOS DRAGS
+            animationStateFirstPage = pageAnimators[0].GetCurrentAnimatorStateInfo(0);
+            myAnimatorClipFirstPage = pageAnimators[0].GetCurrentAnimatorClipInfo(0);
 
 
 
 
-        if (Input.GetMouseButtonDown(0)/* && !EventSystem.current.IsPointerOverGameObject()*/)
-        {
-            mouseXIniPos = Input.mousePosition.x; // da o valor do mouse na posição X normalizado entre -1 a 1 tendo como base 
-            //Debug.Log("entrei aqui no mouseIniPos" + mouseXIniPos);
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            myFirstPageIniTimeHelper = Time.deltaTime;
+            //Isto está feito de maneira a que o utilizador tenha mesmo de fazer drag, caso clique para fazer drag mas arraste apenas um pouco, não conta como drag
 
-            if (bookIsOpen) // se o livro estiver aberto , o raiu vai excluir o collider do livro de maneira a puder colider com os colliders das folhas
+            if (bookIsOpen && !enabledFirstPage)
             {
-                
-                
+                pages[1].page.SetActive(true);
+                enabledFirstPage = true;
+                myFirstPageLength = animationStateFirstPage.length;
+                //Debug.Log("Comprimento" + myFirstPageLength);
+            }
+            //se o livro tiver aberto E ANIMAÇÃO TER ACABADO DAPRIMEIRA PAGINA
+            if (bookIsOpen && !activatedFirstTwoCanvas && myFirstPageIniTime <= myFirstPageLength + myFirstPageLength / 2)
+            {
+                myFirstPageIniTime += myFirstPageIniTimeHelper;
+                //se o tempo que passou for superior a metade do lentgh, quer dizer que  a pagina está a meio e poderá mostrar o canvas da segunda pagina
+                if (myFirstPageIniTime >= myFirstPageLength + myFirstPageLength / 2)
+                {
+                    //Debug.Log("entrei");
+                    pages[0].canvasLeft.gameObject.SetActive(true);
+                    pages[1].canvasRight.gameObject.SetActive(true);
+                    activatedFirstTwoCanvas = true;
+                    myFirstPageIniTime = 0;
+                }
+            }
+            if (!bookIsOpen && activatedFirstTwoCanvas && myFirstPageIniTime <= myFirstPageLength + myFirstPageLength / 2)
+            {
+                myFirstPageIniTime += myFirstPageIniTimeHelper;
+                if (myFirstPageIniTime >= myFirstPageLength + myFirstPageLength / 2)
+                {
+                    // Debug.Log("entrei");
+                    pages[0].canvasLeft.gameObject.SetActive(false);
+                    pages[1].canvasRight.gameObject.SetActive(false);
+                    activatedFirstTwoCanvas = false;
+                    myFirstPageIniTime = 0;
+                }
+            }
 
 
-                //}
-                //Debug.Log("entreia qui no bookIsOpen");
-                if (Physics.Raycast(ray, out hit, 500, bookLayerMask))
+            //pagina 2
+
+            // Debug.Log("myFirstPageIniTime: " + myFirstPageIniTime);
+            // Debug.Log("myFirstPageLength: " + myFirstPageLength);
+
+
+
+
+            if (Input.GetMouseButtonDown(0)/* && !EventSystem.current.IsPointerOverGameObject()*/)
+            {
+                mouseXIniPos = Input.mousePosition.x; // da o valor do mouse na posição X normalizado entre -1 a 1 tendo como base 
+                                                      //Debug.Log("entrei aqui no mouseIniPos" + mouseXIniPos);
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+                if (bookIsOpen) // se o livro estiver aberto , o raiu vai excluir o collider do livro de maneira a puder colider com os colliders das folhas
                 {
 
-                    Debug.DrawRay(ray.origin, ray.direction, Color.red, 100, true);
 
 
-                    //if (hit.collider.gameObject.name == "Tutorial1")
-                    // {
-                    //  Debug.Log("entrei aqui no tutorial1");
+
+                    //}
+                    //Debug.Log("entreia qui no bookIsOpen");
+                    if (Physics.Raycast(ray, out hit, 500, bookLayerMask))
+                    {
+
+                        Debug.DrawRay(ray.origin, ray.direction, Color.red, 100, true);
+
+
+                        //if (hit.collider.gameObject.name == "Tutorial1")
+                        // {
+                        //  Debug.Log("entrei aqui no tutorial1");
                         targetObject = hit.collider.gameObject;
-                    //  Debug.Log("nome do argetObject no Page Controller: " + targetObject);
-                    // }
+                        //  Debug.Log("nome do argetObject no Page Controller: " + targetObject);
+                        // }
 
-                    Debug.Log("targetObjectName: " + targetObject.name );
+                        Debug.Log("targetObjectName: " + targetObject.name);
+                    }
                 }
-            }
-            // caso o livro esteja fechado o raio vai colidir com o livro de maneira a abri-lo
-            else
-            {
-                if (Physics.Raycast(ray, out hit, 500))
+                // caso o livro esteja fechado o raio vai colidir com o livro de maneira a abri-lo
+                else
                 {
-                    Debug.DrawRay(ray.origin, ray.direction, Color.red, 100, true);
-                    if (hit.collider.gameObject.tag == "Book")
+                    if (Physics.Raycast(ray, out hit, 500))
                     {
-                        openBook();
-                        
+                        Debug.DrawRay(ray.origin, ray.direction, Color.red, 100, true);
+                        if (hit.collider.gameObject.tag == "Book")
+                        {
+                            openBook();
 
+
+                        }
                     }
                 }
             }
+
+            if (Input.GetMouseButtonUp(0) /*&& !EventSystem.current.IsPointerOverGameObject()*/)
+            {
+                mouseXEndPos = Input.mousePosition.x;
+                // Debug.Log("entrei aqui no mouseEndPos" + mouseXEndPos);
+                if (bookIsOpen)
+                {
+                    if (mouseXIniPos - mouseXEndPos > 0.0f) //drag esquerda
+                    {
+                        mouseXEndPos = 0;//reset a variavel
+                        mouseXIniPos = 0;//reset a variavel
+
+                        //houve drag para a esquerda
+                        // Debug.Log("Houve drag para a esquerda");
+
+                        CameraRotationController.resetCameraPos();
+                        if (targetObject.name == "Tutorial2")
+                        {
+                            turnPage(pageAnimators[1], 1, false);
+
+                        }
+                        if (targetObject.name == "Page1")
+                        {
+                            turnPage(pageAnimators[2], 2, false);
+                        }
+                        if (targetObject.name == "Page2")
+                        {
+                            turnPage(pageAnimators[3], 3, false);
+                        }
+                    }
+
+                    if (mouseXIniPos - mouseXEndPos < 0.0f)// drag direita
+                    {
+                        mouseXEndPos = 0;//reset a variavel
+                        mouseXIniPos = 0;//reset a variavel
+                        CameraRotationController.resetCameraPos();
+                        if (targetObject.name == "Tutorial1")
+                        {
+                            closeBook();
+                        }
+                        if (targetObject.name == "Tutorial2")
+                        {
+                            turnPage(pageAnimators[1], 1, true);
+                        }
+                        if (targetObject.name == "Page1")
+                        {
+                            turnPage(pageAnimators[2], 2, true);
+                        }
+                        if (targetObject.name == "Page2")
+                        {
+                            turnPage(pageAnimators[3], 3, true);
+                        }
+                        // Debug.Log("Houve drag para a direita");
+                    }
+
+                }
+                //Debug.Log("mouseXIniPos - mouseXEndPos: " + (mouseXIniPos - mouseXEndPos));
+            }
+            activateOrDeactivatePages(myFirstPageIniTimeHelper, actualPageIndex, actualGesture);
         }
 
-        if (Input.GetMouseButtonUp(0) /*&& !EventSystem.current.IsPointerOverGameObject()*/)
-        {
-            mouseXEndPos = Input.mousePosition.x;
-           // Debug.Log("entrei aqui no mouseEndPos" + mouseXEndPos);
-            if (bookIsOpen)
+            /*void OnMouseDrag(PointerEventData eventData)
             {
-                if (mouseXIniPos - mouseXEndPos > 0.0f) //drag esquerda
-                {
-                    mouseXEndPos = 0;//reset a variavel
-                    mouseXIniPos = 0;//reset a variavel
+                // Debug.Log("entrei aqui no mouseDrag");
+               // Debug.Log(eventData.pressPosition);
+                //Debug.Log(eventData.position);
+                //Debug.Log("entrei aqui no mouseEndPos" + mouseXEndPos);
 
-                    //houve drag para a esquerda
-                    // Debug.Log("Houve drag para a esquerda");
 
-                    CameraRotationController.resetCameraPos();
-                    if (targetObject.name == "Tutorial2")
-                    {
-                        turnPage(pageAnimators[1], 1, false);
-                        
-                    }
-                    if (targetObject.name == "Page1")
-                    {
-                        turnPage(pageAnimators[2], 2, false);
-                    }
-                    if (targetObject.name == "Page2")
-                    {
-                        turnPage(pageAnimators[3], 3, false);
-                    }
-                }
 
-                if (mouseXIniPos - mouseXEndPos < 0.0f)// drag direita
-                {
-                    mouseXEndPos = 0;//reset a variavel
-                    mouseXIniPos = 0;//reset a variavel
-                    CameraRotationController.resetCameraPos();
-                    if (targetObject.name == "Tutorial1")
-                    {
-                        closeBook();
-                    }
-                    if (targetObject.name == "Tutorial2")
-                    {
-                        turnPage(pageAnimators[1] , 1 , true);
-                    }
-                    if (targetObject.name == "Page1")
-                    {
-                        turnPage(pageAnimators[2] , 2, true);
-                    }
-                    if (targetObject.name == "Page2")
-                    {
-                        turnPage(pageAnimators[3] , 3, true);
-                    }
-                    // Debug.Log("Houve drag para a direita");
-                }
-                
-            }
-            //Debug.Log("mouseXIniPos - mouseXEndPos: " + (mouseXIniPos - mouseXEndPos));
+            }*/
         }
-        activateOrDeactivatePages(myFirstPageIniTimeHelper, actualPageIndex, actualGesture);
     }
-
-    /*void OnMouseDrag(PointerEventData eventData)
-    {
-        // Debug.Log("entrei aqui no mouseDrag");
-       // Debug.Log(eventData.pressPosition);
-        //Debug.Log(eventData.position);
-        //Debug.Log("entrei aqui no mouseEndPos" + mouseXEndPos);
-
-
-
-    }*/
-
     void openBook()
     {
         if (!bookAnimator.GetBool("openBook"))

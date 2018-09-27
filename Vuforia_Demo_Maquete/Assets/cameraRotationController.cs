@@ -1,15 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class cameraRotationController : MonoBehaviour {
 
     
     public GameObject cameraGameObject;
     public Animator cameraAnimator;
+    private  Text infoText;
+    public GameObject infoPanel;
+    public Text panelText;
+    public GameObject PageController;
+     
 	// Use this for initialization
 	void Start () {
         cameraAnimator = cameraGameObject.GetComponent<Animator>();
+        
     }
 
    
@@ -26,11 +33,42 @@ public class cameraRotationController : MonoBehaviour {
 
 
     }
+    
     public void resetCameraPos()
     {
         cameraAnimator.SetBool("zoomQuestion1", false);
         cameraAnimator.SetBool("zoomQuestion2", false);
         cameraAnimator.SetBool("zoomQuestion3", false);
+    }
+    public void showInfo(GameObject info)
+    {
+        if(infoPanel.GetComponent<Animator>().GetBool("clickedOrTimeOut") == true)
+        {
+            infoPanel.SetActive(false);
+        }
+        if (info.transform.name == "Info1")
+        {
+            infoPanel.SetActive(true);
+            GameObject.FindGameObjectWithTag("Book").GetComponent<PageController>().stopBoolean = true;
+            panelText.text = info.transform.GetChild(0).gameObject.GetComponent<Text>().text;
+            //infoPanel.GetComponent<Animator>().SetBool("clickedOrTimeOut", true);
+        }
+
+        if (info.transform.name == "Info2")
+        {
+            infoPanel.SetActive(true);
+            GameObject.FindGameObjectWithTag("Book").GetComponent<PageController>().stopBoolean = true;
+            panelText.text = info.transform.GetChild(0).gameObject.GetComponent<Text>().text;
+           // infoPanel.GetComponent<Animator>().SetBool("clickedOrTimeOut", true);
+        }
+
+        if (info.transform.name == "Info3")
+        {
+            infoPanel.SetActive(true);
+            GameObject.FindGameObjectWithTag("Book").GetComponent<PageController>().stopBoolean = true;
+            panelText.text = info.transform.GetChild(0).gameObject.GetComponent<Text>().text;
+            //infoPanel.GetComponent<Animator>().SetBool("clickedOrTimeOut", true);
+        }
     }
     public void moveCamera(GameObject info)
     {

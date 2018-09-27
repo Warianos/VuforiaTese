@@ -9,6 +9,7 @@ public class panelAnimationController : MonoBehaviour
     Animator animator;
     bool clickedPanel;
     AnimatorStateInfo stateInfo;
+    
     // Use this for initialization
     void Start()
     {
@@ -36,7 +37,7 @@ public class panelAnimationController : MonoBehaviour
         {
             // Debug.Log("Nome do gameobject: " + gameObject.name);
             //se carregar nos objetivos faz reset a variavel de tremer pois quer dizer que o player já viu que estava a tremer
-            animator.SetBool("somethingNew",false);
+            animator.SetBool("somethingNew", false);
             if (animator.GetBool("clickedLeftPanel"))
             {
                 animator.SetBool("clickedLeftPanel", false);
@@ -46,7 +47,7 @@ public class panelAnimationController : MonoBehaviour
                 animator.SetBool("clickedLeftPanel", true);
             }
         }
-        else if(gameObject.tag == "Tools")
+        else if (gameObject.tag == "Tools")
         {
             if (animator.GetBool("clickedRightPanel"))
             {
@@ -62,17 +63,22 @@ public class panelAnimationController : MonoBehaviour
         {
             //gameObject.SetActive(false);
             animator.SetBool("clickedOrTimeOut", true);
-            if(GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().atendeu == true && GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().finishSecondDemo != true)
+            if (GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().atendeu == true && GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().finishSecondDemo != true)
             {
                 GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().atendeu = false;
             }
             GameObject.FindGameObjectWithTag("GameController").GetComponent<EletricityController>().canvasStart = true;
             GameObject.FindGameObjectWithTag("GameController").GetComponent<EletricityController>().firstTimeObjectiveShakeAnim = true;
-            
+
         }
-
-
-    }
+        else if (gameObject.tag == "InfoPanelBook")
+        {
+            //gameObject.SetActive(false);
+            animator.SetBool("clickedOrTimeOut", true);
+            GameObject.FindGameObjectWithTag("Book").GetComponent<PageController>().stopBoolean = false;
+            //GameObject.FindGameObjectWithTag("Book").GetComponent<PageController>().buttonsInteractableBool = true;
+        }
+        }
     public void Destroy()
     {
 

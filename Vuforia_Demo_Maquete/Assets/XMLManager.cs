@@ -156,6 +156,16 @@ public class XMLManager : MonoBehaviour {
         string objectInfoText3 = "A caixa com tampa preta representa o microfone do telefone, sendo que a placa preta vibra de acordo com a fala da pessoa, e dentro da caixa contem um mecanismo que converte essas vibrações em eletricidade e envia pela corrente eletrica essa informção OU converte a informação vinda de eletricidade e converte em som para se ouvir nos auscutadores";
         BuildFirstAndroidXMLFile(objectName, win, discoveredFirstInfo, discoveredSecondInfo, discoveredThirdInfo, objectInfoText1, objectInfoText2, objectInfoText3);
 
+        string objectName1 = "FreqMachine";
+        bool win1 = false;
+        bool discoveredFirstInfo1 = false;
+        bool discoveredSecondInfo1 = false;
+        bool discoveredThirdInfo1 = false;
+        string objectInfoText11 = "Info1";
+        string objectInfoText21 = "Info2";
+        string objectInfoText31 = "Info3";
+        BuildFirstAndroidXMLFile(objectName1, win1, discoveredFirstInfo1, discoveredSecondInfo1, discoveredThirdInfo1, objectInfoText11, objectInfoText21, objectInfoText31);
+
 
     }
     public void LoadResetItems()
