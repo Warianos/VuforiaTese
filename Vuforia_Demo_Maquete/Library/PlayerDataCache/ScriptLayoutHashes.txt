@@ -1,7 +1,7 @@
 Android
 SceneListBegin?
 Assets/Scene/MenuAberto.unity
-Assets/Scene/Telephone.unity
+Assets/Scene/ModelTargetTelephone.unity
 SceneListEnd?
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.SamplesNavigationHandler
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.NewBehaviourScript
