@@ -1,7 +1,7 @@
 Android
 SceneListBegin?
 Assets/Scene/MenuAberto.unity
-Assets/Scene/ModelTargetTelephone.unity
+Assets/Scene/Telephone.unity
 SceneListEnd?
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.SamplesNavigationHandler
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.NewBehaviourScript
@@ -191,7 +191,7 @@ d2a2bd333db22f480a8589e167314ecc Vuforia.UnityExtensions.dll:Vuforia.UserDefined
 05524b8f659e7bfe5756d1335fec24ba Vuforia.UnityExtensions.dll:Vuforia.WireframeTrackableEventHandler
 15bea26698002c6c4a3087131232ce5c Vuforia.UnityExtensions.dll:Vuforia.WordBehaviour
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.CameraSettings
-49db6e1a4804ca303f7525797e974a57 Assembly-CSharp.dll:.cameraRotationController
+9cb734340b00544281acf6eb042f0e17 Assembly-CSharp.dll:.cameraRotationController
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.forceHorizontalOrientation
 e1d5d7f4d402f4c9715ec559a2ff02e2 Assembly-CSharp.dll:.Astronaut
 26215f135eeb48d8fa1189498c107f6c Vuforia.UnityExtensions.dll:Vuforia.AnchorBehaviour
@@ -318,7 +318,7 @@ c23567de7068d554c905c20656a91b08 Assembly-CSharp.dll:Lean.Touch.LeanCameraMoveSm
 493c211ab85ec2db8c090d3ba6c0a013 Assembly-CSharp.dll:Lean.Touch.LeanSelectableSpriteRendererColor
 e151305212b6d9dd07d68e464b461420 Assembly-CSharp.dll:Lean.Touch.LeanFingerTap
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.SamplesTapHandler
-ff5f38ce6e3733499a7f8eb8b4b3faf9 Assembly-CSharp.dll:.PageController
+5f13849b6b42fff06bb07294c5a6afda Assembly-CSharp.dll:.PageController
 5f49a3ba79119aedd9a5931885dca9fb Assembly-CSharp.dll:Lean.Touch.LeanCameraZoom
 685d4c83b4896c997314336557dd18df Assembly-CSharp.dll:Lean.Touch.LeanFingerTrail
 3672dfe77a677d7ffcaa6aa87e3f259e Assembly-CSharp.dll:.Dismantle

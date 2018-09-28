@@ -28,6 +28,7 @@ TagManager:
   - TelephoneDemo
   - SmallImages
   - InfoPanelBook
+  - InfoExtra1
   layers:
   - Default
   - TransparentFX

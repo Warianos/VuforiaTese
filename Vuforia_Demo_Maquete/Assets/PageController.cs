@@ -58,6 +58,7 @@ public class PageController : MonoBehaviour {
     //sprites variables
     Sprite[] stickerSprites;
     Sprite[] GUIsprites;
+    Sprite[] BOOKsprites;
     GameObject[] pageLeftImages;
     public bool stopBoolean;
     public Button[] buttonsInGame;
@@ -107,6 +108,7 @@ public class PageController : MonoBehaviour {
 
         stickerSprites = Resources.LoadAll<Sprite>("ObjectosColecaoReduced");
         GUIsprites = Resources.LoadAll<Sprite>("GUI");
+        BOOKsprites = Resources.LoadAll<Sprite>("GowerBellInfoImagesATLAS");
         //FIND OBJECTS WITH TAG SÓ FUNCIONA SE O OBJECTO ESTIVER ACTIVO NA HIERARQUIA
         //pageLeftImages = GameObject.FindGameObjectsWithTag("SmallImages");
         //Debug.Log(pageLeftImages[0].name);
@@ -270,37 +272,78 @@ public class PageController : MonoBehaviour {
                 Debug.Log("entrei no sticker = false");
                 page.canvasRight.transform.Find("ClickableImage").Find("ObjectImage").GetComponent<Image>().sprite = stickerSprites[indexDidntEarnSticker];
             }
+            Transform dummyGameObjectInfo1 = page.canvasRight.transform.Find("Panel").Find("Info1");
+            Transform dummyGameObjectInfo2 = page.canvasRight.transform.Find("Panel").Find("Info2");
+            Transform dummyGameObjectInfo3 = page.canvasRight.transform.Find("Panel").Find("Info3");
             if (obj.discoveredFirstInfo)
             {
-                page.canvasRight.transform.Find("Panel").Find("Info1").Find("Text").GetComponent<Text>().text = obj.objectInfoText1;
-                page.canvasRight.transform.Find("Panel").Find("Info1").GetComponent<Image>().sprite = GUIsprites[2];
+                
+               dummyGameObjectInfo1.Find("Text").GetComponent<Text>().text = "Clica aqui para veres o que desbloqueaste ao concretizar o 1º desafio";
+               dummyGameObjectInfo1.GetComponent<Image>().sprite = GUIsprites[2];
+               dummyGameObjectInfo1.GetComponent<Button>().interactable = true;
+                if (dummyGameObjectInfo1.Find("InfoIcon") != null)
+                {
+                    dummyGameObjectInfo1.Find("InfoIcon").GetComponent<Image>().sprite = BOOKsprites[2];
+                    dummyGameObjectInfo1.Find("InfoIcon").GetComponent<Image>().preserveAspect = true;
+                }
             }
             else if (!obj.discoveredFirstInfo)
             {
-                page.canvasRight.transform.Find("Panel").Find("Info1").Find("Text").GetComponent<Text>().text = "Click in the Museum object above to discover more info";
-                page.canvasRight.transform.Find("Panel").Find("Info1").GetComponent<Image>().sprite = GUIsprites[4];
+                dummyGameObjectInfo1.Find("Text").GetComponent<Text>().text = "Desbloqueia esta informação ao jogar o minijogo deste objeto";
+                dummyGameObjectInfo1.GetComponent<Image>().sprite = GUIsprites[4];
+                dummyGameObjectInfo1.GetComponent<Button>().interactable = false;
+                if (dummyGameObjectInfo1.Find("InfoIcon") != null)
+                {
+                    dummyGameObjectInfo1.Find("InfoIcon").GetComponent<Image>().sprite = BOOKsprites[3];
+                    dummyGameObjectInfo1.Find("InfoIcon").GetComponent<Image>().preserveAspect = true;
+                }
             }
 
             if (obj.discoveredSecondInfo)
             {
-                page.canvasRight.transform.Find("Panel").Find("Info2").Find("Text").GetComponent<Text>().text = obj.objectInfoText2;
-                page.canvasRight.transform.Find("Panel").Find("Info2").GetComponent<Image>().sprite = GUIsprites[2];
+                dummyGameObjectInfo2.Find("Text").GetComponent<Text>().text = "Clica aqui para veres o que desbloqueaste ao concretizar o 2º desafio";
+                dummyGameObjectInfo2.GetComponent<Image>().sprite = GUIsprites[2];
+                dummyGameObjectInfo2.GetComponent<Button>().interactable = true;
+                if (dummyGameObjectInfo2.Find("InfoIcon") != null)
+                {
+                    dummyGameObjectInfo2.Find("InfoIcon").GetComponent<Image>().sprite = BOOKsprites[4];
+                    dummyGameObjectInfo2.Find("InfoIcon").GetComponent<Image>().preserveAspect = true;
+                }
             }
             else if (!obj.discoveredSecondInfo)
             {
-                page.canvasRight.transform.Find("Panel").Find("Info2").Find("Text").GetComponent<Text>().text = "Click in the Museum object above to discover more info";
-                page.canvasRight.transform.Find("Panel").Find("Info2").GetComponent<Image>().sprite = GUIsprites[4];
+                dummyGameObjectInfo2.Find("Text").GetComponent<Text>().text = "Desbloqueia esta informação ao jogar o minijogo deste objeto";
+                dummyGameObjectInfo2.GetComponent<Image>().sprite = GUIsprites[4];
+                dummyGameObjectInfo2.GetComponent<Button>().interactable = false;
+                if (dummyGameObjectInfo2.Find("InfoIcon") != null)
+                {
+                    dummyGameObjectInfo2.Find("InfoIcon").GetComponent<Image>().sprite = BOOKsprites[5];
+                    dummyGameObjectInfo2.Find("InfoIcon").GetComponent<Image>().preserveAspect = true;
+                }
             }
 
             if (obj.discoveredThirdInfo)
             {
-                page.canvasRight.transform.Find("Panel").Find("Info3").Find("Text").GetComponent<Text>().text = obj.objectInfoText3;
-                page.canvasRight.transform.Find("Panel").Find("Info3").GetComponent<Image>().sprite = GUIsprites[2];
+                dummyGameObjectInfo3.Find("Text").GetComponent<Text>().text = "Clica aqui para veres o que desbloqueaste ao concretizar o 3º desafio";// obj.objectInfoText3;
+                dummyGameObjectInfo3.GetComponent<Image>().sprite = GUIsprites[2];
+                dummyGameObjectInfo3.GetComponent<Button>().interactable = true;
+                if (dummyGameObjectInfo3.Find("InfoIcon") != null)
+                {
+                    dummyGameObjectInfo3.Find("InfoIcon").GetComponent<Image>().sprite = BOOKsprites[6];
+                    dummyGameObjectInfo3.Find("InfoIcon").GetComponent<Image>().preserveAspect = true;
+                }
             }
             else if (!obj.discoveredThirdInfo)
             {
-                page.canvasRight.transform.Find("Panel").Find("Info3").Find("Text").GetComponent<Text>().text = "Click in the Museum object above to discover more info";
-                page.canvasRight.transform.Find("Panel").Find("Info3").GetComponent<Image>().sprite = GUIsprites[4];
+                dummyGameObjectInfo3.Find("Text").GetComponent<Text>().text = "Desbloqueia esta informação ao jogar o minijogo deste objeto";
+                dummyGameObjectInfo3.GetComponent<Image>().sprite = GUIsprites[4];
+                dummyGameObjectInfo3.GetComponent<Button>().interactable = false;
+                if (dummyGameObjectInfo3.Find("InfoIcon") != null)
+                {
+                    dummyGameObjectInfo3.Find("InfoIcon").GetComponent<Image>().sprite = BOOKsprites[7];
+                    dummyGameObjectInfo3.Find("InfoIcon").GetComponent<Image>().preserveAspect = true;
+
+                }
             }
         }
     }

@@ -36,15 +36,19 @@ public class XMLManager : MonoBehaviour {
                 ResetDatabase();
                 SaveItemsFirstTime(); //é pelo filestream para ter o xml arranjadinho porque o streamwriter escreve tudo afrente e para ir editar o xml fica um bocado dificil
             }
-            
-            
-            FileChk();
-            LoadItems();
+
+            //só para fazer os testezs quero que seja sempre refeito o ficheiro
+            ResetDatabase();
+            SaveItemsFirstTime();
+            //caso contrario comentar as duas linhas acima e descomentar o LoadItems();
+            //FileChk();
+            //LoadItems();
             
             Debug.Log(itemDB.list[0].objectName);
         }
         else
         {
+            
             LoadItems();
             //debugText.text += "Nome do primeiro objecto: " + itemDB.list[0].objectName + "\n";
             Debug.Log(itemDB.list[0].objectName);
@@ -151,9 +155,9 @@ public class XMLManager : MonoBehaviour {
         bool discoveredFirstInfo = false;
         bool discoveredSecondInfo = false;
         bool discoveredThirdInfo = false;
-        string objectInfoText1 = "Antigamente, quando se queria telefonar a alguem, era necessário rodar a manivela ao lado das bobinas vermelhas, de maneira a produzir energia suficiente para enviar um impulso eletrico à central telefónica para podermos dizer a um/uma resposavel, o numero de telefone para o qual queriamos ligar, é por isso que este telefone não tem nenhum marcador de numeros.";
-        string objectInfoText2 = "A bateria tem uma potência de 5 volts, e sem ela não é possivel, ouvir pelos auscutadores, pois esta bateria é a responsavel por fornecer energia ao microfone situado dentro da caixa com a placa preta.";
-        string objectInfoText3 = "A caixa com tampa preta representa o microfone do telefone, sendo que a placa preta vibra de acordo com a fala da pessoa, e dentro da caixa contem um mecanismo que converte essas vibrações em eletricidade e envia pela corrente eletrica essa informção OU converte a informação vinda de eletricidade e converte em som para se ouvir nos auscutadores";
+        string objectInfoText1 = "Antigamente, quando se queria telefonar a alguem, era necessário rodar uma manivela de maneira a produzir energia suficiente para gerar um sinal de chamada na central com o operador, de maneira a ser possivel entrar em contacto com outro Utilizador (Recetor).";
+        string objectInfoText2 = "A bateria é a responsável por fornecer energia ao microfone situado dentro da caixa com a placa preta. Agora que já tens a bateria carregada, tenta ligar ao telefone";
+        string objectInfoText3 = "Esta placa de madeira é o Microfone, que é um transdutor acústico, ou seja, um conversor das vibrações mecânicas associadas à voz do Utilizador(Emissor) em variações de resistência. A corrente ao variar nos Auscultadores atua um transdutor Eletroacústico, transformando-a em variações de pressão acústica(som) que é recebido pelo Utilizador(Recetor).";
         BuildFirstAndroidXMLFile(objectName, win, discoveredFirstInfo, discoveredSecondInfo, discoveredThirdInfo, objectInfoText1, objectInfoText2, objectInfoText3);
 
         string objectName1 = "FreqMachine";

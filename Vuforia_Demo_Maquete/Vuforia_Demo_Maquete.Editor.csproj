@@ -344,6 +344,7 @@
     <None Include="Assets\StreamingAssets\Vuforia\Vuforia_Teste_OT.xml" />
     <None Include="Assets\StreamingAssets\XML\item_data.xml" />
     <None Include="Assets\StreamingAssets\XML\item_data2.xml" />
+    <None Include="Assets\StreamingAssets\XML\item_dataAntesDasAlteracoesMuseu.xml" />
     <None Include="Assets\Vuforia\Shaders\BrightTexture.shader" />
     <None Include="Assets\Vuforia\Shaders\CameraDiffuse.shader" />
     <None Include="Assets\Vuforia\Shaders\ColoredLines.shader" />

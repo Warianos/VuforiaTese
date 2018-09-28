@@ -12,11 +12,11 @@ public class cameraRotationController : MonoBehaviour {
     public GameObject infoPanel;
     public Text panelText;
     public GameObject PageController;
-     
-	// Use this for initialization
-	void Start () {
+    Sprite[] BOOKsprites;
+    // Use this for initialization
+    void Start () {
         cameraAnimator = cameraGameObject.GetComponent<Animator>();
-        
+        BOOKsprites = Resources.LoadAll<Sprite>("GowerBellInfoImagesATLAS");
     }
 
    
@@ -50,7 +50,16 @@ public class cameraRotationController : MonoBehaviour {
         {
             infoPanel.SetActive(true);
             GameObject.FindGameObjectWithTag("Book").GetComponent<PageController>().stopBoolean = true;
-            panelText.text = info.transform.GetChild(0).gameObject.GetComponent<Text>().text;
+            //panelText.text = info.transform.GetChild(0).gameObject.GetComponent<Text>().text;
+            infoPanel.transform.Find("InfoImage").GetComponent<Image>().sprite = BOOKsprites[0];
+            infoPanel.transform.Find("InfoImage").GetComponent<Image>().preserveAspect = true;
+            panelText.text = "" +
+                "1. Utilizador (Emissor) roda a manivela para gerar sinal de chamada na central com operador (Telefonista)." + System.Environment.NewLine +
+                "2. Utilizador(Emissor) levanta auscultador. O circuito do microfone / auscultador fica ativado.O Utilizador(Emissor) pode falar então com o(a) Telefonista, depois de este / a atender." + System.Environment.NewLine +
+                "3.O Utilizador(Emissor) indica ao(à) Telefonista qual o número da extensão pretendido." + System.Environment.NewLine +
+                "4.Telefonista marca o número indicado e chama, através do sinal - recetor, o Utilizador(Recetor) pretendido." + System.Environment.NewLine +
+                "5.O Utilizador(Recetor) levanta o microfone / auscultador e fica em contacto com o(a) Telefonista.Entretanto a linha do Utilizador(Emissor) é mantida em espera." + System.Environment.NewLine +
+                "6.Telefonista põe o Utilizador(Emissor) e o Utilizador(Recetor) em contacto.";
             //infoPanel.GetComponent<Animator>().SetBool("clickedOrTimeOut", true);
         }
 
@@ -58,7 +67,20 @@ public class cameraRotationController : MonoBehaviour {
         {
             infoPanel.SetActive(true);
             GameObject.FindGameObjectWithTag("Book").GetComponent<PageController>().stopBoolean = true;
-            panelText.text = info.transform.GetChild(0).gameObject.GetComponent<Text>().text;
+            infoPanel.transform.Find("InfoImage").GetComponent<Image>().sprite = BOOKsprites[1];
+            infoPanel.transform.Find("InfoImage").GetComponent<Image>().preserveAspect = true;
+            panelText.text = "A Bateria (Letra E na figura da primeira questão), garante a presença de uma corrente no circuito que é modelada pelo Microfone, sem esta não é possivel ouvir o Utilizador(Recetor) nem ele ouvir o Utilizador (Emissor)." + System.Environment.NewLine +
+                System.Environment.NewLine +
+                " A figura abaixo representa uma numeração das partes importantes do telefone gower bell" + System.Environment.NewLine +
+                System.Environment.NewLine +
+                "1. Manivela do magneto gerador de chamada" + System.Environment.NewLine +
+                "2. Campainha de chamada" + System.Environment.NewLine +
+                "3. Placa de madeira suporte do microfone" + System.Environment.NewLine +
+                "4. Tubos acústicos para audição" + System.Environment.NewLine +
+                "5. Caixa da bateria" + System.Environment.NewLine +
+                "6. Microfone" + System.Environment.NewLine +
+                "7. Auscultador" + System.Environment.NewLine +
+                "8. Transformador do microfone";
            // infoPanel.GetComponent<Animator>().SetBool("clickedOrTimeOut", true);
         }
 
@@ -66,7 +88,14 @@ public class cameraRotationController : MonoBehaviour {
         {
             infoPanel.SetActive(true);
             GameObject.FindGameObjectWithTag("Book").GetComponent<PageController>().stopBoolean = true;
-            panelText.text = info.transform.GetChild(0).gameObject.GetComponent<Text>().text;
+            //panelText.text = info.transform.GetChild(0).gameObject.GetComponent<Text>().text;
+            infoPanel.transform.Find("InfoImage").GetComponent<Image>().sprite = BOOKsprites[9];
+            
+            infoPanel.transform.Find("InfoImage").GetComponent<Image>().preserveAspect = true; 
+            panelText.text = "A peça de madeira no meio do telefone com uma palca preta é o Microfone, este é um Transdutor Acústico, ou seja um conversor das vibrações mecânicas associadas à voz do Utilizador (Emissor) em variações de resistência." + System.Environment.NewLine +
+                "A corrente ao variar nos Auscultadores atua um Transdutor Eletroacústico, transformando-a em variações de pressão acústica (som) que é recebido pelo Utilizador (Recetor)." + System.Environment.NewLine +
+                System.Environment.NewLine +
+                "A figura abaixo representa a ligação entre utilizadores";
             //infoPanel.GetComponent<Animator>().SetBool("clickedOrTimeOut", true);
         }
     }
