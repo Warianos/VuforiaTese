@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class panelAnimationController : MonoBehaviour 
+public class panelAnimationController : MonoBehaviour
     , IPointerClickHandler
 {
     Animator animator;
     bool clickedPanel;
     AnimatorStateInfo stateInfo;
-    
+
     // Use this for initialization
     void Start()
     {
         animator = gameObject.GetComponent<Animator>();
-        stateInfo = animator.GetNextAnimatorStateInfo(0);
+        //stateInfo = animator.GetNextAnimatorStateInfo(0);
     }
 
     // Update is called once per frame
@@ -28,7 +28,7 @@ public class panelAnimationController : MonoBehaviour
         }
 		*/
     }
-  
+
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -59,7 +59,7 @@ public class panelAnimationController : MonoBehaviour
             }
         }
 
-        else if (gameObject.tag == "InfoPanel")
+        /*else if (gameObject.tag == "InfoPanel")
         {
             //gameObject.SetActive(false);
             animator.SetBool("clickedOrTimeOut", true);
@@ -70,7 +70,8 @@ public class panelAnimationController : MonoBehaviour
             GameObject.FindGameObjectWithTag("GameController").GetComponent<EletricityController>().canvasStart = true;
             GameObject.FindGameObjectWithTag("GameController").GetComponent<EletricityController>().firstTimeObjectiveShakeAnim = true;
 
-        }
+        }*/
+        /*
         else if (gameObject.tag == "InfoPanelBook")
         {
             //gameObject.SetActive(false);
@@ -78,12 +79,35 @@ public class panelAnimationController : MonoBehaviour
             GameObject.FindGameObjectWithTag("Book").GetComponent<PageController>().stopBoolean = false;
             //GameObject.FindGameObjectWithTag("Book").GetComponent<PageController>().buttonsInteractableBool = true;
         }
-        }
+        */
+    }
     public void Destroy()
     {
 
         Destroy(this.gameObject);
-        
-    }
 
+    }
+    public void setInfoPanelBoolTelephone(bool flag)
+    {
+        if (transform.parent.gameObject.tag == "InfoPanel")
+        {
+            Animator animator = transform.parent.gameObject.GetComponent<Animator>();
+            animator.SetBool("clickedOrTimeOut", true);
+            if (GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().atendeu == true && GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().finishSecondDemo != true)
+            {
+                GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().atendeu = false;
+            }
+            GameObject.FindGameObjectWithTag("GameController").GetComponent<EletricityController>().canvasStart = true;
+            GameObject.FindGameObjectWithTag("GameController").GetComponent<EletricityController>().firstTimeObjectiveShakeAnim = true;
+        }
+        if (transform.parent.gameObject.tag == "InfoPanelBook")
+        {
+            Animator animator = transform.parent.gameObject.GetComponent<Animator>();
+            //gameObject.SetActive(false);
+            animator.SetBool("clickedOrTimeOut", true);
+            GameObject.FindGameObjectWithTag("Book").GetComponent<PageController>().stopBoolean = false;
+            //GameObject.FindGameObjectWithTag("Book").GetComponent<PageController>().buttonsInteractableBool = true;
+        }
+
+    }
 }

@@ -7,6 +7,7 @@ public class RaycastColliderDetection : MonoBehaviour {
     public float rayLength;
     public float distanceMousePosDoorUP;
     public float DoorRotSpeed;
+    public float rotY;
 
     public bool finishFirstDemo;
     public bool finishSecondDemo;
@@ -295,6 +296,7 @@ public class RaycastColliderDetection : MonoBehaviour {
                             Debug.Log("FIZ POWERUP LOL"); 
                             batteryClickCounter++;
                             target.GetComponent<Animator>().SetTrigger("canPowerUp");
+                            target.GetComponent<Animator>().SetTrigger("IdleAnimation");
                         }
                         else
                         {
@@ -464,12 +466,16 @@ public class RaycastColliderDetection : MonoBehaviour {
         Debug.Log("distancia percorrida pelo raio: " + rayCastLength);
         //regra 3 simples tendo como base rotação 540
         DoorRotSpeed = (rayCastLength * 200) / 1.62f;
-        float rotY = Input.GetAxis("Mouse X") * DoorRotSpeed * Mathf.Deg2Rad; //rotY tendo em conta o movimento em X do rato
-        
+        rotY = Input.GetAxis("Mouse X") * DoorRotSpeed * Mathf.Deg2Rad; //rotY tendo em conta o movimento em X do rato
+        Debug.Log("a variavel rotY é: " + rotY);
         
 
+        if(rotY >= 5)
+        {
+            rotY = 5;
+        }
         //limitar as rotações entre 360 e 250
-
+        //debugManager.debugInst.debugText.text = rotY.ToString();
 
         target.transform.Rotate(Vector3.back, rotY); //Vector3.back tras um vetor (0.0.-1)
 

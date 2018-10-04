@@ -481,7 +481,7 @@ public class PageController : MonoBehaviour {
                 // Debug.Log("entrei aqui no mouseEndPos" + mouseXEndPos);
                 if (bookIsOpen)
                 {
-                    if (mouseXIniPos - mouseXEndPos > 0.0f) //drag esquerda
+                    if (mouseXIniPos - mouseXEndPos > 0.0f ) //drag esquerda
                     {
                         mouseXEndPos = 0;//reset a variavel
                         mouseXIniPos = 0;//reset a variavel
@@ -503,9 +503,10 @@ public class PageController : MonoBehaviour {
                         {
                             turnPage(pageAnimators[3], 3, false);
                         }
+
                     }
 
-                    if (mouseXIniPos - mouseXEndPos < 0.0f)// drag direita
+                    if (mouseXIniPos - mouseXEndPos < 0.0f )// drag direita
                     {
                         mouseXEndPos = 0;//reset a variavel
                         mouseXIniPos = 0;//reset a variavel

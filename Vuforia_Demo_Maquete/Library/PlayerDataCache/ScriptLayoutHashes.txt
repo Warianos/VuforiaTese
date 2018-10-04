@@ -1,7 +1,7 @@
 Android
 SceneListBegin?
 Assets/Scene/MenuAberto.unity
-Assets/Scene/Telephone.unity
+Assets/Scene/ModelTargetTelephone.unity
 SceneListEnd?
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.SamplesNavigationHandler
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.NewBehaviourScript
@@ -308,7 +308,7 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:.RotateSample
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Charge
 c5dd14ab405cc404da9929ce88d6b7f4 Assembly-CSharp.dll:.ModelSwap
-e9cfa91e7ad869e6d9ec9b6709f986f4 Assembly-CSharp.dll:.RaycastColliderDetection
+f8ab1d162eae6e52e5c8c15e93e8b875 Assembly-CSharp.dll:.RaycastColliderDetection
 048a71e715f6f97561c15fe2ea6530d2 Assembly-CSharp.dll:.SamplesMainMenu
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 10f494e1ff72e862df6c993f5924c261 Assembly-CSharp.dll:.PanelShowHide

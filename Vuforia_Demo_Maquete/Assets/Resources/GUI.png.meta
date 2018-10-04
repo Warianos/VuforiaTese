@@ -15,6 +15,7 @@ TextureImporter:
     21300016: Telephone
     21300018: nonCheckBox
     21300020: yesCheckBox
+    21300022: Xbutton
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -235,7 +236,7 @@ TextureImporter:
         width: 249
         height: 249
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -248,6 +249,20 @@ TextureImporter:
         y: 1488
         width: 244
         height: 249
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Xbutton
+      rect:
+        serializedVersion: 2
+        x: 1094
+        y: 23
+        width: 398
+        height: 376
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
