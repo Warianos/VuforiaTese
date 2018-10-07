@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scene/ModelTargetTelephone.unity
+- path: Assets/Scene/MenuAberto.unity
   isLoaded: 1
   isActive: 1

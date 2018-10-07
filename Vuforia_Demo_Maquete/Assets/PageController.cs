@@ -289,7 +289,7 @@ public class PageController : MonoBehaviour {
             }
             else if (!obj.discoveredFirstInfo)
             {
-                dummyGameObjectInfo1.Find("Text").GetComponent<Text>().text = "Desbloqueia esta informação ao jogar o minijogo deste objeto";
+                dummyGameObjectInfo1.Find("Text").GetComponent<Text>().text = "Desbloqueia esta informação ao clicar no icon grande em cima";
                 dummyGameObjectInfo1.GetComponent<Image>().sprite = GUIsprites[4];
                 dummyGameObjectInfo1.GetComponent<Button>().interactable = false;
                 if (dummyGameObjectInfo1.Find("InfoIcon") != null)
@@ -312,7 +312,7 @@ public class PageController : MonoBehaviour {
             }
             else if (!obj.discoveredSecondInfo)
             {
-                dummyGameObjectInfo2.Find("Text").GetComponent<Text>().text = "Desbloqueia esta informação ao jogar o minijogo deste objeto";
+                dummyGameObjectInfo2.Find("Text").GetComponent<Text>().text = "Desbloqueia esta informação ao clicar no icon grande em cima";
                 dummyGameObjectInfo2.GetComponent<Image>().sprite = GUIsprites[4];
                 dummyGameObjectInfo2.GetComponent<Button>().interactable = false;
                 if (dummyGameObjectInfo2.Find("InfoIcon") != null)
@@ -335,7 +335,7 @@ public class PageController : MonoBehaviour {
             }
             else if (!obj.discoveredThirdInfo)
             {
-                dummyGameObjectInfo3.Find("Text").GetComponent<Text>().text = "Desbloqueia esta informação ao jogar o minijogo deste objeto";
+                dummyGameObjectInfo3.Find("Text").GetComponent<Text>().text = "Desbloqueia esta informação ao clicar no icon grande em cima";
                 dummyGameObjectInfo3.GetComponent<Image>().sprite = GUIsprites[4];
                 dummyGameObjectInfo3.GetComponent<Button>().interactable = false;
                 if (dummyGameObjectInfo3.Find("InfoIcon") != null)

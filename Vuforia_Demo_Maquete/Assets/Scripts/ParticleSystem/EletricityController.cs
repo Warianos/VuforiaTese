@@ -255,10 +255,10 @@ public class EletricityController : MonoBehaviour {
         //xmlManagerSticker = XMLManager.ins.itemDB.list[0].earnedSticker;
         bobineDoneStr = XMLManager.ins.itemDB.list[0].objectInfoText1;
         bateryDoneStr = XMLManager.ins.itemDB.list[0].objectInfoText2;
-        atendeuDoneStr = "Já estamos a conseguir ouvir a chamada, aumenta o som do telemovel e exprimenta aproximar-te dos auscutadores digitais";
-        motorDoneStr = "Este motor ao receber enegia eletrica fazia com que as pessoas soubessem que lhes tavam a querer telefonar. Exprimenta telefonar agora para o Gower Bell ";
-        batteryDoneBeforeMotorStr = "Já temos a bateria a funcionar, mas parece que o telefone ainda não está a tocar. Tenta investigar";
-        batteryLowStr = "oh não, a bateria está sem energia, sera que podes utilizar a tua energia para carrega-la ? ";
+        atendeuDoneStr = "Já estamos a conseguir ouvir a chamada, aumenta o som do telemovel e exprimenta aproximar-te dos auscultadores digitais";
+        motorDoneStr = "Este motor ao receber enegia eletrica fazia com que as pessoas soubessem que lhes estavam a querer telefonar. Exprimenta telefonar agora para o Gower Bell ";
+        batteryDoneBeforeMotorStr = "Já temos a bateria a funcionar, mas parece que o telefone ainda não está a tocar. Verifica se falta algo no compartimento de cima";
+        batteryLowStr = "oh não, a bateria está sem energia, sera que podes clicar na bateria para carrega-la ? ";
         finishedGameStr = "Parabêns! conseguiste arranjar o telefone! Agora se quiseres podes voltar atras ao livro e ver os pedaços de história que descobriste, ou então podes continuar a interagir com o telefone";
         startingToHaveEnergyStr = "Já estamos a receber energia, em principio poderemos ouvir a chamada";
         notEaringAnythingStr = "Estamos a receber a chamada, mas não estamos a conseguir ouvir nada...será que poderá ser falta da bateria?";

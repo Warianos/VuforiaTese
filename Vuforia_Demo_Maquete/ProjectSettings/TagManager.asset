@@ -29,6 +29,9 @@ TagManager:
   - SmallImages
   - InfoPanelBook
   - InfoExtra1
+  - InfoPanelIntruccoes
+  - DarkBackground
+  - DarkBackground2
   layers:
   - Default
   - TransparentFX

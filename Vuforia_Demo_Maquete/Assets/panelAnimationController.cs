@@ -108,6 +108,12 @@ public class panelAnimationController : MonoBehaviour
             GameObject.FindGameObjectWithTag("Book").GetComponent<PageController>().stopBoolean = false;
             //GameObject.FindGameObjectWithTag("Book").GetComponent<PageController>().buttonsInteractableBool = true;
         }
+        if(transform.parent.gameObject.tag == "InfoPanelIntruccoes")
+        {
+            transform.parent.GetComponent<Animator>().SetBool("clickedOrTimeOut", true);
+            GameObject.FindGameObjectWithTag("DarkBackground").GetComponent<Animator>().SetBool("canDark", false);
+            
+        }
 
     }
 }

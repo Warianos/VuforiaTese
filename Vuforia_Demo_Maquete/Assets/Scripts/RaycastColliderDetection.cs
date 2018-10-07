@@ -9,6 +9,8 @@ public class RaycastColliderDetection : MonoBehaviour {
     public float DoorRotSpeed;
     public float rotY;
 
+    public GameObject darkBackground;
+    private bool darkBackgroundFlag = false;
     public bool finishFirstDemo;
     public bool finishSecondDemo;
     public bool finishHandHeldDemo;
@@ -203,11 +205,20 @@ public class RaycastColliderDetection : MonoBehaviour {
         if (!canInteractWithPhone) //sóa ctualiza a variavel até n ser precisa novamente
         {
             canInteractWithPhone = GetComponent<EletricityController>().canInteractWithPhone;
+            if (!darkBackgroundFlag)
+            {
+                darkBackground.GetComponent<Animator>().SetBool("putDark",true);
+                darkBackgroundFlag = true;
+            }
         }
         
         if (canInteractWithPhone)
         {
-
+            if (darkBackgroundFlag)
+            {
+                darkBackground.GetComponent<Animator>().SetBool("putDark", false);
+                darkBackgroundFlag = false;
+            }
         
             //só acontece primeira vez
             if (firstTimeUpdate)
@@ -470,9 +481,13 @@ public class RaycastColliderDetection : MonoBehaviour {
         Debug.Log("a variavel rotY é: " + rotY);
         
 
-        if(rotY >= 5)
+        if(rotY >= 10)
         {
-            rotY = 5;
+            rotY = 10;
+        }
+        else if(rotY <= -10)
+        {
+            rotY = -10;
         }
         //limitar as rotações entre 360 e 250
         //debugManager.debugInst.debugText.text = rotY.ToString();

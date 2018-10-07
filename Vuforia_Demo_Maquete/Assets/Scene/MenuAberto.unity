@@ -397,7 +397,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Comming Soon
+  m_Text: Coming Soon
 --- !u!222 &97072218
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5849,12 +5849,12 @@ Prefab:
     - target: {fileID: 114613340648880376, guid: a6ba2c8d15fab5742bcdbae975f60ef2,
         type: 2}
       propertyPath: m_FontData.m_HorizontalOverflow
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114613340648880376, guid: a6ba2c8d15fab5742bcdbae975f60ef2,
         type: 2}
       propertyPath: m_FontData.m_VerticalOverflow
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114613340648880376, guid: a6ba2c8d15fab5742bcdbae975f60ef2,
         type: 2}
