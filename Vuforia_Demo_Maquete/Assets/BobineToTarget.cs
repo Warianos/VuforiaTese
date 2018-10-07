@@ -22,6 +22,7 @@ public class BobineToTarget : MonoBehaviour {
         if (other.name == "BobineLeft")
         {
             GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().isInsideFinCollider = true;
+            other.GetComponent<Animator>().SetBool("canGreen", true);
         }
             
     }
@@ -68,6 +69,7 @@ public class BobineToTarget : MonoBehaviour {
         if (other.name == "BobineLeft")
         {
             GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().isInsideFinCollider = false;
+            other.GetComponent<Animator>().SetBool("canGreen", false);
         }
     }
 

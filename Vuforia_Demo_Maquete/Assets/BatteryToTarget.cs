@@ -25,6 +25,7 @@ public class BatteryToTarget : MonoBehaviour {
         if(other.name == "Battery")
         {
             GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().isInsideColliderBattery = true; //falta criar esta variavel
+            other.GetComponent<Animator>().SetBool("canGreen", true);
         }
        
     }
@@ -73,6 +74,7 @@ public class BatteryToTarget : MonoBehaviour {
         if (other.name == "Battery")
         {
             GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().isInsideColliderBattery = false;//e esta
+            other.GetComponent<Animator>().SetBool("canGreen", false);
         }
         
     }

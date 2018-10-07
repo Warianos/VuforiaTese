@@ -27,6 +27,7 @@ public class MotorToTarget : MonoBehaviour
         if (other.name == "Motor")
         {
             GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().isInsideColliderMotor = true; //falta criar esta variavel
+            other.GetComponent<Animator>().SetBool("canGreen", true);
         }
 
     }
@@ -49,6 +50,7 @@ public class MotorToTarget : MonoBehaviour
                 //Se a posição do objecto for a mm que o target então retiramos o trigger para não haver Extra computação
                 if (other.gameObject.transform.position == transform.position)
                 {
+                    other.GetComponent<Animator>().SetBool("canGreen", false);
                     //Debug.Log("entrei aqui nesta cena da flag a true");
                     GameObject fadeMotor = GameObject.FindGameObjectWithTag("FadeMotor");
                     other.transform.parent = fadeMotor.transform.parent;
@@ -81,6 +83,7 @@ public class MotorToTarget : MonoBehaviour
         if (other.name == "Motor")
         {
             GameObject.FindGameObjectWithTag("GameController").GetComponent<RaycastColliderDetection>().isInsideColliderMotor = false;//e esta
+            other.GetComponent<Animator>().SetBool("canGreen", false);
         }
 
     }
