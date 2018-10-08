@@ -766,7 +766,7 @@ public class EletricityController : MonoBehaviour {
                 TubosAnimator.SetBool("canReturnStartPos", true);
                 //Atender.interactable = false;
             }
-            
+            /*
             Debug.Log("Falar bool : " +  falou);
             if (falou)
             {
@@ -780,7 +780,7 @@ public class EletricityController : MonoBehaviour {
                 falarText.enabled = true;
                 naoFalarText.enabled = false;
             }
-
+            */
         }
 
        

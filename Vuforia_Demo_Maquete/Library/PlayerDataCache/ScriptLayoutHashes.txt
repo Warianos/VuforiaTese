@@ -1,7 +1,7 @@
 Android
 SceneListBegin?
 Assets/Scene/MenuAberto.unity
-Assets/Scene/ModelTargetTelephone.unity
+Assets/Scene/Telephone.unity
 SceneListEnd?
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.SamplesNavigationHandler
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.NewBehaviourScript
@@ -248,6 +248,7 @@ af81a921b7f8543a1aaa2a5cb365859a Assembly-CSharp.dll:.DrillController
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Advertisements.dll:UnityEngine.Advertisements.Editor.Placeholder
 867856baf2a4f60d9e27584d0bed3e5f Assembly-CSharp.dll:.rotation
 0d0b5a4e03a71e319150a5e3035d2272 Assembly-CSharp.dll:.MultiTargetTrackableEventHandler
+4641e03fc336f114035784d08e181f62 Assembly-CSharp.dll:.putBackgroundDark
 c70b17dda2d4b966f689f5aab4655905 Assembly-CSharp.dll:.UDTEventHandler
 3934ca8022d4c1e2d3df62eb846732fb Assembly-CSharp.dll:.MenuAnimator
 a5d67f191327584103a68ac29df2b722 Assembly-CSharp.dll:.ChangeFalarVar
@@ -308,7 +309,7 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:.RotateSample
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Charge
 c5dd14ab405cc404da9929ce88d6b7f4 Assembly-CSharp.dll:.ModelSwap
-f8ab1d162eae6e52e5c8c15e93e8b875 Assembly-CSharp.dll:.RaycastColliderDetection
+97b1bb361da015d5cd88319a83ae482a Assembly-CSharp.dll:.RaycastColliderDetection
 048a71e715f6f97561c15fe2ea6530d2 Assembly-CSharp.dll:.SamplesMainMenu
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 10f494e1ff72e862df6c993f5924c261 Assembly-CSharp.dll:.PanelShowHide

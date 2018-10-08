@@ -5510,7 +5510,7 @@ Prefab:
     - target: {fileID: 114810991052594638, guid: a6ba2c8d15fab5742bcdbae975f60ef2,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: ModelTargetTelephone
+      value: Telephone
       objectReference: {fileID: 0}
     - target: {fileID: 114132638097685510, guid: a6ba2c8d15fab5742bcdbae975f60ef2,
         type: 2}
